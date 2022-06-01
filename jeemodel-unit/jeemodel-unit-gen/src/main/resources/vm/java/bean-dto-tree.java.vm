@@ -1,0 +1,49 @@
+package ${packageName}.bean.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.jeemodel.bean.helper.JeeModelToStringBuilder;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * ${functionName}-树
+ *   
+ * Entity实体类对象 【${packageName}.entity.${ClassName}Entity】
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel(description = "${functionName}-树")
+@Data
+@EqualsAndHashCode(callSuper=true)
+public class ${ClassName}Tree extends ${ClassName}DTO {
+
+    @ApiModelProperty(value = "${functionName}-树节点-子列表")
+    private List<${ClassName}Tree> children = new ArrayList<>();
+
+
+## 重写toString方法-开始： 实体的toString()方法，使用JeeModelToStringBuilder可以避免暴内存问题####################################################
+    @Override
+    public String toString() {
+        JeeModelToStringBuilder builder = new JeeModelToStringBuilder(this);
+#foreach ($column in $columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        builder.append("${column.javaField}", get${AttrName}());
+#end
+#if($table.tree)
+        builder.append("childrenSize", children == null ? 0:children.size());
+#end
+        return builder.toString();
+    }
+## 重写toString方法-结束     
+}

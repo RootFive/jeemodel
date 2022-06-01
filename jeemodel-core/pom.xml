@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-parent</artifactId>
+		<version>JM202205X</version>
+	</parent>
+
+	<artifactId>jeemodel-core</artifactId>
+	<name>jeemodel-core</name>
+	<description>jeemodel-core</description>
+
+
+
+	<dependencies>
+
+		<!-- 应用基础 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-solution-boot</artifactId>
+		</dependency>
+
+
+		<!-- ==============↓↓↓↓↓↓↓==============必须组件======================================================== -->
+
+		<!-- SpringBoot Web容器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- 
+			JAXB能够使用Jackson对JAXB注解的支持实现(jackson-module-jaxb-annotations)，既方便生成XML，也方便生成JSON -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+		</dependency>
+
+		<!-- 兼容JDK11: JAXB API被认为是Java EE API，因此不再包含在Java SE 9中的默认类路径中。在Java 11中，它们已从JDK中删除。要解决此问题，需要手动引入。  -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+		</dependency>		
+		
+
+		<!-- servlet包 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+
+        <!-- collections4集合和数据结构 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		</dependency>
+
+		<!-- swagger3 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+		</dependency>
+		<!-- 防止进入swagger页面报类型转换错误，排除3.0.0中的引用，手动增加1.6.2版本 -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.github.xiaoymin</groupId>
+		    <artifactId>knife4j-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+            </exclusions>		    
+		</dependency>
+		
+		<!-- 阿里JSON解析器 -->
+		<dependency>
+		    <groupId>com.alibaba.fastjson2</groupId>
+		    <artifactId>fastjson2</artifactId>
+		</dependency>
+
+
+	</dependencies>
+
+
+</project>

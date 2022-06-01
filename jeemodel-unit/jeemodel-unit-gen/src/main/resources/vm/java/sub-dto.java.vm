@@ -1,0 +1,72 @@
+package ${packageName}.dto;
+
+#foreach ($import in $subImportList)
+import ${import};
+#end
+import com.jeemodel.bean.dto.${subTableBaseDTOType};
+import com.jeemodel.bean.helper.JeeModelToStringBuilder;
+import com.jeemodel.bean.annotation.Excel;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * 【数据库表】${subTable.functionName} 的Java实体类对象
+ *   
+ * 对应数据库表【${subTableName}】,是联数据库另一张主表【${tableName}】的关联子表
+ * 主子表的关联关系： ${tableName}.${subTableUseColumnName} = ${subTableName}.${subTableFkName}
+ * 
+ * 对应的Java实体类对象 【${packageName}.domain.${subClassName}】
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel(description = "${subTable.functionName}-DTO")
+@Data
+@EqualsAndHashCode(callSuper=true)
+public class ${subClassName}DTO extends ${subTableBaseDTOType} {
+
+##遍历Java字段以及其注释####################################################
+#foreach ($column in $subTable.columns)
+#if(!$table.isSuperColumn($column.javaField))
+    @ApiModelProperty(value = "$column.columnComment")
+#if($column.list)
+#set($parentheseIndex=$column.columnComment.indexOf("（"))
+#if($parentheseIndex != -1)
+#set($comment=$column.columnComment.substring(0, $parentheseIndex))
+#else
+#set($comment=$column.columnComment)
+#end
+#if($parentheseIndex != -1)
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+#elseif($column.javaType == 'Date')
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "${comment}", width = 30, dateFormat = "yyyy-MM-dd")
+#else
+    @Excel(name = "${comment}")
+#end
+#end
+    private $column.javaType $column.javaField;
+
+#end
+#end
+
+##遍历Java字段以及其注释####################################################
+    @Override
+    public String toString() {
+        JeeModelToStringBuilder builder = new JeeModelToStringBuilder(this);
+#foreach ($column in $subTable.columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        builder.append("${column.javaField}", $column.javaField);
+#end
+        return builder.toString();
+    }
+## 重写toString方法-结束   
+}

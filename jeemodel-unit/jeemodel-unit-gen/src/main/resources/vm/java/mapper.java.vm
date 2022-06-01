@@ -1,0 +1,29 @@
+package ${packageName}.mapper;
+
+#if($table.sub)
+import ${packageName}.bean.domain.${ClassName}Inc${subClassName}Domain;
+#end
+import ${packageName}.bean.entity.${ClassName};
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+ * ${functionName}Mapper接口
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Mapper  extends BaseMapper<${ClassName}> {
+
+#if($table.sub)
+    /**
+     * 查询${functionName}-包含关联${subClassName}子列表树局
+     * 
+     * @param ${pkColumn.javaField} ${functionName}主键
+     * @return ${functionName}
+     */
+    ${ClassName}Inc${subClassName}Domain select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+
+#end
+
+}

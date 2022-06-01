@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${packageName}.mapper.${ClassName}Mapper">
+    
+    <resultMap  id="${ClassName}Result"  type="${packageName}.bean.entity.${ClassName}">
+#foreach ($column in $columns)
+        <result property="${column.javaField}"    column="${column.columnName}"    />
+#end
+    </resultMap>
+
+	
+#if($table.sub)
+    <resultMap id="${subClassName}Result"  type="${packageName}.bean.entity.${subClassName}">
+#foreach ($column in $subTable.columns)
+        <result property="${column.javaField}"    column="sub_${column.columnName}"    />
+#end
+    </resultMap>
+	
+	
+    <resultMap id="${ClassName}${subClassName}Result" type="${packageName}.bean.domain.${ClassName}Inc${subClassName}Domain" extends="${ClassName}Result">
+        <!-- 
+           一对多查询 集合创建空对象的问题： 在collection 标签上  写上 notNullColumn 属性 ，
+           举例：notNullColumn ="id,name" ，意思是只要id,name 有一个为null 则 就不创建这个子对象 。
+        -->
+        <collection property="${subclassName}List" notNullColumn="sub_${subTable.pkColumn.columnName},sub_${subTableFkName}" javaType="java.util.List" resultMap="${subClassName}Result" />
+    </resultMap>
+    
+	
+#end
+
+    <sql id="select${ClassName}Vo">
+        select
+#foreach($column in $columns) 
+            $column.columnName #if($foreach.count != $columns.size()),#end
+#end 
+        from 
+            ${tableName}
+    </sql>
+
+
+#if($table.sub)
+    <select id="select${ClassName}By${pkColumn.capJavaField}" parameterType="${pkColumn.javaType}" resultMap="${ClassName}${subClassName}Result">
+        select
+#foreach($column in $columns) 
+            a.$column.columnName,
+#end
+
+#foreach($column in $subTable.columns) 
+            b.$column.columnName    as    sub_$column.columnName#if($foreach.count != $subTable.columns.size()),#end
+#end
+        from 
+            ${tableName} a
+        left join 
+            ${subTableName} b on b.${subTableFkName} = a.${subTableUseColumnName}
+        where 
+            a.${pkColumn.columnName} = #{${pkColumn.javaField}}
+    </select>
+#end
+
+</mapper>

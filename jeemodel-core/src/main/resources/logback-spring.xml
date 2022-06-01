@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 日志项目信息 这些配置在配置文件【application.yml】或者其他配置中心 -->
+	<!-- 日志项目名称 默认取值配置中的项目名-->
+    <springProperty scope="context" name="app.name" source="spring.application.name"/>
+	
+	<!-- 公共日志模版 -->
+	<include resource="jeemodel/log/jeemodel-log-core.xml" />
+	
+</configuration> 

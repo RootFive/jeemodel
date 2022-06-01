@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-unit-manage</artifactId>
+		<version>JM202205X</version>
+	</parent>
+	<artifactId>jeemodel-unit-manage-core</artifactId>
+	<name>jeemodel-unit-manage-core</name>
+	<description>jeemodel-unit-manage-core</description>
+	
+	
+
+	<dependencies>
+		<!-- 数据持久 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-data</artifactId>
+		</dependency>
+
+		<!-- 数据持久 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-solution-file</artifactId>
+		</dependency>
+
+		<!-- Redis操作 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-solution-redis</artifactId>
+		</dependency>
+
+
+		<!-- spring security 安全认证 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Token生成与解析 -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-impl</artifactId>
+		    <scope>runtime</scope>
+		</dependency>
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+		    <scope>runtime</scope>
+		</dependency>
+		<!-- Uncomment this next dependency if you are using JDK 10 or earlier and you also want to use 
+		     RSASSA-PSS (PS256, PS384, PS512) algorithms.  JDK 11 or later does not require it for those algorithms:
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk15on</artifactId>
+		    <version>1.70</version>
+		    <scope>runtime</scope>
+		</dependency>
+		-->
+
+		
+		<!-- 解析客户端操作系统、浏览器等 -->
+		<dependency>
+			<groupId>eu.bitwalker</groupId>
+			<artifactId>UserAgentUtils</artifactId>
+		</dependency>
+	</dependencies>
+
+	
+</project>

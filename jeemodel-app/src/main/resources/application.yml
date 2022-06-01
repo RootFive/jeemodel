@@ -1,0 +1,37 @@
+# 开发环境配置
+## 服务器的HTTP端口，默认为8080
+server.port: 8080
+## 应用的访问路径
+server.servlet.context-path: /
+## tomcat的URI编码
+server.tomcat.uri-encoding: UTF-8
+## 连接数满后的排队数，默认为100
+server.tomcat.accept-count: 1000
+## tomcat最大线程数，默认为200
+server.tomcat.threads.max: 800
+## Tomcat启动初始化的线程数，默认值10
+server.tomcat.threads.min-spare: 100
+
+# Spring容器配置
+## Spring服务-应用名
+spring.application.name: jeemode-admin
+## Spring服务-全局资源信息-国际化资源文件路径
+spring.messages.basename: i18n/messages
+## Spring服务-全局jackson 时间格式
+spring.jackson.time-zone: GMT+8
+spring.jackson.date-format: yyyy-MM-dd HH:mm:ss
+## Spring-生效文件，命名格式为：application-work-home.yml配置文件，其中：depend是外部依赖服务配置，比如redis/数据库DB/MQ消息、service是当前项目服务配置
+spring.profiles.active: app,depend-home,solution,unit
+## Spring服务-文件上传-单个文件大小
+spring.servlet.multipart.max-file-size: 10MB
+## Spring服务-文件上传-设置总上传的文件大小
+spring.servlet.multipart.max-request-size: 20MB
+## Spring服务-热部署开关
+spring.devtools.restart.enabled: true
+
+
+# 日志配置
+logging.level.com.jeemodel: debug
+logging.level.org.springframework: warn
+
+

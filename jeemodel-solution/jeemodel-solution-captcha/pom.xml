@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-solution</artifactId>
+		<version>JM202205X</version>
+	</parent>
+	<artifactId>jeemodel-solution-captcha</artifactId>
+	<name>jeemodel-solution-captcha</name>
+	<description>jeemodel-solution-captcha</description>
+	
+	
+	<dependencies>
+	
+		<!-- 核心模块 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-core</artifactId>
+		</dependency>
+		
+		<!-- Redis操作 -->
+		<!-- <dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-solution-redis</artifactId>
+		</dependency> -->
+		<!-- ==============↓↓↓业务功能↓↓↓↓==============必须 -->
+		<!-- 验证码 -->
+		<dependency>
+			<groupId>com.github.whvcse</groupId>
+			<artifactId>easy-captcha</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.penggle</groupId>
+			<artifactId>kaptcha</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>javax.servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- ==============↑↑↑业务功能↑↑↑==============必须 -->
+	</dependencies>
+	
+		
+</project>

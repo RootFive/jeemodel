@@ -1,0 +1,82 @@
+###############################################################
+###################---application-app.yml---###################
+###############################################################
+# 开发环境配置
+## 服务器的HTTP端口，默认为8080
+server.port: 8080
+## 应用的访问路径
+server.servlet.context-path: /
+## tomcat的URI编码
+server.tomcat.uri-encoding: UTF-8
+## 连接数满后的排队数，默认为100
+server.tomcat.accept-count: 1000
+## tomcat最大线程数，默认为200
+server.tomcat.threads.max: 800
+## Tomcat启动初始化的线程数，默认值10
+server.tomcat.threads.min-spare: 100
+
+
+# Spring容器配置
+## Spring服务-应用名
+spring.application.name: jeemode-admin
+## Spring服务-全局资源信息-国际化资源文件路径
+spring.messages.basename: i18n/messages
+## Spring服务-全局jackson 时间格式
+spring.jackson.time-zone: GMT+8
+spring.jackson.date-format: yyyy-MM-dd HH:mm:ss
+## Spring-生效文件，命名格式为：application-depend.yml配置文件，其中：depend是外部依赖服务配置，比如redis/数据库DB/MQ消息、service是当前项目服务配置
+spring.profiles.active: depend,service
+## Spring服务-文件上传-单个文件大小
+spring.servlet.multipart.max-file-size: 10MB
+## Spring服务-文件上传-设置总上传的文件大小
+spring.servlet.multipart.max-request-size: 20MB
+## Spring服务-热部署开关
+spring.devtools.restart.enabled: true
+
+
+# 日志配置
+logging.level.com.jeemodel: info
+logging.level.org.springframework: warn
+
+
+# Mybatis-Plus配置  参考文章 https://baomidou.com/pages/56bac0/#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE
+## Mybatis-Plus持久层-XXX.xml文件目录： 1、如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+## Mybatis-Plus持久层-XXX.xml文件目录： 2、如果是放在resource目录 classpath:/mapper/*Mapper.xml
+mybatis-plus.mapper-locations: classpath*:mapper/**/*Mapper.xml
+## Mybatis-Plus持久层-实体扫描，多个package用逗号或者分号分隔
+mybatis-plus.type-aliases-package: com.jeemodel.*.**.entity
+## Mybatis-Plus持久层-全局-刷新mapper 调试神器
+mybatis-plus.global-config.refresh-mapper: true
+## #数据库类型
+mybatis-plus.global-config.db-config.db-type: MYSQL
+## 全局-主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+mybatis-plus.global-config.db-config.id-type: auto
+## 全局-字段Update更新策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
+mybatis-plus.global-config.db-config.field-strategy: NOT_EMPTY
+## Mybatis-Plus持久层-全局-逻辑删除-已删除值(默认为 1)
+mybatis-plus.global-config.db-config.logic-delete-value: 1
+## Mybatis-Plus持久层-全局-逻辑删除-未删除值(默认为 0)
+mybatis-plus.global-config.db-config.logic-not-delete-value: 0
+## 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+mybatis-plus.configuration.call-setters-on-nulls: true
+## Mybatis-Plus持久层-对所有的 resultMap 都进行自动映射
+mybatis-plus.configuration.auto-mapping-behavior: full
+## Mybatis-Plus持久层-当作映射失败处理，并抛出异常和详细信息
+mybatis-plus.configuration.auto-mapping-unknown-column-behavior: warning
+## 全局映射器启用缓存
+mybatis-plus.configuration.cache-enabled: true
+## 允许 JDBC 支持自动生成主键
+mybatis-plus.configuration.use-generated-keys: true
+## 配置默认的执行器  配置默认的执行器.SIMPLE就是普通执行器;REUSE执行器会重用预处理语句(prepared statements);BATCH执行器将重用语句并执行批量更新
+mybatis-plus.configuration.default-executor-type: reuse
+## 配置控制台打印完整带参数SQL语句(会打印请求、查询内容、以及统计信息)
+mybatis-plus.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+## 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射。
+mybatis-plus.configuration.map-underscore-to-camel-case: true
+
+
+# PageHelper分页插件
+pagehelper.helperDialect: mysql
+pagehelper.supportMethodsArguments: true
+pagehelper.params: count=countSql 
+

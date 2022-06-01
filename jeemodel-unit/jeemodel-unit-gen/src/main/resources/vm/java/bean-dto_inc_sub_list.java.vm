@@ -1,0 +1,50 @@
+package ${packageName}.bean.dto;
+
+import java.util.List;
+
+import com.jeemodel.bean.helper.JeeModelToStringBuilder;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * ${functionName} 与 $table.subTable.functionName-列表的DTO数据传输对象
+ *   
+ * 【主子表】${tableName} 和 ${subTableName}，【关联关系】 ${tableName}.${subTableUseColumnName} = ${subTableName}.${subTableFkName}
+ * 主表-Entity实体类对象 【${packageName}.bean.entity.${ClassName}】
+ * 子表-Entity实体类对象 【${packageName}.bean.entity.${subClassName}】
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel(description = "${functionName} 带【$table.subTable.functionName-列表】DTO")
+@Data
+@EqualsAndHashCode(callSuper=true)
+public class ${ClassName}Inc${subClassName}List extends ${ClassName}DTO {
+
+    @ApiModelProperty(value = "$table.subTable.functionName-列表信息")
+    private List<${subClassName}DTO> ${subclassName}List;
+
+
+## 重写toString方法-开始： 实体的toString()方法，使用JeeModelToStringBuilder可以避免暴内存问题####################################################
+    @Override
+    public String toString() {
+        JeeModelToStringBuilder builder = new JeeModelToStringBuilder(this);
+#foreach ($column in $columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        builder.append("${column.javaField}", get${AttrName}());
+#end
+#if($table.sub)
+        builder.append("${subclassName}ListSize", ${subclassName}List == null ? 0:${subclassName}List.size());
+#end
+        return builder.toString();
+    }
+## 重写toString方法-结束     
+}

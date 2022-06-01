@@ -1,0 +1,88 @@
+###############################################################
+#################---application-depend.yml---##################
+###############################################################
+# 去除durid自动配置
+spring.autoconfigure.exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+
+
+# 数据源-展示Druid的统计信息
+spring.datasource.druid.statViewServlet.enabled: true
+## 数据源-展示Druid的统计信息-设置白名单，不填则允许所有访问
+spring.datasource.druid.statViewServlet.allow:
+## 数据源-展示Druid的统计信息-路径
+spring.datasource.druid.statViewServlet.url-pattern: /druid/*
+## 数据源-展示Druid的统计信息-控制台管理用户名和密码
+spring.datasource.druid.statViewServlet.login-username: jeemodel
+spring.datasource.druid.statViewServlet.login-password: 2236067977
+
+
+# 数据源-指定默认数据源(必须配置)
+spring.datasource.dynamic.primary: manage
+# 数据源-设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源
+spring.datasource.dynamic.strict: false
+
+
+# 数据源-链接数据库：jeemodel_manage
+spring.datasource.dynamic.datasource.manage.url: jdbc:mysql://localhost:3306/jeemodel_manage?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+spring.datasource.dynamic.datasource.manage.username: root
+spring.datasource.dynamic.datasource.manage.password: 2236067977
+spring.datasource.dynamic.datasource.manage.type: com.alibaba.druid.pool.DruidDataSource
+## 配置初始化大小、最小、最大
+spring.datasource.dynamic.datasource.manage.druid.initial-size: 3
+spring.datasource.dynamic.datasource.manage.druid.max-active: 20
+spring.datasource.dynamic.datasource.manage.druid.min-idle: 5
+## 配置获取连接等待超时的时间
+spring.datasource.dynamic.datasource.manage.druid.max-wait: 60000
+## 配置一个连接在池中最小、最大生存的时间，单位是毫秒
+spring.datasource.dynamic.datasource.manage.druid.min-evictable-idle-time-millis: 300000
+spring.datasource.dynamic.datasource.manage.druid.max-evictable-idle-time-millis: 1800000
+## 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+spring.datasource.dynamic.datasource.manage.druid.time-between-eviction-runs-millis: 60000
+## 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+spring.datasource.dynamic.datasource.manage.druid.validation-query: SELECT 1 FROM DUAL
+spring.datasource.dynamic.datasource.manage.druid.validation-query-timeout: -1
+## 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+spring.datasource.dynamic.datasource.manage.druid.test-while-idle: true
+## 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+spring.datasource.dynamic.datasource.manage.druid.test-on-borrow: false
+## 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+spring.datasource.dynamic.datasource.manage.druid.test-on-return: false
+
+
+# 数据源-链接数据库：jeemodel_gen
+spring.datasource.dynamic.datasource.gen.url: jdbc:mysql://localhost:3306/jeemodel_gen?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+spring.datasource.dynamic.datasource.gen.username: root
+spring.datasource.dynamic.datasource.gen.password: 2236067977
+spring.datasource.dynamic.datasource.gen.type: com.alibaba.druid.pool.DruidDataSource
+spring.datasource.dynamic.datasource.gen.druid.initial-size: 3
+spring.datasource.dynamic.datasource.gen.druid.max-active: 20
+spring.datasource.dynamic.datasource.gen.druid.min-idle: 5
+spring.datasource.dynamic.datasource.gen.druid.max-wait: 60000
+spring.datasource.dynamic.datasource.gen.druid.min-evictable-idle-time-millis: 300000
+spring.datasource.dynamic.datasource.gen.druid.max-evictable-idle-time-millis: 1800000
+spring.datasource.dynamic.datasource.gen.druid.time-between-eviction-runs-millis: 60000
+spring.datasource.dynamic.datasource.gen.druid.validation-query: SELECT 1 FROM DUAL
+spring.datasource.dynamic.datasource.gen.druid.validation-query-timeout: -1
+spring.datasource.dynamic.datasource.gen.druid.test-while-idle: true
+spring.datasource.dynamic.datasource.gen.druid.test-on-borrow: false
+spring.datasource.dynamic.datasource.gen.druid.test-on-return: false
+
+
+
+# redis 配置
+spring.redis.host: localhost
+spring.redis.port: 6379
+## redis-数据库索引
+spring.redis.database: 5
+## redis-密码
+spring.redis.password: 2236067977
+## redis-连接超时时间
+spring.redis.timeout: 10s
+## redis-连接池中的最小空闲连接
+spring.redis.lettuce.pool.min-idle: 0
+## redis-连接池中的最大空闲连接
+spring.redis.lettuce.pool.max-idle: 8
+## redis-连接池的最大数据库连接数
+spring.redis.lettuce.pool.max-active: 8
+## redis-连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.lettuce.pool.max-wait: -1ms

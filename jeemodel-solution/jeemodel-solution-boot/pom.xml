@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-solution</artifactId>
+		<version>JM202205X</version>
+	</parent>
+	
+	<artifactId>jeemodel-solution-boot</artifactId>
+	<name>jeemodel-solution-boot</name>
+	<description>jeemodel-solution-boot</description>
+
+	<dependencies>
+
+		<!-- entity -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-bean</artifactId>
+		</dependency>
+
+		<!-- Spring应用上下文 框架基本的核心工具,包含支持: 
+			缓存Cache(ehcache)、JCA、JMX、 
+			邮件服务(Java Mail、COS)、 
+			任务计划Scheduling(Timer、Quartz)方面的类 
+		-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+
+		<!-- Spring Boot 应用 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+		</dependency>
+
+
+		<!-- 配置读取 在SpringBoot中将properties配置文件中的信息注入到实体Bean中 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+		</dependency>
+
+
+		<!-- spring-boot-服务监控-健康检查 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+
+		<!-- SpringBoot 拦截器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	
+</project>

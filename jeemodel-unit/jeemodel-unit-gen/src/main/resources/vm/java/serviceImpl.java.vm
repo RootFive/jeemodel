@@ -1,0 +1,271 @@
+package ${packageName}.service.impl;
+
+#if($table.sub)
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+#end
+import java.util.List;
+#foreach ($column in $columns)
+#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
+import com.jeemodel.core.utils.DateTimeUtils;
+#break
+#end
+#end
+#if($table.sub)
+import org.springframework.beans.factory.annotation.Autowired;
+#end
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jeemodel.core.utils.ObjectUtils;
+
+#if($table.sub)
+#if($subTableFkJavaType == "Date" || $subTableFkJavaType == "BigDecimal" )
+import ${subTableFkJavaTypeImportPackage};
+#end
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
+import ${packageName}.bean.domain.${ClassName}Inc${subClassName}Domain;
+import ${packageName}.bean.dto.${subClassName}DTO;
+import ${packageName}.bean.entity.${subClassName};
+import ${packageName}.service.I${subClassName}Service;
+#end
+import ${packageName}.bean.dto.${ClassName}EditSave;
+import ${packageName}.bean.entity.${ClassName};
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.service.I${ClassName}Service;
+
+#foreach ($column in $columns)
+#if($column.javaField == 'updateBy' || $column.javaField == 'createBy')
+import com.jeemodel.unit.manage.core.utils.SecurityUtils;
+#break
+#end
+#end
+
+/**
+ * ${functionName}Service业务层处理
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service {
+
+	
+#if($table.sub)
+    @Autowired
+    private I${subClassName}Service ${subclassName}Service;
+	
+#end
+	
+    /**
+     * 查询-${functionName}列表(支持分页，使用分页助手之前调用)
+     * 
+     * @param listReq ${functionName}
+     * @return ${functionName}列表
+     */
+    @Override
+    public List<${ClassName}> select${ClassName}List(${ClassName} listReq) {
+        LambdaQueryChainWrapper<${ClassName}> lambdaQuery = lambdaQuery();
+#foreach($column in $columns)
+#set($queryType=$column.queryType)
+#set($javaField=$column.javaField)
+#set($javaType=$column.javaType)
+#set($columnName=$column.columnName)
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#if($column.query)
+#if($column.queryType == "EQ")
+        //$column.columnComment， 等于查询EQ 【value = 查询值】
+        lambdaQuery.eq(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "NE")
+        //$column.columnComment， 不等于查询NE 【value != 查询值】
+        lambdaQuery.ne(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "GT")
+        //$column.columnComment， 大于查询GT 【value > 查询值】
+        lambdaQuery.gt(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "GTE")
+        //$column.columnComment， 大于等于查询GTE 【value >= 查询值】
+        lambdaQuery.gte(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "LT")
+        //$column.columnComment， 小于查询LT 【value < 查询值】
+        lambdaQuery.lt(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "LTE")
+        //$column.columnComment， 小于等于查询LTE 【value <= 查询值】
+        lambdaQuery.lte(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "LIKE")
+        //$column.columnComment， like模糊查询：【value like 查询值 】
+        lambdaQuery.like(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+#elseif($queryType == "BETWEEN")
+        //$column.columnComment， between区间查询-【begin$AttrName <= 查询值  <= end$AttrName】 Java类型是：$column.javaType 
+        lambdaQuery.between(ObjectUtils.isNotBlank(listReq.getBegin$AttrName()) && ObjectUtils.isNotBlank(listReq.getEnd$AttrName()), ${ClassName}::get$AttrName, listReq.getBegin$AttrName(),listReq.getEnd$AttrName());
+#end
+#end
+#end
+			
+        return lambdaQuery.list();
+    }
+
+	
+    /**
+     * 新增${functionName}
+     * 
+     * @param ${className} ${functionName}
+     * @return 结果
+     */
+#if($table.sub)
+    @Transactional
+#end
+    @Override
+    public boolean insert${ClassName}(${ClassName}EditSave ${className}EditSave) {
+        ${ClassName} ${className}= new ${ClassName}(${className}EditSave);
+#foreach ($column in $columns)
+#if($column.javaField == 'createTime')
+        ${className}.setCreateTime(DateTimeUtils.nowDate());
+#end
+#if($column.javaField == 'createBy')
+        ${className}.setCreateBy(SecurityUtils.getUsername());
+#end
+#end
+
+#if($table.sub)
+        boolean saveResult = save(${className});
+        //插入关联数据
+        insert${subClassName}(${className},${className}EditSave);
+		
+        return saveResult;
+#else
+        return save(${className});
+#end
+    }
+
+#foreach ($column in $columns)
+#if($column.javaField == 'updateTime')	
+    /**
+     * 修改${functionName}
+     * 
+     * @param ${className} ${functionName}
+     * @return 结果
+     */
+#if($table.sub)
+    @Transactional
+#end
+    @Override
+    public boolean update${ClassName}(${ClassName}EditSave ${className}EditSave) {
+        ${ClassName} ${className}= new ${ClassName}(${className}EditSave);
+#foreach ($column in $columns)
+#if($column.javaField == 'updateTime')
+        ${className}.setUpdateTime(DateTimeUtils.nowDate());
+#end
+#if($column.javaField == 'updateBy')
+        ${className}.setUpdateBy(SecurityUtils.getUsername());
+#end
+#end
+
+#if($table.sub)
+        //删除老的关联数据
+        delete${subClassName}(${className});
+        //更新数据
+        boolean updateResult = updateById(${className});
+        //插入新的关联数据
+        insert${subClassName}(${className},${className}EditSave);
+		
+        return updateResult;
+#else
+        return updateById(${className});
+#end
+    }
+
+#break
+#end
+#end
+	
+#if($table.sub)
+	
+    /**
+     * 查询${functionName}-包含关联${subClassName}子列表树局
+     * 
+     * @param ${pkColumn.javaField} ${functionName}主键
+     * @return ${functionName}
+     */
+    @Override
+    public ${ClassName}Inc${subClassName}Domain select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
+        return baseMapper.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField});
+    }
+	
+	
+    /**
+     * 批量删除${functionName}
+     * 
+     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键
+     * @return 结果
+     */
+    @Transactional
+    @Override
+    public boolean delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaType} ...${pkColumn.javaField}s) {
+        if (ArrayUtils.isEmpty(${pkColumn.javaField}s)) {
+            return false;
+        }
+		
+        List<${pkColumn.javaType}> ${pkColumn.javaField}List = Arrays.asList(${pkColumn.javaField}s);
+        List<${ClassName}> listDB = lambdaQuery().in(${ClassName}::get${pkColumn.capJavaField}, ${pkColumn.javaField}List).list();
+			
+        List<${subTableFkJavaType}> list${subTableFkAttrName} = listDB.stream().map(${ClassName}::get${subTableFkAttrName}).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(list${subTableFkAttrName})) {
+            //关联数据不为空，全部删除
+            ${subclassName}Service.lambdaUpdate().in(${subClassName}::get${subTableFkSubAttrName}, list${subTableFkAttrName}).remove();
+        }
+		
+        return lambdaUpdate().in(${ClassName}::get${pkColumn.capJavaField}, ${pkColumn.javaField}List).remove();
+    }
+
+    /**
+     * 新增${subTable.functionName}信息
+     * 
+     * @param ${className} ${functionName}对象
+     */
+    private void insert${subClassName}(${ClassName} ${className},${ClassName}EditSave ${className}EditSave) {
+        // 关联信息列表
+        List<${subClassName}DTO> ${subclassName}ListDTO = ${className}EditSave.get${subClassName}List();
+			
+        // 关联信息列表 非空 构建 关联信息数据对象 列表 
+        if (CollectionUtils.isNotEmpty(${subclassName}ListDTO)) {
+		
+            ${subTableFkJavaType} master${subTableFkAttrName} = ${className}.get${subTableFkAttrName}();
+			
+            List<${subClassName}> list = new ArrayList<>();
+            for (${subClassName}DTO ${subclassName}DTO : ${subclassName}ListDTO) {
+                ${subClassName} ${subclassName} = new ${subClassName}(${subclassName}DTO);
+                ${subclassName}.setId(null); // 关联信息列表需要重新插入，所以这里要重置ID,让数据库自动生成
+                ${subclassName}.set${subTableFkSubAttrName}(master${subTableFkAttrName});
+                list.add(${subclassName});
+            }
+            
+            // 关联数据非空，批量插入关联数据
+            if (list.size() > 0) {
+                ${subclassName}Service.saveBatch(list);
+            }
+        }
+    }
+	
+    /**
+     * 删除${subTable.functionName}信息
+     * 
+     * @param ${className} ${functionName}对象
+     */
+    private void delete${subClassName}(${ClassName} ${className}) {
+        // 根据主键查询数据库原始数据
+        ${ClassName} ${className}BD = getById(${className}.getId());
+		
+        // 原始数据非空，根据关联外键属性信息，删除所有关联数据
+        if (null !=  ${className}BD) {
+            ${subTableFkJavaType} master${subTableFkAttrName} = ${className}BD.get${subTableFkAttrName}();
+            ${subclassName}Service.lambdaUpdate().eq(${subClassName}::get${subTableFkSubAttrName}, master${subTableFkAttrName}).remove();
+        }
+    }
+	
+#end
+
+}

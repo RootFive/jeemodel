@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-solution</artifactId>
+		<version>JM202205X</version>
+	</parent>
+	
+	<artifactId>jeemodel-solution-redis</artifactId>
+	<name>jeemodel-solution-redis</name>
+	<description>jeemodel-solution-redis</description>
+	
+	
+
+	<dependencies>
+	
+		<!-- 核心模块 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-core</artifactId>
+		</dependency>
+				
+		<!-- redis 缓存操作 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
+		<!-- pool 对象池 启动spring-boot-starter-data-redis 需要 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+	
+</project>

@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-parent</artifactId>
+		<version>JM202205X</version>
+	</parent>
+	
+	<artifactId>jeemodel-unit</artifactId>
+	<packaging>pom</packaging>
+	<name>jeemodel-unit</name>
+	<description>jeemodel-unit</description>
+	
+	<modules>
+		<module>jeemodel-unit-manage</module>
+		<module>jeemodel-unit-gen</module>
+	</modules>
+	
+</project>

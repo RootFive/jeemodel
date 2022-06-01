@@ -1,0 +1,418 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jeemodel</groupId>
+	<artifactId>jeemodel-parent</artifactId>
+	<version>JM202205X</version>
+	<packaging>pom</packaging>
+	<name>JeeModel</name>
+	<description>JeeModel Parent</description>
+
+	<modules>
+		<module>jeemodel-admin</module>
+		<module>jeemodel-bean</module>
+		<module>jeemodel-core</module>
+		<module>jeemodel-data</module>
+		<module>jeemodel-solution</module>
+		<module>jeemodel-unit</module>
+		<module>jeemodel-app</module>
+	</modules>
+
+	<properties>
+		<!-- JeeModel信息 -->
+		<jeemodel.version>JM202205X</jeemodel.version>
+
+
+		<!-- 基础信息 项目构建信息 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- 基础框架依赖 -->
+		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+		<spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+		<spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
+		<spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+		<nepxion.discovery.version>6.13.1</nepxion.discovery.version>
+
+		<druid.version>1.2.8</druid.version>
+		<mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>
+		<pagehelper.boot.version>1.4.0</pagehelper.boot.version>
+
+		<!-- 文档依赖 -->
+		<springfox.version>3.0.0</springfox.version>
+		<knife4j-spring-boot.version>3.0.3</knife4j-spring-boot.version>
+		<knife4j.aggregation.version>2.0.9</knife4j.aggregation.version>
+
+		<!-- 工具包依赖 -->
+		<bitwalker.version>1.21</bitwalker.version>
+		<kaptcha.version>2.3.2</kaptcha.version>
+		<fastjson2.version>2.0.4</fastjson2.version>
+		<oshi.version>5.8.2</oshi.version>
+		<jna.version>5.9.0</jna.version>
+		<commons.io.version>2.11.0</commons.io.version>
+		<commons.fileupload.version>1.4</commons.fileupload.version>
+		<commons.collections4.version>4.4</commons.collections4.version>
+		<commons.codec.version>1.15</commons.codec.version>
+		<commons.text.version>1.9</commons.text.version>
+		<easyexcel.version>3.0.5</easyexcel.version>
+		<velocity.version>2.3</velocity.version>
+		<jsonwebtoken.jjwt.version>0.11.5</jsonwebtoken.jjwt.version>
+
+		<!-- maven构建依赖 -->
+		<maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+
+		<!-- JDK版本兼容 JDK11 -->
+		<jaxb.version>3.0.1</jaxb.version>
+	</properties>
+
+
+	<!-- 依赖声明 -->
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- SpringBoot的依赖配置 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- spring-cloud-alibaba -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring.cloud.alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- spring-boot-admin -->
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-dependencies</artifactId>
+				<version>${spring-boot-admin.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+
+
+			<!-- 阿里数据库连接池 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+			<!-- 解析客户端操作系统、浏览器等 -->
+			<dependency>
+				<groupId>eu.bitwalker</groupId>
+				<artifactId>UserAgentUtils</artifactId>
+				<version>${bitwalker.version}</version>
+			</dependency>
+
+			<!-- SpringBoot集成mybatis框架 -->
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-spring-boot.version}</version>
+			</dependency>
+
+			<!-- pagehelper 分页插件 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper.boot.version}</version>
+			</dependency>
+
+			<!-- 文档框架 -->
+			<!-- springfox-Swagger3依赖 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-boot-starter</artifactId>
+				<version>${springfox.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>io.swagger</groupId>
+						<artifactId>swagger-models</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- 官网 https://gitee.com/xiaoym/knife4j 当前jar只作为spring-boot项目使用 Spring 
+				Cloud微服务架构 需要引用其他的包 -->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-spring-boot-starter</artifactId>
+				<version>${knife4j-spring-boot.version}</version>
+			</dependency>
+
+			<!-- Cloud模式聚合OpenAPI文档 -->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-aggregation-spring-boot-starter</artifactId>
+				<version>${knife4j.aggregation.version}</version> <!-- 可以自定义开发使用 -->
+			</dependency>
+
+			<!-- io常用工具类 -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
+
+			<!-- 文件上传工具类 -->
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons.fileupload.version}</version>
+			</dependency>
+
+			<!-- collections4集合和数据结构 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons.collections4.version}</version>
+			</dependency>
+
+			<!-- 加解密 -->
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons.codec.version}</version>
+			</dependency>
+
+
+			<!-- excel读写 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>easyexcel</artifactId>
+				<version>${easyexcel.version}</version>
+			</dependency>
+
+			<!-- velocity模板 -->
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-engine-core</artifactId>
+				<version>${velocity.version}</version>
+			</dependency>
+
+
+			<!-- 阿里JSON解析器 -->
+			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<version>${fastjson2.version}</version>
+			</dependency>
+
+			<!-- Token生成与解析 -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>${jsonwebtoken.jjwt.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>${jsonwebtoken.jjwt.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+				<version>${jsonwebtoken.jjwt.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<!-- 验证码 -->
+			<dependency>
+				<groupId>com.github.penggle</groupId>
+				<artifactId>kaptcha</artifactId>
+				<version>${kaptcha.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>${commons.text.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+
+
+			<!-- 应用基础 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-core</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<!-- 通用工具 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-data</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+
+			<!-- Bean Bean -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-bean</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<!-- Boot启动 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-solution-boot</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-solution-captcha</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<!-- 数据持久 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-solution-file</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<!-- 微服务 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-solution-microservice</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-solution-redis</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<!-- 系统模块 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-manage-core</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-manage-system</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+			<!-- 研发工具 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-gen</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+
+
+
+	<dependencies>
+
+	</dependencies>
+
+	<scm>
+		<url>https://gitee.com/jeemodel/jeemodel.git</url>
+		<connection>scm:git:https://gitee.com/jeemodel/jeemodel.git</connection>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+					<items>
+						<item>timestamp</item>
+					</items>
+					<doCheck>false</doCheck>
+					<doUpdate>true</doUpdate>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>

@@ -1,0 +1,106 @@
+package ${packageName}.bean.dto;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.jeemodel.bean.helper.JeeModelToStringBuilder;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * ${functionName}-分页请求
+ *   
+ * Entity实体类对象 【${packageName}.bean.entity.${ClassName}】
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel(description = "${functionName}-分页请求")
+@Data
+@EqualsAndHashCode(callSuper=true)
+public class ${ClassName}ListReq extends ${ClassName}DTO {
+
+    @ApiModelProperty(value = "其他参数")
+    private Map<String, Object> params;
+
+
+    public Map<String, Object> getParams() {
+        if (params == null) {
+            params = new HashMap<>();
+        }
+        return params;
+    }
+
+#foreach($column in $columns)
+#set($queryType=$column.queryType)
+#set($javaField=$column.javaField)
+#set($javaType=$column.javaType)
+#set($columnName=$column.columnName)
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#if($column.query)
+#if($column.queryType == "EQ")
+    @ApiModelProperty(value = "$column.columnComment， 等于查询EQ 【value = 查询值】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "NE")
+    @ApiModelProperty(value = "$column.columnComment， 不等于查询NE 【value != 查询值】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "GT")
+    @ApiModelProperty(value = "$column.columnComment， 大于查询GT 【value > 查询值】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "GTE")
+    @ApiModelProperty(value = "$column.columnComment， 大于等于查询GTE 【value >= 查询值】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "LT")
+    @ApiModelProperty(value = "$column.columnComment， 小于查询LT 【value < 查询值】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "LTE")
+    @ApiModelProperty(value = "$column.columnComment， 小于等于查询LTE 【value <= 查询值】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "LIKE")
+    @ApiModelProperty(value = "$column.columnComment， like模糊查询：【value like 查询值 】")
+    private $column.javaType $column.javaField;
+    
+#elseif($queryType == "BETWEEN")
+    @ApiModelProperty(value = "$column.columnComment， between区间查询-开始值 【查询值 <=  value】")
+    private $column.javaType begin$AttrName;
+    
+    @ApiModelProperty(value = "$column.columnComment， between区间查询-结束值：【value <= 查询值】")
+    private $column.javaType end$AttrName;
+    
+#end
+#end
+#end
+
+## 重写toString方法-开始： 实体的toString()方法，使用JeeModelToStringBuilder可以避免暴内存问题####################################################
+    @Override
+    public String toString() {
+        JeeModelToStringBuilder builder = new JeeModelToStringBuilder(this);
+#foreach ($column in $columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        builder.append("${column.javaField}", get${AttrName}());
+#end
+#if($table.tree)
+        builder.append("params", params);
+#end
+        return builder.toString();
+    }
+## 重写toString方法-结束     
+}

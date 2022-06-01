@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.jeemodel</groupId>
+    <artifactId>jeemodel-unit-manage</artifactId>
+    <version>JM202205X</version>
+  </parent>
+  <artifactId>jeemodel-unit-manage-system</artifactId>
+  <name>jeemodel-unit-manage-system</name>
+  <description>jeemodel-unit-manage-system</description>
+  
+
+
+
+	<dependencies>
+
+        <!-- 系统模块-->
+        <dependency>
+            <groupId>com.jeemodel</groupId>
+            <artifactId>jeemodel-unit-manage-core</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-solution-captcha</artifactId>
+		</dependency>
+
+
+	</dependencies>  
+</project>

@@ -1,0 +1,127 @@
+package ${packageName}.bean.entity;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+import com.jeemodel.bean.helper.JeeModelToStringBuilder;
+import com.jeemodel.data.entity.${baseEntityType};
+import ${packageName}.bean.dto.${ClassName}DTO;
+import ${packageName}.bean.dto.${ClassName}EditSave;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+/**
+ * 数据库表【${tableName}】${functionName}-Entity实体类对象
+ *   
+#if($table.sub)
+ * 【关联子表】${subTableName}，【关联关系】 ${tableName}.${subTableUseColumnName} = ${subTableName}.${subTableFkName}
+ * 子表-Entity实体类对象 【${packageName}.bean.entity.${subClassName}】
+ * 
+#end
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
+public class ${ClassName} extends ${baseEntityType} {
+
+    private static final long serialVersionUID = 1L;
+    
+##遍历Java字段以及其注释####################################################
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+    /** $column.columnComment */
+#if($column.list)
+#set($parentheseIndex=$column.columnComment.indexOf("（"))
+#if($parentheseIndex != -1)
+#set($comment=$column.columnComment.substring(0, $parentheseIndex))
+#else
+#set($comment=$column.columnComment)
+#end
+#end
+    private $column.javaType $column.javaField;
+
+#end
+#end
+
+## 【构造方法 DTO 转 Entity】####################################################
+    /** 
+     * 构造方法 ${ClassName}DTO 转 ${ClassName} 
+     * 
+     * @param ${className}DTO
+     */ 
+    public ${ClassName} (${ClassName}DTO ${className}DTO) {
+#foreach ($column in $columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        this.${column.javaField} = ${className}DTO.get${AttrName}();
+#end
+    }
+
+	
+## 【构造方法 EditSave 转 Entity】####################################################
+    /** 
+     * 构造方法 ${ClassName}EditSave 转 ${ClassName} 
+     * 
+     * @param ${className}EditSave
+     */ 
+    public ${ClassName} (${ClassName}EditSave ${className}EditSave) {
+        this.id = ${className}EditSave.getId();
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        this.${column.javaField} = ${className}EditSave.get${AttrName}();
+#end
+#end
+        this.remark = ${className}EditSave.getRemark();
+    }
+
+
+## 重写toString方法-开始： 实体的toString()方法，使用JeeModelToStringBuilder可以避免暴内存问题####################################################
+    /** 
+     * ${ClassName} 转 ${ClassName}DTO  
+     */ 
+    public ${ClassName}DTO toDTO() {
+        ${ClassName}DTO ${className}DTO = new ${ClassName}DTO();
+#foreach ($column in $columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        ${className}DTO.set${AttrName}(this.${column.javaField});
+#end
+        return ${className}DTO;
+    }
+
+	
+## 重写toString方法-开始： 实体的toString()方法，使用JeeModelToStringBuilder可以避免暴内存问题####################################################
+    /** 
+     * 以JSON格式输出，重写toString方法 
+     */ 
+    @Override
+    public String toString() {
+        JeeModelToStringBuilder builder = new JeeModelToStringBuilder(this);
+#foreach ($column in $columns)
+#if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
+#set($AttrName=$column.javaField)
+#else
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#end
+        builder.append("${column.javaField}", $column.javaField);
+#end
+        return builder.toString();
+    }
+	
+## 重写toString方法-结束
+}

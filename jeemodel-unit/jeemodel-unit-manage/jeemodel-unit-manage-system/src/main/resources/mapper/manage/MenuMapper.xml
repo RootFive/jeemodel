@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeemodel.unit.manage.mapper.MenuMapper">
+
+	<resultMap type="Menu" id="MenuResult">
+		<id     property="id"         column="id"        />
+		<result property="menuName"       column="menu_name"      />
+		<result property="parentName"     column="parent_name"    />
+		<result property="parentId"       column="parent_id"      />
+		<result property="orderNum"       column="order_num"      />
+		<result property="path"           column="path"           />
+		<result property="component"      column="component"      />
+		<result property="query"          column="query"          />
+		<result property="isFrame"        column="is_frame"       />
+		<result property="isCache"        column="is_cache"       />
+		<result property="menuType"       column="menu_type"      />
+		<result property="visible"        column="visible"        />
+		<result property="status"         column="status"         />
+		<result property="perms"          column="perms"          />
+		<result property="icon"           column="icon"           />
+		<result property="createBy"       column="create_by"      />
+		<result property="createTime"     column="create_time"    />
+		<result property="updateTime"     column="update_time"    />
+		<result property="updateBy"       column="update_by"      />
+		<result property="remark"         column="remark"         />
+	</resultMap>
+
+	<resultMap type="com.jeemodel.unit.manage.bean.dto.system.MenuTree" id="MenuTreeResult"   extends="MenuResult">
+	</resultMap>
+
+
+	<sql id="selectMenuVo">
+		SELECT
+			id,
+			menu_name,
+			parent_id,
+			order_num,
+			path,
+			component,
+			query,
+			is_frame,
+			is_cache,
+			menu_type,
+			visible,
+			status,
+			ifnull( perms, '' ) AS perms,
+			icon,
+			create_time 
+		FROM
+			manage_menu
+    </sql>
+	
+	<select id="selectMenuTreeAll" resultMap="MenuTreeResult">
+		SELECT DISTINCT
+			m.id,
+			m.parent_id,
+			m.menu_name,
+			m.path,
+			m.component,
+			m.query,
+			m.visible,
+			m.status,
+			ifnull( m.perms, '' ) AS perms,
+			m.is_frame,
+			m.is_cache,
+			m.menu_type,
+			m.icon,
+			m.order_num,
+			m.create_time 
+		FROM
+			manage_menu m 
+		WHERE
+			m.menu_type IN ( 'M', 'C' ) 
+		AND 
+			m.status = 0 
+		ORDER BY
+			m.parent_id,
+			m.order_num
+	</select>
+	
+	<select id="selectMenuListByUserId" parameterType="Menu" resultMap="MenuResult">
+		SELECT DISTINCT
+			m.id,
+			m.parent_id,
+			m.menu_name,
+			m.path,
+			m.component,
+			m.query,
+			m.visible,
+			m.status,
+			ifnull( m.perms, '' ) AS perms,
+			m.is_frame,
+			m.is_cache,
+			m.menu_type,
+			m.icon,
+			m.order_num,
+			m.create_time 
+		FROM
+			manage_menu m
+		LEFT JOIN 
+			manage_role_menu rm ON m.id = rm.menu_id
+		LEFT JOIN 
+			manage_user_role ur ON rm.role_id = ur.role_id
+		LEFT JOIN 
+			manage_role ro ON ur.role_id = ro.id
+		WHERE 
+			ur.user_id = #{userId}
+		<if test="menu.menuName != null and menu.menuName != ''">
+            AND m.menu_name like concat('%', #{menu.menuName}, '%')
+		</if>
+		<if test="menu.visible != null and menu.visible != ''">
+            AND m.visible = #{menu.visible}
+		</if>
+		<if test="menu.status != null and menu.status != ''">
+            AND m.status = #{menu.status}
+		</if>
+		ORDER BY 
+			m.parent_id, 
+			m.order_num
+	</select>
+    
+    <select id="selectMenuTreeByUserId" parameterType="Long" resultMap="MenuTreeResult">
+		SELECT DISTINCT
+			m.id,
+			m.parent_id,
+			m.menu_name,
+			m.path,
+			m.component,
+			m.query,
+			m.visible,
+			m.status,
+			ifnull( m.perms, '' ) AS perms,
+			m.is_frame,
+			m.is_cache,
+			m.menu_type,
+			m.icon,
+			m.order_num,
+			m.create_time 
+		FROM
+			manage_menu m
+		LEFT JOIN 
+			manage_role_menu rm ON m.id = rm.menu_id
+		LEFT JOIN 
+			manage_user_role ur ON rm.role_id = ur.role_id
+		LEFT JOIN 
+			manage_role ro ON ur.role_id = ro.id
+		LEFT JOIN 
+			manage_user u ON ur.user_id = u.id
+		WHERE 
+			u.id = #{userId} 
+		AND 
+			m.menu_type in ('M', 'C') 
+		AND 
+			m.status = 0  
+		AND 
+			ro.status = 0
+		order by 
+			m.parent_id, 
+			m.order_num
+	</select>
+	
+	<select id="selectMenuListByRoleId" resultType="Long">
+		select 
+			m.id
+		from 
+			manage_menu m
+        left join 
+        	manage_role_menu rm on m.id = rm.menu_id
+        where 
+        	rm.role_id = #{roleId}
+        <if test="menuCheckStrictly">
+          and m.id not in (	
+          		select 
+          			m.parent_id 
+          		from 
+          			manage_menu m 
+          		inner join 
+          			manage_role_menu rm 
+          		on 
+          			m.id = rm.menu_id 
+          		and 
+          			rm.role_id = #{roleId}
+          		)
+        </if>
+		order by 
+			m.parent_id, 
+			m.order_num
+	</select>
+	
+	<select id="selectMenuPerms" resultType="String">
+		SELECT DISTINCT
+			m.perms 
+		FROM
+			manage_menu m
+		LEFT JOIN 
+			manage_role_menu rm 
+		ON 
+			m.id = rm.menu_id
+	</select>
+
+	<select id="selectMenuPermsByUserId" parameterType="Long" resultType="String">
+		SELECT DISTINCT
+			m.perms 
+		FROM
+			manage_menu m
+		LEFT JOIN 
+			manage_role_menu rm ON m.id = rm.menu_id
+		LEFT JOIN 
+			manage_user_role ur ON rm.role_id = ur.role_id
+		LEFT JOIN 
+			manage_role r ON r.id = ur.role_id 
+		WHERE
+			m.STATUS = '0' 
+		AND 
+			r.STATUS = '0' 
+		AND 
+			ur.user_id = #{userId}
+	</select>
+
+</mapper> 

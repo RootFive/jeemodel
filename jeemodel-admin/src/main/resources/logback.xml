@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- 只要配置App名称 -->
+	<property name="app.name" value="jeemode-admin" />
+	<!-- 只要配置App名称 -->
+
+	<!-- 公共日志模版 -->
+	<include resource="jeemodel/log/jeemodel-log-core.xml" />
+</configuration> 

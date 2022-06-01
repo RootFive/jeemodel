@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+    <!-- 日志存放路径和App名称 在继承文件中配置 -->
+	<!-- <property name="log.path" value="/home/jeemode/logs" /> -->
+	<!-- <property name="app.name" value="jeemode-app" /> -->
+	<!-- 日志存放路径 -->
+	<property name="log.path" value="/data/java_app_logs/${app.name}" />
+	
+    <!-- 日志输出格式 -->
+	<property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+
+	<!-- 控制台输出 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 系统日志输出 -->
+	<appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${log.path}/${app.name}.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+			<fileNamePattern>${log.path}/${app.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- 日志最大的历史 60天 -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${log.path}/${app.name}.error</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/${app.name}.%d{yyyy-MM-dd}.error</fileNamePattern>
+			<!-- 日志最大的历史 60天 -->
+			<maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+			<!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+			<!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+	<!-- 异步输出:file_info -->
+	<appender name="async_file_info" class="ch.qos.logback.classic.AsyncAppender">
+		<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+		<queueSize>256</queueSize>
+		<!-- 默认情况下，当阻塞队列的剩余容量为20％时，它将丢弃TRACE，DEBUG和INFO级别的事件，仅保留WARN和ERROR级别的事件。要不丢失日志，保留所有事件，请将discardingThreshold设置为0。 -->
+		<discardingThreshold>0</discardingThreshold>
+		<!-- 添加附加的appender,使用前面定义的name,最多只能添加一个 -->
+		<appender-ref ref="file_info" />
+	</appender>
+	
+	
+	<!-- JeeModel日志级别控制  -->
+	<logger name="com.jeemodel" level="info" />
+	
+	<!-- Spring日志级别控制  -->
+	<logger name="org.springframework" level="warn" />
+
+	<!--Myibatis log configure-->
+    <logger name="com.apache.ibatis" level="warn"/>
+    <logger name="java.sql.Connection" level="warn"/>
+    <logger name="java.sql.Statement" level="warn"/>
+    <logger name="java.sql.PreparedStatement" level="warn"/>
+
+	<!--日志输出-控制台日志(实时-不记录)  -->
+	<root level="info">
+        <appender-ref ref="console" />
+	</root>
+	
+	<!--日志输出-系统操作日志(实时-记录文件)  -->
+    <root level="info">
+        <appender-ref ref="async_file_info" />
+        <appender-ref ref="file_error" />
+    </root>
+	
+</included> 
