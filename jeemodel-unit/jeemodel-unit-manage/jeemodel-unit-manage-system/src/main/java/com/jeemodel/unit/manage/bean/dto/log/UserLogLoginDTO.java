@@ -1,6 +1,6 @@
 package com.jeemodel.unit.manage.bean.dto.log;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jeemodel.bean.annotation.Excel;
@@ -40,6 +40,6 @@ public class UserLogLoginDTO extends BaseDTO{
 	/** 访问时间 */
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Excel(name = "访问时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-	private Date loginTime;
+	private LocalDateTime loginTime;
 	
 }

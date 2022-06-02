@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.jeemodel</groupId>
 		<artifactId>jeemodel-parent</artifactId>
-		<version>JM202205X</version>
+		<version>JM202206X</version>
 	</parent>
 	
 	<artifactId>jeemodel-data</artifactId>
@@ -55,7 +55,20 @@
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
-		</dependency>		
+		</dependency>	
+		
+		
+		<!-- mybatis数据库字段类型映射，此处是重点
+			在MyBatis从3.4.5版本以前，Mybatis里面不支持java8的时间、日期。直接使用，会报错误。
+			需要导入相关依赖jar包，实现JSR-310相关规范
+		 -->
+        <!-- <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-typehandlers-jsr310</artifactId>
+            <version>1.0.2</version>
+        </dependency>  -->
+		
+			
 	</dependencies>
 		
 </project>

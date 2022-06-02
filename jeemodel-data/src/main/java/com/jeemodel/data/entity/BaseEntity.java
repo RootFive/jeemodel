@@ -1,7 +1,7 @@
 package com.jeemodel.data.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -59,7 +59,7 @@ public abstract class BaseEntity implements Serializable {
 
 	@ApiModelProperty(value = "创建时间,格式：yyyy-MM-dd HH:mm:ss", example = "2021-01-20 12:59:59")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date createTime;
+	protected LocalDateTime createTime;
 
 	/**
 	 * 构造函数 DTO 转 Entity

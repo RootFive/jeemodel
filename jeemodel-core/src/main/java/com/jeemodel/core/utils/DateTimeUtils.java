@@ -298,7 +298,17 @@ public class DateTimeUtils extends org.apache.commons.lang3.time.DateUtils {
 	public static LocalDateTime toLocalDateTime(final Date date) {
 		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 	}
-
+	
+	/**
+	 * 时间戳转LocalDateTime
+	 * long -> LocalDateTime
+	 * @param date
+	 * @return
+	 */
+	public static LocalDateTime toLocalDateTime(final long timeMillis) {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
+	}
+	
 	/**
 	 * Instant（时间戳）-> Date
 	 * @param instant

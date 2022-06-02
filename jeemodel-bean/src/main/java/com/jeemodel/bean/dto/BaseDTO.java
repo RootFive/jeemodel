@@ -1,6 +1,6 @@
 package com.jeemodel.bean.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jeemodel.bean.helper.JeeModelToStringBuilder;
@@ -54,7 +54,7 @@ public abstract class BaseDTO {
 	
 	@ApiModelProperty(value = "创建时间,格式：yyyy-MM-dd HH:mm:ss", example = "2021-01-20 12:59:59")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date createTime;
+	protected LocalDateTime createTime;
 
 	@Override
 	public String toString() {

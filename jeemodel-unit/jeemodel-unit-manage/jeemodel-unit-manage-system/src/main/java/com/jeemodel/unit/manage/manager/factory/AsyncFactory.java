@@ -1,6 +1,6 @@
 package com.jeemodel.unit.manage.manager.factory;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.TimerTask;
 
 import com.jeemodel.core.constant.Constants;
@@ -63,7 +63,7 @@ public class AsyncFactory {
 				logininfor.setBrowser(browser);
 				logininfor.setOs(os);
 				logininfor.setMsg(message);
-				logininfor.setLoginTime(new Date());
+				logininfor.setLoginTime(LocalDateTime.now());
 				// 日志状态
 				if (StringUtils.equalsAny(status, ManageConstants.LOGIN_SUCCESS, ManageConstants.LOGOUT, ManageConstants.REGISTER)) {
 					logininfor.setStatus(Constants.SUCCESS);

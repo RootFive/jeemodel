@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jeemodel</groupId>
 	<artifactId>jeemodel-parent</artifactId>
-	<version>JM202205X</version>
+	<version>JM202206X</version>
 	<packaging>pom</packaging>
 	<name>JeeModel</name>
 	<description>JeeModel Parent</description>
@@ -21,7 +21,7 @@
 
 	<properties>
 		<!-- JeeModel信息 -->
-		<jeemodel.version>JM202205X</jeemodel.version>
+		<jeemodel.version>JM202206X</jeemodel.version>
 
 
 		<!-- 基础信息 项目构建信息 -->

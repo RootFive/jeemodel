@@ -1,6 +1,6 @@
 package com.jeemodel.unit.manage.web.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.annotation.Resource;
 
@@ -129,7 +129,7 @@ public class LoginService {
 		User User = new User();
 		User.setId(userId);
 		User.setLoginIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
-		User.setLoginDate(new Date());
+		User.setLoginDate(LocalDateTime.now());
 		userService.updateUserProfile(User);
 	}
 }

@@ -6,10 +6,9 @@
 	<parent>
 		<groupId>com.jeemodel</groupId>
 		<artifactId>jeemodel-parent</artifactId>
-		<version>JM202205X</version>
+		<version>JM202206X</version>
 	</parent>
 	
-	<version>JM202206X</version>
 	<artifactId>jeemodel-admin</artifactId>
 	<name>jeemodel-admin</name>
 	<description>jeemodel-admin</description>

@@ -1,6 +1,6 @@
 package com.jeemodel.bean.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -51,6 +51,6 @@ public abstract class BaseDTOCRUDX extends BaseDTOCRUD	 {
 	@ApiModelProperty(value = "逻辑删除时间,格式：yyyy-MM-dd HH:mm:ss", example = "2021-01-20 12:59:59")
 	//@Excel(name = "删除时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date delTime ;
+	protected LocalDateTime delTime ;
 
 }

@@ -1,7 +1,7 @@
 package com.jeemodel.unit.manage.aspectj;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +72,7 @@ public class LogAspect {
 			// *========数据库日志=========*//
 			UserLogOper operLog = new UserLogOper();
 			
-			operLog.setOperTime(new Date());
+			operLog.setOperTime(LocalDateTime.now());
 			operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
 			// 请求的地址
 			String ip = IpUtils.getIpAddr(ServletUtils.getRequest());

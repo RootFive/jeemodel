@@ -1,6 +1,6 @@
 package com.jeemodel.unit.manage.core.bean.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -76,7 +76,7 @@ public class User extends BaseEntityCRUDX {
 
 	/** 最后登录时间 */
 	@Excel(name = "最后登录时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
-	private Date loginDate;
+	private LocalDateTime loginDate;
 	
 	
 

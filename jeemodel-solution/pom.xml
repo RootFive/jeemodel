@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.jeemodel</groupId>
     <artifactId>jeemodel-parent</artifactId>
-    <version>JM202205X</version>
+    <version>JM202206X</version>
   </parent>
   <artifactId>jeemodel-solution</artifactId>
   <packaging>pom</packaging>

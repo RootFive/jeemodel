@@ -1,6 +1,6 @@
 package com.jeemodel.unit.coding.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -51,9 +51,9 @@ public class DBTable extends DBTableSchema{
 	
 	/** 创建时间 */
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date createTime;
+	protected LocalDateTime createTime;
 	
 	/** 更新时间 */
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date updateTime ;
+	protected LocalDateTime updateTime ;
 }

@@ -1,6 +1,6 @@
 package com.jeemodel.unit.manage.bean.dto.system;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,10 +37,10 @@ public class ConfigListReq{
 	private String configType;
 	
 	@ApiModelProperty(value = "创建时间-开始")
-	private Date beginTime;
+	private LocalDateTime beginTime;
 	
 	@ApiModelProperty(value = "创建时间-结束")
-	private Date endTime;
+	private LocalDateTime endTime;
 	
 	
 	/** 其他参数 */

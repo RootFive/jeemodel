@@ -6,12 +6,6 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 #end
 import java.util.List;
-#foreach ($column in $columns)
-#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
-import com.jeemodel.core.utils.DateTimeUtils;
-#break
-#end
-#end
 #if($table.sub)
 import org.springframework.beans.factory.annotation.Autowired;
 #end
@@ -122,9 +116,6 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
     public boolean insert${ClassName}(${ClassName}EditSave ${className}EditSave) {
         ${ClassName} ${className}= new ${ClassName}(${className}EditSave);
 #foreach ($column in $columns)
-#if($column.javaField == 'createTime')
-        ${className}.setCreateTime(DateTimeUtils.nowDate());
-#end
 #if($column.javaField == 'createBy')
         ${className}.setCreateBy(SecurityUtils.getUsername());
 #end
@@ -156,9 +147,6 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
     public boolean update${ClassName}(${ClassName}EditSave ${className}EditSave) {
         ${ClassName} ${className}= new ${ClassName}(${className}EditSave);
 #foreach ($column in $columns)
-#if($column.javaField == 'updateTime')
-        ${className}.setUpdateTime(DateTimeUtils.nowDate());
-#end
 #if($column.javaField == 'updateBy')
         ${className}.setUpdateBy(SecurityUtils.getUsername());
 #end
