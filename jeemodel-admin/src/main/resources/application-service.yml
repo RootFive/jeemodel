@@ -6,7 +6,6 @@
 jeemodel.solution.file.profile: E:/data/file/loadpath
 
 
-
 # 代码生成:jeemodel-unit-manage
 # 防止XSS攻击
 ## 过滤开关
@@ -16,6 +15,12 @@ jeemodel.unit.manage.core.xss.excludes: /manage/notice
 ## 匹配链接
 jeemodel.unit.manage.core.xss.urlPatterns: /manage/*,/monitor/*,/coding/gen/*
 
+# Swagger配置
+## 是否开启swagger
+jeemodel.unit.manage.core.swagger.enabled: true
+## 请求前缀
+jeemodel.unit.manage.core.swagger.pathMapping: /dev-api
+
 # token配置
 ## 令牌自定义标识
 jeemodel.unit.manage.core.token.header: Authorization
@@ -24,12 +29,8 @@ jeemodel.unit.manage.core.token.secret: wQW1RDuu4sL5LVlpIvDyMtfp1xBL6tCIj5Pvq7dV
 ## 令牌有效期（默认30分钟）
 jeemodel.unit.manage.core.token.expireTime: 30
 
-# Swagger配置
-## 是否开启swagger
-jeemodel.unit.manage.core.swagger.enabled: true
-## 请求前缀
-jeemodel.unit.manage.core.swagger.pathMapping: /dev-api
-
+## 验证码类型
+jeemodel.unit.manage.system.captcha.type: 0
 
 
 # 代码生成:jeemodel-unit-gen
@@ -40,7 +41,7 @@ jeemodel.unit.gen.coding.packageName: com.jeemodel.unit.manage
 ## 自动去除表前缀，默认是false
 jeemodel.unit.gen.coding.autoRemovePre: true
 ## 表前缀（生成类名不会包含表前缀，多个用逗号分隔）
-jeemodel.unit.gen.coding.tablePrefix: manage_,gen_
+jeemodel.unit.gen.coding.tablePrefix: manage_,gen_,
 ## 默认上级菜单，研发工具
 jeemodel.unit.gen.coding.defaultParentMenuName: 拓展功能
 

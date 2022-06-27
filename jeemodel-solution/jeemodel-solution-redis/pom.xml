@@ -29,7 +29,7 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
-		<!-- pool 对象池 启动spring-boot-starter-data-redis 需要 -->
+		<!-- pool 对象池 启动spring-boot-starter-data-redis lettuce客户端连接需要这个依赖， -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>

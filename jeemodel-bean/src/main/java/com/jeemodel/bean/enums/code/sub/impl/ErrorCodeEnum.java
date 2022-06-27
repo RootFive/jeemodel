@@ -24,6 +24,8 @@ public enum ErrorCodeEnum implements ISubCodeSystem {
 	
 	/** 请求错误 请求异常，命名范围：A0101-A0199 {@link SubCodeSysType2#REQUEST_ANOMALOUS}   */
 	E0101( BaseSubCodeTypeSystemEnum.REQUEST_ANOMALOUS, "可疑暴力请求"),
+	
+	/** 并发超出上限 */
 	E0102( BaseSubCodeTypeSystemEnum.REQUEST_ANOMALOUS, "并发超出上限"), 
 	E0103( BaseSubCodeTypeSystemEnum.REQUEST_ANOMALOUS, "网关访问受限"), 
 	E0104( BaseSubCodeTypeSystemEnum.REQUEST_ANOMALOUS, "请求IP受限"),
@@ -31,16 +33,20 @@ public enum ErrorCodeEnum implements ISubCodeSystem {
 	
 	
 	/** 请求错误 通用错误，命名范围：E0201-E0299 {@link SubCodeSysType2#ERROR}   */
+	/** 资源地址不存在 */
 	E0201( BaseSubCodeTypeSystemEnum.ERROR, "资源地址不存在"),
 	E0202( BaseSubCodeTypeSystemEnum.ERROR, "资源被永久迁移"), 
 	E0203( BaseSubCodeTypeSystemEnum.ERROR, "资源访问必须通过代理"),
 	E0204( BaseSubCodeTypeSystemEnum.ERROR, "HTTP方法不支持"), 
 	E0205( BaseSubCodeTypeSystemEnum.ERROR, "媒体格式不支持"),
+	/** 报文格式不匹配 */
 	E0206( BaseSubCodeTypeSystemEnum.ERROR, "报文格式不匹配"), 
+	/** 请求内容，服务器无法处理 */
 	E0207( BaseSubCodeTypeSystemEnum.ERROR, "请求内容，服务器无法处理"), 
 	
 	
 	/** 请求错误 公参错误，命名范围：E0301-E0399 {@link SubCodeSysType2#ERROR}   */
+	/** 请求客户端错误 */
 	E0301( BaseSubCodeTypeSystemEnum.ERROR, "请求客户端错误"), 
 	E0302( BaseSubCodeTypeSystemEnum.ERROR, "请求时间戳异常"), 
 	E0303( BaseSubCodeTypeSystemEnum.ERROR, "请求渠道错误"),

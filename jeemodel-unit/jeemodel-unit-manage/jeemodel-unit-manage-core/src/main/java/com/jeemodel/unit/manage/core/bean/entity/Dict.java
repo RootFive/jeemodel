@@ -32,7 +32,12 @@ public class Dict extends BaseEntityCRUD {
 	@Size(min = 0, max = 100, message = "字典类型类型长度不能超过100个字符")
 	@Excel(name = "字典类型")
 	private String dictType;
-
+	
+	/** 字典数据Java类型 */
+	@Size(min = 0, max = 100, message = "字典数据Java类型,长度不能超过100个字符")
+	@Excel(name = "字典数据Java类型")
+	private String dictDataJavaType;
+	
 	/** 字典状态（0正常 1停用） */
 	@Excel(name = "字典状态", readConverterExp = "0=正常,1=停用")
 	private String status;

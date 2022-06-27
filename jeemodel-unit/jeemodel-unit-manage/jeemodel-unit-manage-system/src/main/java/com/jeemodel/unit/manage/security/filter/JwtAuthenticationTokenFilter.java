@@ -1,10 +1,12 @@
 package com.jeemodel.unit.manage.security.filter;
 
 import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +14,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.unit.manage.core.bean.model.LoginUser;
 import com.jeemodel.unit.manage.core.utils.SecurityUtils;
 import com.jeemodel.unit.manage.core.web.service.TokenService;
@@ -31,7 +33,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		LoginUser loginUser = tokenService.getLoginUser(request);
-		if (StringUtils.isNotNull(loginUser) && StringUtils.isNull(SecurityUtils.getAuthentication())) {
+		if (BlankUtils.isNotNull(loginUser) && BlankUtils.isNull(SecurityUtils.getAuthentication())) {
 			tokenService.verifyToken(loginUser);
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,
 					null, loginUser.getAuthorities());

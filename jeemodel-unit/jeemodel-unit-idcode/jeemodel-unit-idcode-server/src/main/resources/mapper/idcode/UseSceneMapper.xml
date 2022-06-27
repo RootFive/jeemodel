@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeemodel.unit.idcode.mapper.UseSceneMapper">
+    
+    <resultMap  id="UseSceneResult"  type="com.jeemodel.unit.idcode.bean.entity.UseScene">
+        <result property="id"    column="id"    />
+        <result property="sceneName"    column="scene_name"    />
+        <result property="sceneCode"    column="scene_code"    />
+        <result property="uidLength"    column="uid_length"    />
+        <result property="uidSerial"    column="uid_serial"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="delTime"    column="del_time"    />
+    </resultMap>
+
+	
+
+    <sql id="selectUseSceneVo">
+        select
+            id ,
+            scene_name ,
+            scene_code ,
+            uid_length ,
+            uid_serial ,
+            remark ,
+            create_by ,
+            create_time ,
+            status ,
+            update_by ,
+            update_time ,
+            del_flag ,
+            del_time 
+        from 
+            idcode_use_scene
+    </sql>
+
+ 	<update id="autoIncrUidSerial" >
+		UPDATE
+			idcode_use_scene  us
+		SET 
+			uid_serial = us.uid_serial + #{incrQuantity,jdbcType=INTEGER} 	
+		WHERE
+			scene_code = #{sceneCode,jdbcType=CHAR}; 	
+	</update>
+
+
+    <select id="queryUidSerial" parameterType="java.lang.String"  resultType="java.lang.Long">
+		SELECT 
+			uid_serial 
+		FROM 
+			uniqueid_use_scene;
+		WHERE
+			scene_code = #{sceneCode,jdbcType=CHAR}; 	
+    </select>
+
+</mapper>

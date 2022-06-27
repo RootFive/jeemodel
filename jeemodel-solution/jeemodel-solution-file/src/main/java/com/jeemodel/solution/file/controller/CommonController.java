@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.utils.ServletUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.solution.file.config.FileConfigHelper;

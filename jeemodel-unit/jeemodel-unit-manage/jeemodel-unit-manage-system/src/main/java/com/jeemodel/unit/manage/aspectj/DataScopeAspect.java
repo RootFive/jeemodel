@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.annotation.DataScope;
 import com.jeemodel.unit.manage.core.bean.entity.Role;
@@ -64,10 +65,10 @@ public class DataScopeAspect {
 	protected void handleDataScope(final JoinPoint joinPoint, DataScope controllerDataScope) {
 		// 获取当前的用户
 		LoginUser loginUser = SecurityUtils.getLoginUser();
-		if (StringUtils.isNotNull(loginUser)) {
+		if (BlankUtils.isNotNull(loginUser)) {
 			UserDataScope currentUser = loginUser.getUser();
 			// 如果是超级管理员，则不过滤数据
-			if (StringUtils.isNotNull(currentUser) && !currentUser.isAdmin()) {
+			if (BlankUtils.isNotNull(currentUser) && !currentUser.isAdmin()) {
 				dataScopeFilter(joinPoint, currentUser, controllerDataScope.deptAlias(),controllerDataScope.userAlias());
 			}
 		}

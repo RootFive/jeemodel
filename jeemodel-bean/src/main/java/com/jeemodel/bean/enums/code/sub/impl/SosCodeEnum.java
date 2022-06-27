@@ -16,6 +16,9 @@ public enum SosCodeEnum implements ISubCodeSystem {
 	/** 程序出错 */
 	SOS_PROG_E( BaseSubCodeTypeSystemEnum.SOS, "出Bug了... 可能是程序媛写的代码~"),
 	
+	/** 远程访问异常 */
+	SOS_REMOTING( BaseSubCodeTypeSystemEnum.SOS, "远程访问异常"),
+	
 	/** 子服务不可用 子系统服务:Subsystem Service */
 	SOS_SUB_SERVICE( BaseSubCodeTypeSystemEnum.SOS, "子服务不可用"),
 	;

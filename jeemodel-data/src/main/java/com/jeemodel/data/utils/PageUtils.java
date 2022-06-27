@@ -5,12 +5,13 @@ import java.util.List;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jeemodel.bean.enums.code.sub.impl.OKCodeEnum;
-import com.jeemodel.bean.http.ApiEchoContext;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.ApiEchoContext;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.bean.utils.StringFormatUtils;
 import com.jeemodel.core.page.PageDomain;
 import com.jeemodel.core.page.TableSupport;
+import com.jeemodel.core.utils.NumberUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.sql.SqlUtil;
 
@@ -23,7 +24,7 @@ public class PageUtils extends PongUtils{
 		PageDomain pageDomain = TableSupport.buildPageRequest();
 		Integer pageNum = pageDomain.getPageNum();
 		Integer pageSize = pageDomain.getPageSize();
-		if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize)) {
+		if (NumberUtils.isPositiveInteger(pageNum) && NumberUtils.isPositiveInteger(pageSize)) {
 			String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
 			Boolean reasonable = pageDomain.getReasonable();
 			PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);

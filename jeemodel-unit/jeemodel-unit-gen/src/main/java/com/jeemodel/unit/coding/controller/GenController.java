@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.utils.DataTypeConvertUtils;
 import com.jeemodel.core.utils.ExceptionUtils;
 import com.jeemodel.core.web.controller.BaseController;

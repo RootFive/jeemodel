@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.core.constant.Constants;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.bean.BeanUtils;
 import com.jeemodel.unit.manage.bean.dto.system.MenuTree;
@@ -331,10 +332,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	 */
 	@Override
 	public String checkMenuNameUnique(Menu menu) {
-		Long menuId = StringUtils.isNull(menu.getId()) ? -1L : menu.getId();
+		Long menuId = BlankUtils.isNull(menu.getId()) ? -1L : menu.getId();
 //		Menu info = menuMapper.checkMenuNameUnique(menu.getMenuName(), menu.getParentId());
 		Menu info = lambdaQuery().eq(Menu::getMenuName, menu.getMenuName()).eq(Menu::getParentId,  menu.getParentId()).one();
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != menuId.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != menuId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;

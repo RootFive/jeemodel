@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.web.exception.GlobalExceptionHandler;
 import com.jeemodel.unit.manage.core.enums.ManageSubCode;
 

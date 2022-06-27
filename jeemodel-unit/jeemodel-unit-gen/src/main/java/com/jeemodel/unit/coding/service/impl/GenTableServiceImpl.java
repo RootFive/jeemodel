@@ -30,6 +30,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
 import com.jeemodel.core.constant.Constants;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.DataTypeConvertUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.coding.constant.GenConstants;
@@ -323,7 +324,7 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable>  
 		List<String> tableColumnNames = tableColumns.stream().map(GenTableColumn::getColumnName).collect(Collectors.toList());
 
 		List<GenTableColumn> dbTableColumns = dbMySQLMapper.selectDbTableColumnsByName(table);
-		if (StringUtils.isEmpty(dbTableColumns)) {
+		if (BlankUtils.isBlank(dbTableColumns)) {
 			throw new CheckException("同步数据失败，原表结构不存在");
 		}
 		List<String> dbTableColumnNames = dbTableColumns.stream().map(GenTableColumn::getColumnName)
@@ -338,7 +339,7 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable>  
 
 		List<GenTableColumn> delColumns = tableColumns.stream()
 				.filter(column -> !dbTableColumnNames.contains(column.getColumnName())).collect(Collectors.toList());
-		if (StringUtils.isNotEmpty(delColumns)) {
+		if (BlankUtils.isNotBlank(delColumns)) {
 			genTableColumnService.deleteGenTableColumns(delColumns);
 		}
 	}
@@ -421,7 +422,7 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable>  
 				break;
 			}
 		}
-		if (StringUtils.isNull(table.getPkColumn())) {
+		if (BlankUtils.isNull(table.getPkColumn())) {
 			table.setPkColumn(table.getColumns().get(0));
 		}
 		if (GenConstants.TPL_SUB.equals(table.getTplCategory())) {
@@ -431,7 +432,7 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable>  
 					break;
 				}
 			}
-			if (StringUtils.isNull(table.getSubTable().getPkColumn())) {
+			if (BlankUtils.isNull(table.getSubTable().getPkColumn())) {
 				table.getSubTable().setPkColumn(table.getSubTable().getColumns().get(0));
 			}
 		}
@@ -458,7 +459,7 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable>  
 	 */
 	public void setTableFromOptions(GenTableIncludeColumn genTable) {
 		JSONObject paramsObj = JSON.parseObject(genTable.getOptions());
-		if (StringUtils.isNotNull(paramsObj)) {
+		if (BlankUtils.isNotNull(paramsObj)) {
 			String treeCode = paramsObj.getString(GenConstants.TREE_CODE);
 			String treeParentCode = paramsObj.getString(GenConstants.TREE_PARENT_CODE);
 			String treeName = paramsObj.getString(GenConstants.TREE_NAME);

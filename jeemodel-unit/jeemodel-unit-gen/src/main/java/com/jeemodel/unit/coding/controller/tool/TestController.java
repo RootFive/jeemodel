@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongUtils;
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.web.controller.BaseController;
 
 import io.swagger.annotations.Api;
@@ -71,7 +71,7 @@ public class TestController extends BaseController {
 			@ApiImplicitParam(name = "mobile", value = "用户手机", dataType = "String", dataTypeClass = String.class) })
 	@PostMapping("/save")
 	public PongData<UserEntity> save(UserEntity user) {
-		if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
+		if (BlankUtils.isNull(user) || BlankUtils.isNull(user.getUserId())) {
 			return PongUtils.fail("用户ID不能为空");
 		}
 		return PongUtils.okData(users.put(user.getUserId(), user));
@@ -80,7 +80,7 @@ public class TestController extends BaseController {
 	@ApiOperation("更新用户")
 	@PutMapping("/update")
 	public PongData<UserEntity> update(@RequestBody UserEntity user) {
-		if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
+		if (BlankUtils.isNull(user) || BlankUtils.isNull(user.getUserId())) {
 			return PongUtils.fail("用户ID不能为空");
 		}
 		if (users.isEmpty() || !users.containsKey(user.getUserId())) {

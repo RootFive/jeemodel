@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.bean.BeanUtils;
 import com.jeemodel.core.utils.spring.SpringUtils;
@@ -179,10 +180,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 */
 	@Override
 	public String checkPhoneUnique(User user) {
-		Long userId = StringUtils.isNull(user.getId()) ? -1L : user.getId();
+		Long userId = BlankUtils.isNull(user.getId()) ? -1L : user.getId();
 //		User info = userMapper.checkPhoneUnique(user.getPhonenumber());
 		User info = lambdaQuery().eq(User::getPhonenumber, user.getPhonenumber()).select(User::getId,User::getPhonenumber).one();
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != userId.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != userId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;
@@ -196,11 +197,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 */
 	@Override
 	public String checkEmailUnique(User user) {
-		Long userId = StringUtils.isNull(user.getId()) ? -1L : user.getId();
+		Long userId = BlankUtils.isNull(user.getId()) ? -1L : user.getId();
 //		User info = userMapper.checkEmailUnique(user.getEmail());
 //		User info = lambdaQuery().eq(User::getEmail, user.getEmail()).one();
 		User info = lambdaQuery().eq(User::getEmail, user.getEmail()).select(User::getId,User::getEmail).one();
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != userId.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != userId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;
@@ -213,7 +214,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 */
 	@Override
 	public void checkUserAllowed(User user) {
-		if (StringUtils.isNotNull(user.getId()) && user.isAdmin()) {
+		if (BlankUtils.isNotNull(user.getId()) && user.isAdmin()) {
 			throw new CheckException("不允许操作超级管理员用户");
 		}
 	}
@@ -229,7 +230,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 			UserListReq user = new UserListReq();
 			user.setId(userId);
 			List<UserList> users = SpringUtils.getAopProxy(this).selectUserList(user);
-			if (StringUtils.isEmpty(users)) {
+			if (BlankUtils.isBlank(users)) {
 				throw new CheckException("没有权限访问用户数据！");
 			}
 		}
@@ -368,7 +369,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 */
 	public void insertUserRole(UserSave user) {
 		Long[] roles = user.getRoleIds();
-		if (StringUtils.isNotNull(roles)) {
+		if (BlankUtils.isNotNull(roles)) {
 			// 新增用户与角色管理
 			List<UserRole> list = new ArrayList<UserRole>();
 			for (Long roleId : roles) {
@@ -390,7 +391,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 */
 	public void insertUserPost(UserSave user) {
 		Long[] posts = user.getPostIds();
-		if (StringUtils.isNotNull(posts)) {
+		if (BlankUtils.isNotNull(posts)) {
 			// 新增用户与岗位管理
 			List<UserPost> list = new ArrayList<UserPost>();
 			for (Long postId : posts) {
@@ -412,7 +413,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 * @param roleIds 角色组
 	 */
 	public void insertUserRole(Long userId, Long[] roleIds) {
-		if (StringUtils.isNotNull(roleIds)) {
+		if (BlankUtils.isNotNull(roleIds)) {
 			// 新增用户与角色管理
 			List<UserRole> list = new ArrayList<UserRole>();
 			for (Long roleId : roleIds) {
@@ -488,7 +489,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	 */
 	@Override
 	public String importUser(List<User> userList, Boolean isUpdateSupport, String operName) {
-		if (StringUtils.isNull(userList) || userList.size() == 0) {
+		if (BlankUtils.isNull(userList) || userList.size() == 0) {
 			throw new CheckException("导入用户数据不能为空！");
 		}
 		int successNum = 0;
@@ -500,7 +501,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 			try {
 				// 验证是否存在这个用户
 				User u = userMapper.selectUserByUserName(user.getUserName());
-				if (StringUtils.isNull(u)) {
+				if (BlankUtils.isNull(u)) {
 					UserSave userSave = BeanUtils. conver(user,UserSave.class);
 					userSave.setPassword(SecurityUtils.encryptPassword(password));
 					userSave.setCreateBy(operName);

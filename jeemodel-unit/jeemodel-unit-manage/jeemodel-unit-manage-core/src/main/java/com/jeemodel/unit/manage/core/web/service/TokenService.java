@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.ServletUtils;
 import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.core.utils.id.IdUtils;
 import com.jeemodel.core.utils.ip.IpUtils;
-import com.jeemodel.core.utils.uuid.IdUtils;
 import com.jeemodel.solution.redis.core.cache.RedisCacheHelper;
 import com.jeemodel.unit.manage.core.bean.model.LoginUser;
 import com.jeemodel.unit.manage.core.constant.ManageConstants;
@@ -88,7 +89,7 @@ public class TokenService {
 	 * 设置用户身份信息
 	 */
 	public void setLoginUser(LoginUser loginUser) {
-		if (StringUtils.isNotNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken())) {
+		if (BlankUtils.isNotNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken())) {
 			refreshToken(loginUser);
 		}
 	}

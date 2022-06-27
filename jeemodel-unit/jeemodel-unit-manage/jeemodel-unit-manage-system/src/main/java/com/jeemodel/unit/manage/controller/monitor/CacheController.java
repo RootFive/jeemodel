@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.solution.redis.helper.RedisMonitorHelper;
 import com.jeemodel.solution.redis.model.RedisMonitor;
 

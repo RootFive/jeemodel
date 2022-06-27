@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.bean.BeanUtils;
 import com.jeemodel.core.utils.spring.SpringUtils;
 import com.jeemodel.unit.manage.annotation.DataScope;
@@ -109,7 +109,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 		List<Role> perms = roleMapper.selectRolePermissionByUserId(userId);
 		Set<String> permsSet = new HashSet<>();
 		for (Role perm : perms) {
-			if (StringUtils.isNotNull(perm)) {
+			if (BlankUtils.isNotNull(perm)) {
 				permsSet.addAll(Arrays.asList(perm.getRoleKey().trim().split(",")));
 			}
 		}
@@ -156,9 +156,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	 */
 	@Override
 	public String checkRoleNameUnique(Role role) {
-		Long roleId = StringUtils.isNull(role.getId()) ? -1L : role.getId();
+		Long roleId = BlankUtils.isNull(role.getId()) ? -1L : role.getId();
 		Role info = roleMapper.checkRoleNameUnique(role.getRoleName());
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != roleId.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != roleId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;
@@ -172,9 +172,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	 */
 	@Override
 	public String checkRoleKeyUnique(Role role) {
-		Long roleId = StringUtils.isNull(role.getId()) ? -1L : role.getId();
+		Long roleId = BlankUtils.isNull(role.getId()) ? -1L : role.getId();
 		Role info = roleMapper.checkRoleKeyUnique(role.getRoleKey());
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != roleId.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != roleId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;
@@ -187,7 +187,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	 */
 	@Override
 	public void checkRoleAllowed(Role role) {
-		if (StringUtils.isNotNull(role.getId()) && role.isAdmin()) {
+		if (BlankUtils.isNotNull(role.getId()) && role.isAdmin()) {
 			throw new CheckException("不允许操作超级管理员角色");
 		}
 	}
@@ -203,7 +203,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 			RoleListReq role = new RoleListReq();
 			role.setId(roleId);
 			List<Role> roles = SpringUtils.getAopProxy(this).selectRoleList(role);
-			if (StringUtils.isEmpty(roles)) {
+			if (BlankUtils.isBlank(roles)) {
 				throw new CheckException("没有权限访问角色数据！");
 			}
 		}

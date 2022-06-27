@@ -6,8 +6,8 @@ import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
+import com.jeemodel.solution.captcha.byec.SpecCaptcha;
 import com.jeemodel.solution.captcha.dto.CaptchaImage;
-import com.wf.captcha.SpecCaptcha;
 
 import lombok.extern.slf4j.Slf4j;
 

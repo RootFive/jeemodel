@@ -280,7 +280,7 @@
 </template>
 
 <script setup name="${BusinessName}">
-import { list${BusinessName}, get${BusinessName}, del${BusinessName}, add${BusinessName}, update${BusinessName} } from "@/api/${moduleName}/${businessName}";
+import { list${BusinessName}, get${BusinessName}, del${BusinessName}, add${BusinessName}, update${BusinessName} } from "@/api/unit/${moduleName}/${businessName}";
 
 const { proxy } = getCurrentInstance();
 #if(${dicts} != '')

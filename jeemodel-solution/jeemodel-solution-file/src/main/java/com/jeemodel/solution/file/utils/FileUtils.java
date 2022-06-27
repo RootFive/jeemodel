@@ -18,7 +18,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.jeemodel.core.utils.DateTimeUtils;
 import com.jeemodel.core.utils.StringUtils;
-import com.jeemodel.core.utils.uuid.IdUtils;
+import com.jeemodel.core.utils.id.IdUtils;
 import com.jeemodel.solution.file.config.FileConfigHelper;
 
 /**

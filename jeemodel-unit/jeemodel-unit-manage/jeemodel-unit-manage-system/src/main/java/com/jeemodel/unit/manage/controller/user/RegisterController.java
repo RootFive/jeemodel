@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.web.controller.BaseController;
 import com.jeemodel.unit.manage.core.bean.model.RegisterBody;

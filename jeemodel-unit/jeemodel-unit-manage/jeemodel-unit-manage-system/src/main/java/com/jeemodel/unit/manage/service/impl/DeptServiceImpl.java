@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.DataTypeConvertUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.spring.SpringUtils;
@@ -160,11 +161,11 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept>  implements I
 	 */
 	@Override
 	public String checkDeptNameUnique(Dept dept) {
-		Long deptId = StringUtils.isNull(dept.getId()) ? -1L : dept.getId();
+		Long deptId = BlankUtils.isNull(dept.getId()) ? -1L : dept.getId();
 //		Dept info = deptMapper.checkDeptNameUnique(dept.getDeptName(), dept.getParentId());
 		Dept info = lambdaQuery().eq(Dept::getDeptName, dept.getDeptName()).eq(Dept::getParentId,dept.getParentId()).one();
 		
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != deptId.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != deptId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;
@@ -181,7 +182,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept>  implements I
 			Dept dept = new Dept();
 			dept.setId(id);
 			List<DeptTree> depts = SpringUtils.getAopProxy(this).selectDeptList(dept);
-			if (StringUtils.isEmpty(depts)) {
+			if (BlankUtils.isBlank(depts)) {
 				throw new CheckException("没有权限访问部门数据！");
 			}
 		}
@@ -217,7 +218,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept>  implements I
 //		Dept newParentDept = deptMapper.selectDeptById(dept.getParentId());
 		Dept newParentDept = deptMapper.selectById(dept.getParentId());
 		Dept oldDept = deptMapper.selectById(dept.getId());
-		if (StringUtils.isNotNull(newParentDept) && StringUtils.isNotNull(oldDept)) {
+		if (BlankUtils.isNotNull(newParentDept) && BlankUtils.isNotNull(oldDept)) {
 			String newAncestors = newParentDept.getAncestors() + "," + newParentDept.getId();
 			String oldAncestors = oldDept.getAncestors();
 			dept.setAncestors(newAncestors);
@@ -296,7 +297,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept>  implements I
 		Iterator<DeptTree> it = list.iterator();
 		while (it.hasNext()) {
 			DeptTree n = (DeptTree) it.next();
-			if (StringUtils.isNotNull(n.getParentId()) && n.getParentId().longValue() == t.getId().longValue()) {
+			if (BlankUtils.isNotNull(n.getParentId()) && n.getParentId().longValue() == t.getId().longValue()) {
 				tlist.add(n);
 			}
 		}

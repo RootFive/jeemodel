@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.web.controller.BaseController;
 import com.jeemodel.data.utils.PageUtils;
 import com.jeemodel.unit.manage.bean.dto.system.RoleAuthAllocatedUserListReq;
@@ -123,7 +123,7 @@ public class RoleController extends BaseController {
 		if (roleService.updateRole(role)) {
 			// 更新缓存用户权限
 			LoginUser loginUser = SecurityUtils.getLoginUser();
-			if (StringUtils.isNotNull(loginUser.getUser()) && !loginUser.getUser().isAdmin()) {
+			if (BlankUtils.isNotNull(loginUser.getUser()) && !loginUser.getUser().isAdmin()) {
 				loginUser.setPermissions(permissionService.getMenuPermission(loginUser.getUser()));
 				loginUser.setUser(userService.selectUserByUserName(loginUser.getUser().getUserName()));
 				tokenService.setLoginUser(loginUser);

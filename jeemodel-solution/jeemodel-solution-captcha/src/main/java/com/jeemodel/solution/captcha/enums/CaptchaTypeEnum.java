@@ -45,6 +45,13 @@ public enum CaptchaTypeEnum {
 		}
 	}
 
+	public static CaptchaTypeEnum getCaptchaTypeByTypeCode(Integer code) {
+		if (typeMap.containsKey(code)) {
+			return typeMap.get(code);
+		}
+		return null;
+	}
+	
 	public static String getCaptchaTypeBeanNameByTypeCode(Integer code) {
 		if (typeMap.containsKey(code)) {
 			return typeMap.get(code).getBeanName();

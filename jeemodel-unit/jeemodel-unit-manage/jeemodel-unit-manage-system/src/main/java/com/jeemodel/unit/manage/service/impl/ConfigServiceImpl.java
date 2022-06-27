@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.DataTypeConvertUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.solution.redis.core.cache.RedisCacheHelper;
@@ -57,7 +58,7 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
 			return configValue;
 		}
 		Config retConfig =lambdaQuery().eq(Config::getConfigKey, configKey).one();
-		if (StringUtils.isNotNull(retConfig)) {
+		if (BlankUtils.isNotNull(retConfig)) {
 			redisCacheHelper.setObject(getCacheKey(configKey), retConfig.getConfigValue());
 			return retConfig.getConfigValue();
 		}
@@ -181,9 +182,9 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
 	 */
 	@Override
 	public String checkConfigKeyUnique(Config config) {
-		Long id = StringUtils.isNull(config.getId()) ? -1L : config.getId();
+		Long id = BlankUtils.isNull(config.getId()) ? -1L : config.getId();
 		Config info = lambdaQuery().eq(Config::getConfigKey, config.getConfigKey()).one();;
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != id.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != id.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;

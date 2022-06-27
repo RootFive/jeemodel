@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.DateTimeUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.bean.dto.system.DictListReq;
@@ -88,11 +89,11 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict>  implements I
 	@Override
 	public List<DictData> selectDictDataByType(String dictType) {
 		List<DictData> dictDatas = DictUtils.getDictCache(dictType);
-		if (StringUtils.isNotEmpty(dictDatas)) {
+		if (BlankUtils.isNotBlank(dictDatas)) {
 			return dictDatas;
 		}
 		dictDatas = dictDataService.selectDictLabel(dictType);
-		if (StringUtils.isNotEmpty(dictDatas)) {
+		if (BlankUtils.isNotBlank(dictDatas)) {
 			DictUtils.setDictCache(dictType, dictDatas);
 			return dictDatas;
 		}
@@ -210,9 +211,9 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict>  implements I
 	 */
 	@Override
 	public String checkDictTypeUnique(Dict dict) {
-		Long dictId = StringUtils.isNull(dict.getId()) ? -1L : dict.getId();
+		Long dictId = BlankUtils.isNull(dict.getId()) ? -1L : dict.getId();
 		Dict dictType = selectDictTypeByType(dict.getDictType());
-		if (StringUtils.isNotNull(dictType) && dictType.getId().longValue() != dictId.longValue()) {
+		if (BlankUtils.isNotNull(dictType) && dictType.getId().longValue() != dictId.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;

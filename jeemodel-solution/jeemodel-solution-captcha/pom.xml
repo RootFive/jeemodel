@@ -27,11 +27,11 @@
 		</dependency> -->
 		<!-- ==============↓↓↓业务功能↓↓↓↓==============必须 -->
 		<!-- 验证码 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.github.whvcse</groupId>
 			<artifactId>easy-captcha</artifactId>
 			<version>1.6.2</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.github.penggle</groupId>

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jeemodel.bean.enums.code.sub.impl.WarnCodeEnum;
 import com.jeemodel.core.utils.DateTimeUtils;
 import com.jeemodel.core.utils.StringUtils;
-import com.jeemodel.core.utils.uuid.IdUtils;
+import com.jeemodel.core.utils.id.IdUtils;
 import com.jeemodel.solution.file.config.FileConfigHelper;
 import com.jeemodel.solution.file.constant.FileConstants;
 import com.jeemodel.solution.file.exception.FileNameLengthLimitExceededException;

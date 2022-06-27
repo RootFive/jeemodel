@@ -1,5 +1,6 @@
 package com.jeemodel.core.page;
 
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 
 /**
@@ -71,7 +72,7 @@ public class PageDomain {
 	}
 
 	public Boolean getReasonable() {
-		if (StringUtils.isNull(reasonable)) {
+		if (BlankUtils.isNull(reasonable)) {
 			return Boolean.TRUE;
 		}
 		return reasonable;

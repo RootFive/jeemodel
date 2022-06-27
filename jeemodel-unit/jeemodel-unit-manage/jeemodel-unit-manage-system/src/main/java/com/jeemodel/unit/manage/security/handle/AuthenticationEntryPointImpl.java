@@ -11,7 +11,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson2.JSON;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.utils.ServletUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.core.enums.ManageSubCode;

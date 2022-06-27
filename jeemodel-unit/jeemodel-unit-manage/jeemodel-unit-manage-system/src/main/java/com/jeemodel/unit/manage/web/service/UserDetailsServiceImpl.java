@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.jeemodel.base.annotation.HelpService;
 import com.jeemodel.bean.exception.type.CheckException;
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.unit.manage.core.bean.model.LoginUser;
 import com.jeemodel.unit.manage.core.bean.model.UserDataScope;
 import com.jeemodel.unit.manage.core.enums.UserStatus;
@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDataScope user = userService.selectUserByUserName(username);
-		if (StringUtils.isNull(user)) {
+		if (BlankUtils.isNull(user)) {
 			log.info("登录用户：{} 不存在.", username);
 			throw new CheckException("登录用户：" + username + " 不存在");
 		} else if (UserStatus.DELETED.getCode().equals(user.getDelFlag())) {

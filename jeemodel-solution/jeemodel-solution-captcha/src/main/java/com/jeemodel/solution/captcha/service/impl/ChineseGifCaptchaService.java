@@ -2,8 +2,8 @@ package com.jeemodel.solution.captcha.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.jeemodel.solution.captcha.byec.ChineseGifCaptcha;
 import com.jeemodel.solution.captcha.dto.CaptchaImage;
-import com.wf.captcha.ChineseGifCaptcha;
 
 /**
  * @author Rootfive 中文验证码

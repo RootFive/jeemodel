@@ -14,8 +14,8 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.ServletUtils;
-import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.ip.IpUtils;
 import com.jeemodel.solution.redis.annotation.RateLimiter;
 import com.jeemodel.solution.redis.enums.LimitType;
@@ -56,7 +56,7 @@ public class RateLimiterAspect {
 		List<Object> keys = Collections.singletonList(combineKey);
 		try {
 			Long number = redisTemplate.execute(limitScript, keys, count, time);
-			if (StringUtils.isNull(number) || number.intValue() > count) {
+			if (BlankUtils.isNull(number) || number.intValue() > count) {
 				throw new CheckException("访问过于频繁，请稍候再试");
 			}
 			log.info("限制请求'{}',当前请求'{}',缓存key'{}'", count, number.intValue(), key);

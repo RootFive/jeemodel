@@ -18,6 +18,9 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import com.alibaba.fastjson2.JSONObject;
 import com.jeemodel.core.constant.Constants;
 import com.jeemodel.core.utils.StringUtils;
 
@@ -30,6 +33,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class HttpUtils {
+	public static final String PARAM_SIGN = "sign";
+	
+	
 	/**
 	 * 向指定 URL 发送GET方法的请求
 	 *
@@ -216,4 +222,36 @@ public class HttpUtils {
 			return true;
 		}
 	}
+	
+	
+	/**
+	 * a=1&b=2&c=3 查询参数转JSON
+	 * @return
+	 */
+	public static JSONObject getQueryParamToJSON(String queryString ,boolean removeSign) {
+		JSONObject queryJSON = new JSONObject();
+		if (StringUtils.isNotBlank(queryString)) {
+			String[] arr = StringUtils.trimToEmpty(queryString).split("&");
+			for (String s : arr) {
+				String[] kv = s.split("=");
+				if (ArrayUtils.isNotEmpty(kv) && kv.length == 2) {
+					queryJSON.put(kv[0], kv[1]);
+				}
+			}
+		}
+		if (removeSign && queryJSON.containsKey(PARAM_SIGN)) {
+			queryJSON.remove(PARAM_SIGN);
+		}
+		return queryJSON;
+	}
+	
+	/**
+	 * a=1&b=2&c=3 查询参数转Object
+	 * @return
+	 */
+	public static <T> T getQueryParamToObject(String queryString ,Class<T> clazz,boolean removeSign) {
+		JSONObject queryParamToJSON = getQueryParamToJSON(queryString, removeSign);
+		return queryParamToJSON.to(clazz);
+	}
+	
 }

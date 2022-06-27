@@ -2,6 +2,7 @@ package com.jeemodel.unit.manage.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.bean.entity.UserOnline;
 import com.jeemodel.unit.manage.core.bean.model.LoginUser;
@@ -68,7 +69,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService {
 	 */
 	@Override
 	public UserOnline loginUserToUserOnline(LoginUser user) {
-		if (StringUtils.isNull(user) || StringUtils.isNull(user.getUser())) {
+		if (BlankUtils.isNull(user) || BlankUtils.isNull(user.getUser())) {
 			return null;
 		}
 		UserOnline UserOnline = new UserOnline();
@@ -79,7 +80,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService {
 		UserOnline.setBrowser(user.getBrowser());
 		UserOnline.setOs(user.getOs());
 		UserOnline.setLoginTime(user.getLoginTime());
-		if (StringUtils.isNotNull(user.getUser().getDept())) {
+		if (BlankUtils.isNotNull(user.getUser().getDept())) {
 			UserOnline.setDeptName(user.getUser().getDept().getDeptName());
 		}
 		return UserOnline;

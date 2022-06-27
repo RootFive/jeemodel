@@ -8,6 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id     property="id"     column="id"     />
 		<result property="dictName"   column="dict_name"   />
 		<result property="dictType"   column="dict_type"   />
+		<result property="dictDataJavaType"   column="dict_data_java_type"   />
+		
 		<result property="status"     column="status"      />
 		<result property="createBy"   column="create_by"   />
 		<result property="createTime" column="create_time" />
@@ -20,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			id,
 			dict_name,
 			dict_type,
+			dict_data_java_type,
 			status,
 			create_by,
 			create_time,

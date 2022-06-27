@@ -3,6 +3,7 @@ package com.jeemodel.unit.manage.helper;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.jeemodel.base.annotation.HelpService;
 import com.jeemodel.solution.captcha.constant.CaptchaConstants;
@@ -21,12 +22,12 @@ public class LoginCaptchaHelper extends BaseCaptchaHelper {
 
 	@Autowired
 	private IConfigService configService;
-	
-	
 
 	@Autowired
 	private RedisCacheHelper redisCacheHelper;
-	
+
+	@Value("${jeemodel.unit.manage.system.captcha.type:0}")
+	private Integer captchaType;
 
 	@Override
 	protected boolean sceneToGetCaptchaOnOff(String scene) {
@@ -36,13 +37,9 @@ public class LoginCaptchaHelper extends BaseCaptchaHelper {
 	@Override
 	protected CaptchaTypeEnum sceneToGetCaptchaType(String scene) {
 		// 生成验证码
-		String captchaType = System.currentTimeMillis() % 2 == 0 ? "math" : "char";
-		if ("math".equals(captchaType)) {
-			return CaptchaTypeEnum.ARITHMETIC;
-		} else if ("char".equals(captchaType)) {
-			return CaptchaTypeEnum.CHINESE;
-		}
-		return CaptchaTypeEnum.Gif;
+		CaptchaTypeEnum codeType = CaptchaTypeEnum.getCaptchaTypeByTypeCode(captchaType);
+
+		return codeType != null ? codeType : CaptchaTypeEnum.ARITHMETIC;
 	}
 
 	@Override

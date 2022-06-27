@@ -74,7 +74,7 @@ public class GenTableColumnServiceImpl extends ServiceImpl<GenTableColumnMapper,
 	public boolean deleteGenTableColumns(List<GenTableColumn> genTableColumns) {
 		List<Long> columnIds = genTableColumns.stream().map(GenTableColumn::getId).collect(Collectors.toList());
 		LambdaQueryWrapper<GenTableColumn> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-		lambdaQueryWrapper.in(GenTableColumn::getId, Arrays.asList(columnIds));
+		lambdaQueryWrapper.in(GenTableColumn::getId, columnIds);
 		return remove(lambdaQueryWrapper);
 	}
 

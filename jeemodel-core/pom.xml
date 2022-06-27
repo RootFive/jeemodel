@@ -26,7 +26,7 @@
 
 		<!-- ==============↓↓↓↓↓↓↓==============必须组件======================================================== -->
 
-		<!-- SpringBoot Web容器 -->
+		<!-- SpringBoot Web容器 默认使用Tomcat容器-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

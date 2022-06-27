@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.core.utils.BlankUtils;
 
 /**
  * spring工具类 方便在非spring管理环境中获取bean
@@ -131,6 +131,6 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
 	 */
 	public static String getActiveProfile() {
 		final String[] activeProfiles = getActiveProfiles();
-		return StringUtils.isNotEmpty(activeProfiles) ? activeProfiles[0] : null;
+		return BlankUtils.isNotBlank(activeProfiles) ? activeProfiles[0] : null;
 	}
 }

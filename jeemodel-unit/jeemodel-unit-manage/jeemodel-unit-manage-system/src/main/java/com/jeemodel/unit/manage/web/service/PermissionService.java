@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 import com.jeemodel.base.annotation.HelpService;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.core.bean.entity.Role;
 import com.jeemodel.unit.manage.core.bean.model.LoginUser;
@@ -39,7 +40,7 @@ public class PermissionService {
 			return false;
 		}
 		LoginUser loginUser = SecurityUtils.getLoginUser();
-		if (StringUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getPermissions())) {
+		if (BlankUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getPermissions())) {
 			return false;
 		}
 		return hasPermissions(loginUser.getPermissions(), permission);
@@ -66,7 +67,7 @@ public class PermissionService {
 			return false;
 		}
 		LoginUser loginUser = SecurityUtils.getLoginUser();
-		if (StringUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getPermissions())) {
+		if (BlankUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getPermissions())) {
 			return false;
 		}
 		Set<String> authorities = loginUser.getPermissions();
@@ -89,7 +90,7 @@ public class PermissionService {
 			return false;
 		}
 		LoginUser loginUser = SecurityUtils.getLoginUser();
-		if (StringUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getUser().getRoles())) {
+		if (BlankUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getUser().getRoles())) {
 			return false;
 		}
 		for (Role Role : loginUser.getUser().getRoles()) {
@@ -122,7 +123,7 @@ public class PermissionService {
 			return false;
 		}
 		LoginUser loginUser = SecurityUtils.getLoginUser();
-		if (StringUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getUser().getRoles())) {
+		if (BlankUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getUser().getRoles())) {
 			return false;
 		}
 		for (String role : roles.split(ROLE_DELIMETER)) {

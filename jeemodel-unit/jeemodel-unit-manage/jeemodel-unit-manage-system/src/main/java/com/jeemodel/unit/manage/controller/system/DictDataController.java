@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
-import com.jeemodel.core.utils.StringUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.web.controller.BaseController;
 import com.jeemodel.data.utils.PageUtils;
 import com.jeemodel.unit.manage.bean.dto.system.DictDataListReq;
@@ -79,7 +79,7 @@ public class DictDataController extends BaseController {
 	@GetMapping(value = "/type/{dictType}")
 	public PongData<List<DictData>> dictType(@PathVariable String dictType) {
 		List<DictData> data = dictTypeService.selectDictDataByType(dictType);
-		if (StringUtils.isNull(data)) {
+		if (BlankUtils.isNull(data)) {
 			data = new ArrayList<DictData>();
 		}
 		return PongUtils.okData(data);

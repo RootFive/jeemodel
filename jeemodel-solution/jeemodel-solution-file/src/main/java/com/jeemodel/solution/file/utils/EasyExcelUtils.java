@@ -13,8 +13,8 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.fastjson2.JSON;
 import com.jeemodel.bean.enums.code.sub.impl.WarnCodeEnum;
 import com.jeemodel.bean.exception.base.IToBeJeeModelException;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.solution.file.dto.ExcelSheet;
 
 import lombok.extern.slf4j.Slf4j;

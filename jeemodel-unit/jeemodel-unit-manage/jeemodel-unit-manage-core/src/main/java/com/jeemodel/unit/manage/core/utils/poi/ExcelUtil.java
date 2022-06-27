@@ -63,13 +63,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 
 import com.jeemodel.bean.annotation.Excel;
-import com.jeemodel.bean.annotation.ExcelHandlerAdapter;
-import com.jeemodel.bean.annotation.Excels;
 import com.jeemodel.bean.annotation.Excel.ColumnType;
 import com.jeemodel.bean.annotation.Excel.Type;
+import com.jeemodel.bean.annotation.ExcelHandlerAdapter;
+import com.jeemodel.bean.annotation.Excels;
 import com.jeemodel.bean.exception.type.UtilsException;
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.DataTypeConvertUtils;
 import com.jeemodel.core.utils.DateTimeUtils;
 import com.jeemodel.core.utils.StringUtils;
@@ -247,7 +248,7 @@ public class ExcelUtil<T> {
 			Row heard = sheet.getRow(titleNum);
 			for (int i = 0; i < heard.getPhysicalNumberOfCells(); i++) {
 				Cell cell = heard.getCell(i);
-				if (StringUtils.isNotNull(cell)) {
+				if (BlankUtils.isNotNull(cell)) {
 					String value = this.getCellValue(heard, i).toString();
 					cellMap.put(value, i);
 				} else {
@@ -314,7 +315,7 @@ public class ExcelUtil<T> {
 					} else if (Boolean.TYPE == fieldType || Boolean.class == fieldType) {
 						val = DataTypeConvertUtils.toBool(val, false);
 					}
-					if (StringUtils.isNotNull(fieldType)) {
+					if (BlankUtils.isNotNull(fieldType)) {
 						String propertyName = field.getName();
 						if (StringUtils.isNotEmpty(attr.targetAttr())) {
 							propertyName = field.getName() + "." + attr.targetAttr();
@@ -324,7 +325,7 @@ public class ExcelUtil<T> {
 							val = reverseDictByExp(DataTypeConvertUtils.toStr(val), attr.dictType(), attr.separator());
 						} else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
 							val = dataFormatHandlerAdapter(val, attr);
-						} else if (ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures)) {
+						} else if (ColumnType.IMAGE == attr.cellType() && BlankUtils.isNotBlank(pictures)) {
 							PictureData image = pictures.get(row.getRowNum() + "_" + entry.getKey());
 							if (image == null) {
 								val = "";
@@ -625,9 +626,9 @@ public class ExcelUtil<T> {
 	 */
 	public void setCellVo(Object value, Excel attr, Cell cell) {
 		if (ColumnType.STRING == attr.cellType()) {
-			cell.setCellValue(StringUtils.isNull(value) ? attr.defaultValue() : value + attr.suffix());
+			cell.setCellValue(BlankUtils.isNull(value) ? attr.defaultValue() : value + attr.suffix());
 		} else if (ColumnType.NUMERIC == attr.cellType()) {
-			if (StringUtils.isNotNull(value)) {
+			if (BlankUtils.isNotNull(value)) {
 				cell.setCellValue(StringUtils.contains(DataTypeConvertUtils.toStr(value), ".") ? DataTypeConvertUtils.toDouble(value)
 						: DataTypeConvertUtils.toInt(value));
 			}
@@ -709,11 +710,11 @@ public class ExcelUtil<T> {
 				String readConverterExp = attr.readConverterExp();
 				String separator = attr.separator();
 				String dictType = attr.dictType();
-				if (StringUtils.isNotEmpty(dateFormat) && StringUtils.isNotNull(value)) {
+				if (StringUtils.isNotEmpty(dateFormat) && BlankUtils.isNotNull(value)) {
 					cell.setCellValue(DateTimeUtils.parseDateToStr(dateFormat, (Date) value));
-				} else if (StringUtils.isNotEmpty(readConverterExp) && StringUtils.isNotNull(value)) {
+				} else if (StringUtils.isNotEmpty(readConverterExp) && BlankUtils.isNotNull(value)) {
 					cell.setCellValue(convertByExp(DataTypeConvertUtils.toStr(value), readConverterExp, separator));
-				} else if (StringUtils.isNotEmpty(dictType) && StringUtils.isNotNull(value)) {
+				} else if (StringUtils.isNotEmpty(dictType) && BlankUtils.isNotNull(value)) {
 					cell.setCellValue(convertDictByExp(DataTypeConvertUtils.toStr(value), dictType, separator));
 				} else if (value instanceof BigDecimal && -1 != attr.scale()) {
 					cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).toString());
@@ -976,7 +977,7 @@ public class ExcelUtil<T> {
 	 * @throws Exception
 	 */
 	private Object getValue(Object o, String name) throws Exception {
-		if (StringUtils.isNotNull(o) && StringUtils.isNotEmpty(name)) {
+		if (BlankUtils.isNotNull(o) && StringUtils.isNotEmpty(name)) {
 			Class<?> clazz = o.getClass();
 			Field field = clazz.getDeclaredField(name);
 			field.setAccessible(true);
@@ -1079,7 +1080,7 @@ public class ExcelUtil<T> {
 		Object val = "";
 		try {
 			Cell cell = row.getCell(column);
-			if (StringUtils.isNotNull(cell)) {
+			if (BlankUtils.isNotNull(cell)) {
 				if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
 					val = cell.getNumericCellValue();
 					if (DateUtil.isCellDateFormatted(cell)) {

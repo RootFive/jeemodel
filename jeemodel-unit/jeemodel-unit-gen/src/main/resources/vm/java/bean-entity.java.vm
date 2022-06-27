@@ -3,6 +3,7 @@ package ${packageName}.bean.entity;
 #foreach ($import in $importList)
 import ${import};
 #end
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.jeemodel.bean.helper.JeeModelToStringBuilder;
 import com.jeemodel.data.entity.${baseEntityType};
 import ${packageName}.bean.dto.${ClassName}DTO;
@@ -23,6 +24,7 @@ import lombok.NoArgsConstructor;
  * @author ${author}
  * @date ${datetime}
  */
+@TableName("${tableName}")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)

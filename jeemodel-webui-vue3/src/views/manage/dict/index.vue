@@ -112,6 +112,11 @@
                </router-link>
             </template>
          </el-table-column>
+         <el-table-column label="字典数据Java类型" align="center" prop="dictDataJavaType">
+            <template #default="scope">
+               <dict-tag :options="manage_common_java_type" :value="scope.row.dictDataJavaType" />
+            </template>
+         </el-table-column>
          <el-table-column label="状态" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="manage_normal_disable" :value="scope.row.status" />
@@ -158,6 +163,16 @@
             <el-form-item label="字典类型" prop="dictType">
                <el-input v-model="form.dictType" placeholder="请输入字典类型" />
             </el-form-item>
+            <el-form-item label="Java类型" prop="dictDataJavaType">
+               <el-select v-model="form.dictDataJavaType" placeholder="请选择字典数据的Java类型">
+                  <el-option
+                     v-for="dict in manage_common_java_type"
+                     :key="dict.value"
+                     :label="dict.label"
+                     :value="dict.value"
+                  ></el-option>
+               </el-select>
+            </el-form-item>          
             <el-form-item label="状态" prop="status">
                <el-radio-group v-model="form.status">
                   <el-radio
@@ -185,7 +200,7 @@
 import { listType, getType, delType, addType, updateType, refreshCache } from "@/api/manage/dict/type";
 
 const { proxy } = getCurrentInstance();
-const { manage_normal_disable } = proxy.useDict("manage_normal_disable");
+const { manage_normal_disable,manage_common_java_type } = proxy.useDict("manage_normal_disable","manage_common_java_type");
 
 const typeList = ref([]);
 const open = ref(false);

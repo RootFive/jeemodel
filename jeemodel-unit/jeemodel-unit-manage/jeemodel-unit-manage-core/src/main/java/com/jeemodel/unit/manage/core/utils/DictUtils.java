@@ -3,6 +3,7 @@ package com.jeemodel.unit.manage.core.utils;
 import java.util.Collection;
 import java.util.List;
 
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.spring.SpringUtils;
 import com.jeemodel.solution.redis.core.cache.RedisCacheHelper;
@@ -38,7 +39,7 @@ public class DictUtils {
 	 */
 	public static List<DictData> getDictCache(String key) {
 		Object cacheObj = SpringUtils.getBean(RedisCacheHelper.class).getObject(getCacheKey(key));
-		if (StringUtils.isNotNull(cacheObj)) {
+		if (BlankUtils.isNotNull(cacheObj)) {
 			List<DictData> dictDatas = StringUtils.cast(cacheObj);
 			return dictDatas;
 		}
@@ -79,7 +80,7 @@ public class DictUtils {
 		StringBuilder propertyString = new StringBuilder();
 		List<DictData> datas = getDictCache(dictType);
 
-		if (StringUtils.containsAny(separator, dictValue) && StringUtils.isNotEmpty(datas)) {
+		if (StringUtils.containsAny(separator, dictValue) && BlankUtils.isNotBlank(datas)) {
 			for (DictData dict : datas) {
 				for (String value : dictValue.split(separator)) {
 					if (value.equals(dict.getDictValue())) {
@@ -110,7 +111,7 @@ public class DictUtils {
 		StringBuilder propertyString = new StringBuilder();
 		List<DictData> datas = getDictCache(dictType);
 
-		if (StringUtils.containsAny(separator, dictLabel) && StringUtils.isNotEmpty(datas)) {
+		if (StringUtils.containsAny(separator, dictLabel) && BlankUtils.isNotBlank(datas)) {
 			for (DictData dict : datas) {
 				for (String label : dictLabel.split(separator)) {
 					if (label.equals(dict.getDictLabel())) {

@@ -10,8 +10,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.alibaba.fastjson2.JSON;
 import com.jeemodel.bean.enums.code.sub.impl.FAILCodeEnum;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.annotation.SubmitLimit;
 import com.jeemodel.core.annotation.SubmitLimiter;
 import com.jeemodel.core.utils.ServletUtils;

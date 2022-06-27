@@ -12,9 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.alibaba.fastjson2.JSON;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.ServletUtils;
-import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.core.bean.model.LoginUser;
 import com.jeemodel.unit.manage.core.constant.ManageConstants;
 import com.jeemodel.unit.manage.core.web.service.TokenService;
@@ -41,7 +41,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		LoginUser loginUser = tokenService.getLoginUser(request);
-		if (StringUtils.isNotNull(loginUser)) {
+		if (BlankUtils.isNotNull(loginUser)) {
 			String userName = loginUser.getUsername();
 			// 删除用户缓存记录
 			tokenService.delLoginUser(loginUser.getToken());

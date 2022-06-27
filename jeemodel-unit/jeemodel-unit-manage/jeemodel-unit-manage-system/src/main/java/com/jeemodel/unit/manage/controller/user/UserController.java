@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongData;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongData;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.web.controller.BaseController;
 import com.jeemodel.data.utils.PageUtils;
@@ -114,7 +115,7 @@ public class UserController extends BaseController {
 		
 		UserInfo userInfo = new UserInfo(roles, posts);
 		
-		if (StringUtils.isNotNull(userId)) {
+		if (BlankUtils.isNotNull(userId)) {
 			User user = userService.selectUserById(userId);
 			List<Long> postIds = postService.selectPostListByUserId(userId);
 			List<Long> roleIds = roleService.selectRoleListByUserId(userId);

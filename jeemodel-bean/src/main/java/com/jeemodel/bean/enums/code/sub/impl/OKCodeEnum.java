@@ -14,7 +14,7 @@ import lombok.Getter;
 public enum OKCodeEnum implements ISubCodeSystem {
 
 	/** 全部成功：{@link SubCodeSysType2#OK} */
-	ALL	(BaseSubCodeTypeSystemEnum.OK,"一切OK~"),
+	ALL	(BaseSubCodeTypeSystemEnum.OK,"全部成功"),
 	
 	/** 部分成功：{@link SubCodeSysType2#OK} */
 	PART	(BaseSubCodeTypeSystemEnum.OK,"部分成功"),

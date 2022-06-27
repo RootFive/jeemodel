@@ -18,6 +18,7 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import com.alibaba.fastjson2.JSON;
 import com.jeemodel.core.enums.HttpMethod;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.ServletUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.ip.IpUtils;
@@ -125,7 +126,7 @@ public class LogAspect {
 			setRequestValue(joinPoint, operLog);
 		}
 		// 是否需要保存response，参数和值
-		if (log.isSaveResponseData() && StringUtils.isNotNull(jsonResult)) {
+		if (log.isSaveResponseData() && BlankUtils.isNotNull(jsonResult)) {
 			operLog.setJsonResult(StringUtils.substring(JSON.toJSONString(jsonResult), 0, 2000));
 		}
 	}
@@ -155,7 +156,7 @@ public class LogAspect {
 		String params = "";
 		if (paramsArray != null && paramsArray.length > 0) {
 			for (Object o : paramsArray) {
-				if (StringUtils.isNotNull(o) && !isFilterObject(o)) {
+				if (BlankUtils.isNotNull(o) && !isFilterObject(o)) {
 					try {
 						Object jsonObj = JSON.toJSON(o);
 						params += jsonObj.toString() + " ";

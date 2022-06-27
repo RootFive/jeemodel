@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jeemodel.core.utils.ObjectUtils;
+import com.jeemodel.core.utils.BlankUtils;
 
 #if($table.sub)
 #if($subTableFkJavaType == "Date" || $subTableFkJavaType == "BigDecimal" )
@@ -73,28 +73,28 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
 #if($column.query)
 #if($column.queryType == "EQ")
         //$column.columnComment， 等于查询EQ 【value = 查询值】
-        lambdaQuery.eq(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.eq(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "NE")
         //$column.columnComment， 不等于查询NE 【value != 查询值】
-        lambdaQuery.ne(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.ne(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "GT")
         //$column.columnComment， 大于查询GT 【value > 查询值】
-        lambdaQuery.gt(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.gt(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "GTE")
         //$column.columnComment， 大于等于查询GTE 【value >= 查询值】
-        lambdaQuery.gte(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.gte(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "LT")
         //$column.columnComment， 小于查询LT 【value < 查询值】
-        lambdaQuery.lt(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.lt(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "LTE")
         //$column.columnComment， 小于等于查询LTE 【value <= 查询值】
-        lambdaQuery.lte(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.lte(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "LIKE")
         //$column.columnComment， like模糊查询：【value like 查询值 】
-        lambdaQuery.like(ObjectUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
+        lambdaQuery.like(BlankUtils.isNotBlank(listReq.get$AttrName()), ${ClassName}::get$AttrName, listReq.get$AttrName());
 #elseif($queryType == "BETWEEN")
         //$column.columnComment， between区间查询-【begin$AttrName <= 查询值  <= end$AttrName】 Java类型是：$column.javaType 
-        lambdaQuery.between(ObjectUtils.isNotBlank(listReq.getBegin$AttrName()) && ObjectUtils.isNotBlank(listReq.getEnd$AttrName()), ${ClassName}::get$AttrName, listReq.getBegin$AttrName(),listReq.getEnd$AttrName());
+        lambdaQuery.between(BlankUtils.isNotBlank(listReq.getBegin$AttrName()) && BlankUtils.isNotBlank(listReq.getEnd$AttrName()), ${ClassName}::get$AttrName, listReq.getBegin$AttrName(),listReq.getEnd$AttrName());
 #end
 #end
 #end

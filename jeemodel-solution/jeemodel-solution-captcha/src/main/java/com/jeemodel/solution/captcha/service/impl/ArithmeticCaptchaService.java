@@ -21,15 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service("ArithmeticCaptcha")
 public class ArithmeticCaptchaService  implements ICaptchaService{
 
-	//@Resource(name = "captchaProducer")
-	//private Producer captchaProducer;
-
 	@Resource(name = "captchaProducerMath")
 	private Producer captchaProducerMath;
 
-	// 验证码类型:默认数学计算 math 数学计算 char 字符验证
-	//private String captchaType ="math";
-	
 	
 	@Override
 	public CaptchaImage createCaptcha(int width, int height) {

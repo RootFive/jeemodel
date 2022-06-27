@@ -298,7 +298,15 @@
 				<artifactId>jeemodel-solution-microservice</artifactId>
 				<version>${jeemodel.version}</version>
 			</dependency>
+			
+			<!-- Netty -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-solution-netty</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
 
+			<!-- redis -->
 			<dependency>
 				<groupId>com.jeemodel</groupId>
 				<artifactId>jeemodel-solution-redis</artifactId>
@@ -323,6 +331,25 @@
 				<artifactId>jeemodel-unit-gen</artifactId>
 				<version>${jeemodel.version}</version>
 			</dependency>
+
+			<!-- 统一标识 -->
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-idcode-common</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-idcode-server</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-idcode-client</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+
+
 
 		</dependencies>
 	</dependencyManagement>

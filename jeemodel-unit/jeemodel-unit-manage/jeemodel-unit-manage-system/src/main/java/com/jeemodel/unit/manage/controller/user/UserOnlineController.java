@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeemodel.bean.http.Pong;
-import com.jeemodel.bean.http.PongTable;
-import com.jeemodel.bean.http.PongUtils;
+import com.jeemodel.bean.rpc.Pong;
+import com.jeemodel.bean.rpc.PongTable;
+import com.jeemodel.bean.rpc.PongUtils;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.web.controller.BaseController;
 import com.jeemodel.data.utils.PageUtils;
@@ -56,7 +57,7 @@ public class UserOnlineController extends BaseController {
 				if (StringUtils.equals(ipaddr, user.getIpaddr())) {
 					userOnlineList.add(userOnlineService.selectOnlineByIpaddr(ipaddr, user));
 				}
-			} else if (StringUtils.isNotEmpty(userName) && StringUtils.isNotNull(user.getUser())) {
+			} else if (StringUtils.isNotEmpty(userName) && BlankUtils.isNotNull(user.getUser())) {
 				if (StringUtils.equals(userName, user.getUsername())) {
 					userOnlineList.add(userOnlineService.selectOnlineByUserName(userName, user));
 				}

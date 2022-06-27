@@ -26,7 +26,7 @@ public class GenUtils {
 	public static void initTable(GenTable genTable, String operName) {
 		genTable.setClassName(convertClassName(genTable.getTableName()));
 		genTable.setPackageName(GenConfigHelper.getPackageName());
-		genTable.setModuleName(getModuleName(GenConfigHelper.getPackageName()));
+		genTable.setModuleName(getModuleName(genTable.getTableName()));
 		genTable.setBusinessName(getBusinessName(genTable.getTableName()));
 		genTable.setFunctionName(replaceText(genTable.getTableComment()));
 		genTable.setFunctionAuthor(GenConfigHelper.getAuthor());
@@ -135,10 +135,9 @@ public class GenUtils {
 	 * @param packageName 包名
 	 * @return 模块名
 	 */
-	public static String getModuleName(String packageName) {
-		int lastIndex = packageName.lastIndexOf(".");
-		int nameLength = packageName.length();
-		String moduleName = StringUtils.substring(packageName, lastIndex + 1, nameLength);
+	public static String getModuleName(String tableName) {
+		
+		String moduleName = StringUtils.substringBefore(tableName, "_");
 		return moduleName;
 	}
 
@@ -149,9 +148,8 @@ public class GenUtils {
 	 * @return 业务名
 	 */
 	public static String getBusinessName(String tableName) {
-		int lastIndex = tableName.lastIndexOf("_");
-		int nameLength = tableName.length();
-		String businessName = StringUtils.substring(tableName, lastIndex + 1, nameLength);
+		String businessName = StringUtils.substringAfter(tableName, "_");
+		businessName = StringUtils.toCamelCase(businessName);
 		return businessName;
 	}
 

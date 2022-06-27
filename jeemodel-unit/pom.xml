@@ -17,6 +17,7 @@
 	<modules>
 		<module>jeemodel-unit-manage</module>
 		<module>jeemodel-unit-gen</module>
+		<module>jeemodel-unit-idcode</module>
 	</modules>
 	
 </project>

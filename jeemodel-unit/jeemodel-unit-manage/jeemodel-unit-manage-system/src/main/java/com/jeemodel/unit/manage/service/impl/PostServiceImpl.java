@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.manage.bean.entity.Post;
 import com.jeemodel.unit.manage.core.constant.UserConstants;
@@ -66,9 +67,9 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements IP
 	 */
 	@Override
 	public String checkPostNameUnique(Post post) {
-		Long id = StringUtils.isNull(post.getId()) ? -1L : post.getId();
+		Long id = BlankUtils.isNull(post.getId()) ? -1L : post.getId();
 		Post info = lambdaQuery().eq(Post::getPostName, post.getPostName()).one();
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != id.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != id.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;
@@ -82,9 +83,9 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements IP
 	 */
 	@Override
 	public String checkPostCodeUnique(Post post) {
-		Long id = StringUtils.isNull(post.getId()) ? -1L : post.getId();
+		Long id = BlankUtils.isNull(post.getId()) ? -1L : post.getId();
 		Post info = lambdaQuery().eq(Post::getPostCode, post.getPostCode()).one();
-		if (StringUtils.isNotNull(info) && info.getId().longValue() != id.longValue()) {
+		if (BlankUtils.isNotNull(info) && info.getId().longValue() != id.longValue()) {
 			return UserConstants.NOT_UNIQUE;
 		}
 		return UserConstants.UNIQUE;

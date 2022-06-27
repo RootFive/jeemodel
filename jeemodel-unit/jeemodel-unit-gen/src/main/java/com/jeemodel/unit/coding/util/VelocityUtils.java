@@ -9,6 +9,7 @@ import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.jeemodel.bean.exception.type.CheckException;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.DateTimeUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.unit.coding.config.GenConfigHelper;
@@ -355,7 +356,7 @@ public class VelocityUtils {
 			return businessName + "Menu.sql";
 		}else if (template.contains("api.js.vm")) {
 			//管理系统的JS接口罗列,默认都需要
-			return StringUtils.format("{}/api/{}/{}.js", vuePath, moduleName, businessName);
+			return StringUtils.format("{}/api/unit/{}/{}.js", vuePath, moduleName, businessName);
 		}
 		
 		
@@ -365,19 +366,19 @@ public class VelocityUtils {
 			//管理系统的页面
 			if (template.contains("vm/vue2/index.vue.vm")  && StringUtils.equalsAnyIgnoreCase(genTable.getTplCategory(), GenConstants.TPL_CRUD,GenConstants.TPL_SUB) ) {
 				//普通页面和主子页面
-				fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
+				fileName = StringUtils.format("{}/views/unit/{}/{}/index.vue", vuePath, moduleName, businessName);
 			} else if (template.contains("vm/vue2/index-tree.vue.vm")  && GenConstants.TPL_TREE.equals(genTable.getTplCategory()) ) {
 				//树形页面
-				fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
+				fileName = StringUtils.format("{}/views/unit/{}/{}/index.vue", vuePath, moduleName, businessName);
 			}
 		}else if (StringUtils.equalsAnyIgnoreCase(vueVersion, GenConstants.VUE_3)) {
 			//管理系统的页面
 			if (template.contains("vm/vue3/index.vue.vm")  && StringUtils.equalsAnyIgnoreCase(genTable.getTplCategory(), GenConstants.TPL_CRUD,GenConstants.TPL_SUB) ) {
 				//普通页面和主子页面
-				fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
+				fileName = StringUtils.format("{}/views/unit/{}/{}/index.vue", vuePath, moduleName, businessName);
 			} else if (template.contains("vm/vue3/index-tree.vue.vm")  && GenConstants.TPL_TREE.equals(genTable.getTplCategory()) ) {
 				//树形页面
-				fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
+				fileName = StringUtils.format("{}/views/unit/{}/{}/index.vue", vuePath, moduleName, businessName);
 			}
 		}else {
 			throw new CheckException("请在生成信息选择VUE版本");
@@ -407,7 +408,7 @@ public class VelocityUtils {
 		List<GenTableColumn> columns = genTable.getColumns();
 		GenTable subGenTable = genTable.getSubTable();
 		HashSet<String> importList = new HashSet<String>();
-		if (StringUtils.isNotNull(subGenTable)) {
+		if (BlankUtils.isNotNull(subGenTable)) {
 			// importList.add("java.util.List"); TODO
 		}
 		for (GenTableColumn column : columns) {
@@ -458,7 +459,7 @@ public class VelocityUtils {
 	 * @return 上级菜单ID字段
 	 */
 	public static String getParentMenuId(JSONObject paramsObj) {
-		if (StringUtils.isNotEmpty(paramsObj) && paramsObj.containsKey(GenConstants.PARENT_MENU_ID)
+		if (BlankUtils.isNotBlank(paramsObj) && paramsObj.containsKey(GenConstants.PARENT_MENU_ID)
 				&& StringUtils.isNotEmpty(paramsObj.getString(GenConstants.PARENT_MENU_ID))) {
 			return paramsObj.getString(GenConstants.PARENT_MENU_ID);
 		}

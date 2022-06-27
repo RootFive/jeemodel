@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.jeemodel.core.constant.Constants;
+import com.jeemodel.core.utils.BlankUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.html.EscapeUtil;
 import com.jeemodel.core.utils.http.HttpUtils;
@@ -121,7 +122,7 @@ public class IpUtils {
 	 * @return
 	 */
 	private static boolean internalIp(byte[] addr) {
-		if (StringUtils.isNull(addr) || addr.length < 2) {
+		if (BlankUtils.isNull(addr) || addr.length < 2) {
 			return true;
 		}
 		final byte b0 = addr[0];

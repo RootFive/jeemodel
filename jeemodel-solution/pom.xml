@@ -15,5 +15,6 @@
   	<module>jeemodel-solution-file</module>
   	<module>jeemodel-solution-redis</module>
   	<module>jeemodel-solution-microservice</module>
+  	<module>jeemodel-solution-netty</module>
   </modules>
 </project>

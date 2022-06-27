@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-unit</artifactId>
+		<version>JM202206X</version>
+	</parent>
+	<artifactId>jeemodel-unit-idcode</artifactId>
+	<packaging>pom</packaging>
+	<name>jeemodel-unit-idcode</name>
+	<description>统一标识编码服务</description>
+	<modules>
+		<module>jeemodel-unit-idcode-common</module>
+		<module>jeemodel-unit-idcode-server</module>
+		<module>jeemodel-unit-idcode-client</module>
+		<module>jeemodel-unit-idcode-manage</module>
+	</modules>
+</project>
