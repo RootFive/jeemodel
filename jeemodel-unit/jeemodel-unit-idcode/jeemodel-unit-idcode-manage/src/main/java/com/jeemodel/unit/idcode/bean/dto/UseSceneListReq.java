@@ -37,7 +37,7 @@ public class UseSceneListReq extends UseSceneDTO {
 	@ApiModelProperty(value = "场景标识-名称， like模糊查询：【value like 查询值 】")
 	private String sceneName;
 
-	@ApiModelProperty(value = "场景标识-编码（36进制，最大46655）， 等于查询EQ 【value = 查询值】")
+	@ApiModelProperty(value = "场景标识-编码（35进制，最大42874）， 等于查询EQ 【value = 查询值】")
 	private String sceneCode;
 
 	@ApiModelProperty(value = "标识-长度（3-6）， 等于查询EQ 【value = 查询值】")

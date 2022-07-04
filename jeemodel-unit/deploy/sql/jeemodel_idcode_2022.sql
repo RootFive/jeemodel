@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `idcode_use_scene`;
 CREATE TABLE `idcode_use_scene`  (
   `id` 				bigint 			NOT NULL AUTO_INCREMENT 	COMMENT '主键ID',
   `scene_name` 		varchar(30)  	NOT NULL 					COMMENT '场景标识-名称',
-  `scene_code` 		char(3)  		NOT NULL 					COMMENT '场景标识-编码（36进制，最大46655）',
+  `scene_code` 		char(3)  		NOT NULL 					COMMENT '场景标识-编码（35进制，最大42874）',
   `uid_length` 		tinyint(1) 		NOT NULL			 		COMMENT '场景标识-长度（3-6）',
   `uid_serial` 		bigint  		NOT NULL DEFAULT 0 			COMMENT '场景标识-序列号',
   
@@ -26,9 +26,6 @@ CREATE TABLE `idcode_use_scene`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uk_code` (`scene_code`) COMMENT '场景标识-标识唯一'
 ) ENGINE = InnoDB  COMMENT = '场景标识表' ;
-
-INSERT INTO `idcode_use_scene` ( `scene_name`, `scene_code`, `uid_length`,`remark` ) VALUES( '上市公司标识', '01', 4 , '闲捞财上市公司编码');
-
 
 
 -- 更新数据后可以在开启外键约束

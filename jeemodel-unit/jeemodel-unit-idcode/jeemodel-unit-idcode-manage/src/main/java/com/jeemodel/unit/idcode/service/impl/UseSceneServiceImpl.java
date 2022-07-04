@@ -46,7 +46,7 @@ public class UseSceneServiceImpl extends ServiceImpl<UseSceneMapper, UseScene> i
 		LambdaQueryChainWrapper<UseScene> lambdaQuery = lambdaQuery();
 		// 场景标识-名称， like模糊查询：【value like 查询值 】
 		lambdaQuery.like(BlankUtils.isNotBlank(listReq.getSceneName()), UseScene::getSceneName, listReq.getSceneName());
-		// 场景标识-编码（36进制，最大46655）， 等于查询EQ 【value = 查询值】
+		// 场景标识-编码（35进制，最大42874）， 等于查询EQ 【value = 查询值】
 		lambdaQuery.eq(BlankUtils.isNotBlank(listReq.getSceneCode()), UseScene::getSceneCode, listReq.getSceneCode());
 		// 标识-长度（3-6）， 等于查询EQ 【value = 查询值】
 		lambdaQuery.eq(BlankUtils.isNotBlank(listReq.getUidLength()), UseScene::getUidLength, listReq.getUidLength());
