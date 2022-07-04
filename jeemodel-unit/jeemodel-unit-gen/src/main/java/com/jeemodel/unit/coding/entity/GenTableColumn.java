@@ -40,25 +40,25 @@ public class GenTableColumn extends BaseEntityCRUD {
 	private String javaField;
 
 	/** 是否主键（1是） */
-	private String isPk;
+	private boolean isPk;
 
 	/** 是否自增（1是） */
-	private String isIncrement;
+	private boolean isIncrement;
 
 	/** 是否必填（1是） */
-	private String isRequired;
+	private boolean isRequired;
 
 	/** 是否为插入字段（1是） */
-	private String isInsert;
+	private boolean isInsert;
 
 	/** 是否编辑字段（1是） */
-	private String isEdit;
+	private boolean isEdit;
 
 	/** 是否列表字段（1是） */
-	private String isList;
+	private boolean isList;
 
 	/** 是否查询字段（1是） */
-	private String isQuery;
+	private boolean isQuery;
 
 	/** 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围） */
 	private String queryType;
@@ -80,63 +80,63 @@ public class GenTableColumn extends BaseEntityCRUD {
 		return StringUtils.capitalize(javaField);
 	}
 
-	public boolean isPk() {
-		return isPk(this.isPk);
-	}
+//	public boolean isPk() {
+//		return isPk(this.isPk);
+//	}
+//
+//	public boolean isPk(String isPk) {
+//		return isPk != null && StringUtils.equals("1", isPk);
+//	}
+//
+//	public boolean isIncrement() {
+//		return isIncrement(this.isIncrement);
+//	}
+//
+//	public boolean isIncrement(String isIncrement) {
+//		return isIncrement != null && StringUtils.equals("1", isIncrement);
+//	}
 
-	public boolean isPk(String isPk) {
-		return isPk != null && StringUtils.equals("1", isPk);
-	}
+//	public boolean isRequired() {
+//		return isRequired(this.isRequired);
+//	}
 
-	public boolean isIncrement() {
-		return isIncrement(this.isIncrement);
-	}
+//	public boolean isRequired(String isRequired) {
+//		return isRequired != null && StringUtils.equals("1", isRequired);
+//	}
 
-	public boolean isIncrement(String isIncrement) {
-		return isIncrement != null && StringUtils.equals("1", isIncrement);
-	}
+//	public boolean isInsert() {
+//		return isInsert(this.isInsert);
+//	}
+//
+//	public boolean isInsert(String isInsert) {
+//		return isInsert != null && StringUtils.equals("1", isInsert);
+//	}
 
-	public boolean isRequired() {
-		return isRequired(this.isRequired);
-	}
-
-	public boolean isRequired(String isRequired) {
-		return isRequired != null && StringUtils.equals("1", isRequired);
-	}
-
-	public boolean isInsert() {
-		return isInsert(this.isInsert);
-	}
-
-	public boolean isInsert(String isInsert) {
-		return isInsert != null && StringUtils.equals("1", isInsert);
-	}
-
-	public boolean isEdit() {
-		return isInsert(this.isEdit);
-	}
-
-	public boolean isEdit(String isEdit) {
-		return isEdit != null && StringUtils.equals("1", isEdit);
-	}
-
-
-	public boolean isList() {
-		return isList(this.isList);
-	}
-
-	public boolean isList(String isList) {
-		return isList != null && StringUtils.equals("1", isList);
-	}
+//	public boolean isEdit() {
+//		return isInsert(this.isEdit);
+//	}
+//
+//	public boolean isEdit(String isEdit) {
+//		return isEdit != null && StringUtils.equals("1", isEdit);
+//	}
 
 
-	public boolean isQuery() {
-		return isQuery(this.isQuery);
-	}
+//	public boolean isList() {
+//		return isList(this.isList);
+//	}
+//
+//	public boolean isList(String isList) {
+//		return isList != null && StringUtils.equals("1", isList);
+//	}
 
-	public boolean isQuery(String isQuery) {
-		return isQuery != null && StringUtils.equals("1", isQuery);
-	}
+
+//	public boolean isQuery() {
+//		return isQuery(this.isQuery);
+//	}
+//
+//	public boolean isQuery(String isQuery) {
+//		return isQuery != null && StringUtils.equals("1", isQuery);
+//	}
 
 
 

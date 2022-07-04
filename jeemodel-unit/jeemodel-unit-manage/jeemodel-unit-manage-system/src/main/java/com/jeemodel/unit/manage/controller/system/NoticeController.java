@@ -87,7 +87,6 @@ public class NoticeController extends BaseController {
 	@Log(title = "通知公告", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
 	public Pong remove(@PathVariable Long[] ids) {
-//		return PongUtils.result(noticeService.deleteNoticeByIds(ids));
 		return PongUtils.result(noticeService.removeByIds(Arrays.asList(ids)));
 	}
 }

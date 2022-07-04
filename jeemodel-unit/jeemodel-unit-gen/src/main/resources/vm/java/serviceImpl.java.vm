@@ -28,6 +28,9 @@ import ${packageName}.bean.entity.${subClassName};
 import ${packageName}.service.I${subClassName}Service;
 #end
 import ${packageName}.bean.dto.${ClassName}EditSave;
+#if($table.crud || $table.sub)
+import ${packageName}.bean.dto.${ClassName}ListReq;
+#end
 import ${packageName}.bean.entity.${ClassName};
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.service.I${ClassName}Service;
@@ -62,7 +65,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
      * @return ${functionName}列表
      */
     @Override
-    public List<${ClassName}> select${ClassName}List(${ClassName} listReq) {
+    public List<${ClassName}> select${ClassName}List(${ClassName}ListReq listReq) {
         LambdaQueryChainWrapper<${ClassName}> lambdaQuery = lambdaQuery();
 #foreach($column in $columns)
 #set($queryType=$column.queryType)

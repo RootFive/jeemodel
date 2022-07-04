@@ -1,9 +1,24 @@
-# 第一部分：jeemodel_gen数据库创建【代码生产模块】业务表
--- 启用 jeemodel_gen 数据库
-USE jeemodel_gen;
+# 第一部分：jeemodel_${moduleName}【业务库】业务表
+-- 启用 jeemodel_${moduleName} 数据库
+USE jeemodel_${moduleName};
 
 -- 更新数据前 禁用外键约束
 SET FOREIGN_KEY_CHECKS = 0;
+
+
+
+-- 更新数据后可以在开启外键约束
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+# 第二部分：jeemodel_manage【管理系统】 菜单信息
+-- 启用 jeemodel_manage 数据库
+USE jeemodel_manage;
+
+-- 更新数据前 禁用外键约束
+SET FOREIGN_KEY_CHECKS = 0;
+
 
 -- 菜单 SQL
 

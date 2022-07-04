@@ -48,7 +48,6 @@ public class LoginController {
 	@PostMapping("/login")
 	public PongData<LoginResult> login(@RequestBody LoginBody loginBody) {
 		// 生成令牌
-//		throw ExceptionUtils.warn();
 		String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),loginBody.getUuid());
 		return PongUtils.okData(new LoginResult(token));
 	}

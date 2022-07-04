@@ -1,5 +1,6 @@
 package com.jeemodel.core.utils.bean;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,8 +118,8 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
 		}
 		T targetObj = null;
 		try {
-			targetObj = targetClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+			targetObj = targetClass.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			log.error("sourceObj:{},targetClass:{}", sourceObj, targetClass, e);
 			return null;
 		}

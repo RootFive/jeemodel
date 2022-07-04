@@ -44,6 +44,7 @@ public class UserLogOperController extends BaseController {
 		List<UserLogOper> list = operLogService.selectOperLogList(listReq);
 		return PageUtils.okTable(list);
 	}
+	
 
 	@Log(title = "操作日志", businessType = BusinessType.EXPORT)
 	@PreAuthorize("@ss.hasPermi('manage:logUserOper:export')")
@@ -53,12 +54,12 @@ public class UserLogOperController extends BaseController {
 		ExcelUtil<UserLogOper> util = new ExcelUtil<UserLogOper>(UserLogOper.class);
 		util.exportExcel(response, list, "操作日志");
 	}
+	
 
 	@Log(title = "操作日志", businessType = BusinessType.DELETE)
 	@PreAuthorize("@ss.hasPermi('manage:logUserOper:remove')")
 	@DeleteMapping("/{ids}")
 	public Pong remove(@PathVariable Long[] ids) {
-//		return PongUtils.result(operLogService.deleteOperLogByIds(ids));
 		return PongUtils.result(operLogService.removeByIds(Arrays.asList(ids)));
 	}
 

@@ -24,7 +24,7 @@
       <el-form-item label="系统内置" prop="configType">
         <el-select v-model="queryParams.configType" placeholder="系统内置" clearable size="small">
           <el-option
-            v-for="dict in dict.type.manage_yes_no"
+            v-for="dict in dict.type.jeemodel_common_yes_no"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -113,7 +113,7 @@
       <el-table-column label="参数键值" align="center" prop="configValue" />
       <el-table-column label="系统内置" align="center" prop="configType">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.manage_yes_no" :value="scope.row.configType"/>
+          <dict-tag :options="dict.type.jeemodel_common_yes_no" :value="scope.row.configType"/>
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
@@ -165,7 +165,7 @@
         <el-form-item label="系统内置" prop="configType">
           <el-radio-group v-model="form.configType">
             <el-radio
-              v-for="dict in dict.type.manage_yes_no"
+              v-for="dict in dict.type.jeemodel_common_yes_no"
               :key="dict.value"
               :label="dict.value"
             >{{dict.label}}</el-radio>
@@ -188,7 +188,7 @@ import { listConfig, getConfig, delConfig, addConfig, updateConfig, refreshCache
 
 export default {
   name: "Config",
-  dicts: ['manage_yes_no'],
+  dicts: ['jeemodel_common_yes_no'],
   data() {
     return {
       // 遮罩层

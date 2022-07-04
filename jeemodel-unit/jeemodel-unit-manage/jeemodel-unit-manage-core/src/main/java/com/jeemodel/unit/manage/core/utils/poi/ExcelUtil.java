@@ -277,7 +277,7 @@ public class ExcelUtil<T> {
 					Object val = this.getCellValue(row, entry.getKey());
 
 					// 如果不存在实例则新建.
-					entity = (entity == null ? clazz.newInstance() : entity);
+					entity = (entity == null ? clazz.getDeclaredConstructor().newInstance() : entity);
 					// 从map中得到对应列的field.
 					Field field = (Field) entry.getValue()[0];
 					Excel attr = (Excel) entry.getValue()[1];
@@ -875,7 +875,7 @@ public class ExcelUtil<T> {
 	 */
 	public String dataFormatHandlerAdapter(Object value, Excel excel) {
 		try {
-			Object instance = excel.handler().newInstance();
+			Object instance = excel.handler().getDeclaredConstructor().newInstance();
 			Method formatMethod = excel.handler().getMethod("format", new Class[] { Object.class, String[].class });
 			value = formatMethod.invoke(instance, value, excel.args());
 		} catch (Exception e) {

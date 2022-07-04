@@ -12,7 +12,7 @@
          <el-form-item label="状态" prop="status">
             <el-select v-model="queryParams.status" placeholder="部门状态" clearable>
                <el-option
-                  v-for="dict in manage_normal_disable"
+                  v-for="dict in jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -58,7 +58,7 @@
          <el-table-column prop="orderNum" label="排序" width="200"></el-table-column>
          <el-table-column prop="status" label="状态" width="100">
             <template #default="scope">
-               <dict-tag :options="manage_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="jeemodel_common_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="创建时间" align="center" prop="createTime" width="200">
@@ -136,7 +136,7 @@
                   <el-form-item label="部门状态">
                      <el-radio-group v-model="form.status">
                         <el-radio
-                           v-for="dict in manage_normal_disable"
+                           v-for="dict in jeemodel_common_normal_disable"
                            :key="dict.value"
                            :label="dict.value"
                         >{{ dict.label }}</el-radio>
@@ -159,7 +159,7 @@
 import { listDept, getDept, delDept, addDept, updateDept, listDeptExcludeChild } from "@/api/manage/dept/dept";
 
 const { proxy } = getCurrentInstance();
-const { manage_normal_disable } = proxy.useDict("manage_normal_disable");
+const { jeemodel_common_normal_disable } = proxy.useDict("jeemodel_common_normal_disable");
 
 const deptList = ref([]);
 const open = ref(false);

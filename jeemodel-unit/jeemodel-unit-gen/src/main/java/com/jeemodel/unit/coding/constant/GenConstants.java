@@ -117,7 +117,7 @@ public class GenConstants {
 	public static final String QUERY_LIKE = "LIKE";
 
 	/** 需要 */
-	public static final String REQUIRE = "1";
+	public static final boolean REQUIRE = true;
 	
 	/** Entity后缀 */
 	public static final String BEAN_ENTITY_SUFFIX = "Entity";

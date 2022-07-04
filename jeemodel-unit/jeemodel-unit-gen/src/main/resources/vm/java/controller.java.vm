@@ -29,6 +29,9 @@ import com.jeemodel.bean.rpc.PongData;
 import com.jeemodel.bean.rpc.PongUtils;
 import ${packageName}.bean.dto.${ClassName}DTO;
 import ${packageName}.bean.dto.${ClassName}EditSave;
+#if($table.crud || $table.sub)
+import ${packageName}.bean.dto.${ClassName}ListReq;
+#end
 #if($table.sub)
 import ${packageName}.bean.dto.${ClassName}Inc${subClassName}List;
 #end
@@ -64,9 +67,9 @@ public class ${ClassName}Controller extends BaseController {
     @ApiOperation(value = "查询-${functionName}-列表")
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
     @GetMapping("/list")
-    public PongTable<${ClassName}DTO> list(${ClassName} ${className}) {
+    public PongTable<${ClassName}DTO> list(${ClassName}ListReq listReq) {
         PageUtils.startPage();
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(listReq);
 		
         List<${ClassName}DTO> listDTO = list.stream().map(${ClassName}::toDTO).collect(Collectors.toList());
         return PageUtils.okTable(listDTO);
@@ -77,8 +80,8 @@ public class ${ClassName}Controller extends BaseController {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:export')")
     @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, ${ClassName} ${className}) {
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+    public void export(HttpServletResponse response, ${ClassName}ListReq listReq) {
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(listReq);
         List<${ClassName}DTO> listDTO = list.stream().map(${ClassName}::toDTO).collect(Collectors.toList());
         ExcelUtil<${ClassName}DTO> util = new ExcelUtil<>(${ClassName}DTO.class);
         util.exportExcel(response, listDTO, "${functionName}数据");

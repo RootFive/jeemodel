@@ -39,7 +39,8 @@ public abstract class BaseNettyClient implements INettyServer {
 		log.debug("开始-初始化[Netty-Client]的线程组和服务器（启动对象）");
 
 		// 处理业务的线程组
-		workerGroup = new NioEventLoopGroup(NettyConstants.AVAILABLE_PROCESSORS * 10, new ThreadFactory() {
+		int  workerGroupNThreads = NettyConstants.AVAILABLE_PROCESSORS * 10;
+		workerGroup = new NioEventLoopGroup(workerGroupNThreads, new ThreadFactory() {
 			private AtomicInteger index = new AtomicInteger(0);
 
 			@Override
@@ -47,7 +48,7 @@ public abstract class BaseNettyClient implements INettyServer {
 				return new Thread(r, "WORKER_" + index.incrementAndGet());
 			}
 		});
-		log.debug("初始化[Netty-Client] 处理业务的线程组 [workerGroup]-已完成");
+		log.debug("初始化[Netty-Client] 处理业务的线程组 [workerGroup]-已完成，线程数：{}",workerGroupNThreads);
 
 		// 服务器的启动对象
 		bootstrap = new Bootstrap();

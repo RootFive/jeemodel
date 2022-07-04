@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 通过雪花算法生成唯一ID，写入Channel返回
+ * 
  * @Sharable 注解用来说明ChannelHandler是否可以在多个channel直接共享使用。
  */
 @Sharable
@@ -54,15 +55,15 @@ public class SDKServerHandler extends BaseNettyInboundHandler<Ping<IDCodeDemandD
 		executeHandler(ctx, channelPingMsg);
 	}
 
-//	private void overHandler(ChannelHandlerContext ctx, PongData<ProtoDTO> pong, String echo) {
-//		// 设置回声echo
-//		if (StringUtils.isBlank(echo)) {
-//			echo = nextIdCodeHelper.nextEcho();
-//		}
-//		pong.setEcho(echo);
-//		ctx.channel().writeAndFlush(pong);
-//
-//	}
+	//	private void overHandler(ChannelHandlerContext ctx, PongData<ProtoDTO> pong, String echo) {
+	//		// 设置回声echo
+	//		if (StringUtils.isBlank(echo)) {
+	//			echo = nextIdCodeHelper.nextEcho();
+	//		}
+	//		pong.setEcho(echo);
+	//		ctx.channel().writeAndFlush(pong);
+	//
+	//	}
 
 	@SuppressWarnings("unchecked")
 	protected void executeHandler(ChannelHandlerContext ctx, Ping<IDCodeDemandDTO> channelPingMsg) {

@@ -4,6 +4,9 @@ import java.util.List;
 #if($table.sub)
 import ${packageName}.bean.domain.${ClassName}Inc${subClassName}Domain;
 #end
+#if($table.crud || $table.sub)
+import ${packageName}.bean.dto.${ClassName}ListReq;
+#end
 import ${packageName}.bean.dto.${ClassName}EditSave;
 import ${packageName}.bean.entity.${ClassName};
 
@@ -20,10 +23,10 @@ public interface I${ClassName}Service extends IService<${ClassName}> {
     /**
      * 查询${functionName}列表
      * 
-     * @param ${className} ${functionName}
+     * @param listReq ${functionName} (支持分页，使用分页助手之前调用)
      * @return ${functionName}集合
      */
-    List<${ClassName}> select${ClassName}List(${ClassName} ${className});
+    List<${ClassName}> select${ClassName}List(${ClassName}ListReq listReq);
 
 
     /**

@@ -65,7 +65,7 @@
          <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
          <el-table-column label="状态" align="center" prop="status">
             <template #default="scope">
-               <dict-tag :options="manage_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="jeemodel_common_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -102,7 +102,7 @@ import { allocatedUserList, authUserCancel, authUserCancelAll } from "@/api/mana
 
 const route = useRoute();
 const { proxy } = getCurrentInstance();
-const { manage_normal_disable } = proxy.useDict("manage_normal_disable");
+const { jeemodel_common_normal_disable } = proxy.useDict("jeemodel_common_normal_disable");
 
 const userList = ref([]);
 const loading = ref(true);

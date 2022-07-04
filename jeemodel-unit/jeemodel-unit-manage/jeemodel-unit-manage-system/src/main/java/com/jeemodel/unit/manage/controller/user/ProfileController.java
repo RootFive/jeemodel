@@ -104,7 +104,6 @@ public class ProfileController extends BaseController {
 		if (SecurityUtils.matchesPassword(newPassword, password)) {
 			return PongUtils.fail("新密码不能与旧密码相同");
 		}
-//		if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword)) > 0) {
 		if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword))) {
 			// 更新缓存用户密码
 			loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));

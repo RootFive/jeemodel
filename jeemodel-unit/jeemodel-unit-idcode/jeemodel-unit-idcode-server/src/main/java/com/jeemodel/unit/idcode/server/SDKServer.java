@@ -28,8 +28,7 @@ public class SDKServer extends BaseNettyServer {
 	public void init() {
 
 		/**
-		 * 设置线程队列得到连接个数，服务端处理客户端连接请求是顺序处理的，
-		 * 同一时间只能处理一个客户端连接。
+		 * 设置线程队列得到连接个数，服务端处理客户端连接请求是顺序处理的， 同一时间只能处理一个客户端连接。
 		 * 多个客户端同时来的时候,服务端将不能处理的客户端连接请求放在队列中等待处理
 		 */
 		serverBootstrap.option(ChannelOption.SO_BACKLOG, serverConfig.getSdkBacklogSize());

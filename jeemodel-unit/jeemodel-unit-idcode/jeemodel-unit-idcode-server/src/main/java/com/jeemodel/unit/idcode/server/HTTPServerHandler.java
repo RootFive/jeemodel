@@ -36,10 +36,9 @@ import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- *  自定义的处理器，目前支持三种请求：
- *  getTime: 获取服务器当前时间；
- *  clientInfo: 获取请求客户端的User-Agent信息
- *  其它： 返回404状态，并且提示404信息
+ * 自定义的处理器，目前支持三种请求： getTime: 获取服务器当前时间； clientInfo: 获取请求客户端的User-Agent信息 其它：
+ * 返回404状态，并且提示404信息
+ * 
  * @Sharable 注解用来说明ChannelHandler是否可以在多个channel直接共享使用。
  */
 @Slf4j
@@ -79,7 +78,7 @@ public class HTTPServerHandler extends BaseNettyInboundHandler<FullHttpRequest> 
 			// 请求地址 如若是
 			uriWithQueryString = uriWithQueryString.substring(1);
 		}
-		
+
 		// 请求地址为空，直接返回异常
 		if (StringUtils.isBlank(uriWithQueryString)) {
 			overHandler(ctx, response, PongUtils.diy(ErrorCodeEnum.E0201), null);
@@ -133,7 +132,7 @@ public class HTTPServerHandler extends BaseNettyInboundHandler<FullHttpRequest> 
 		// 真实URI和服务URI不一致，直接结束
 		if (!StringUtils.equalsIgnoreCase(serverConfig.getHttpHequestURI(), realUri)) {
 			// XXX
-			// 目前只提供唯一标识码服务
+			// 目前只提供唯一标识服务
 			// XXX
 			overHandler(ctx, response, PongUtils.diy(ErrorCodeEnum.E0201), echo);
 			return;

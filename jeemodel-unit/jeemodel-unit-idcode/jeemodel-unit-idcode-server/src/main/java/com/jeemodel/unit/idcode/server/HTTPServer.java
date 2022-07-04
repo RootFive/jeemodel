@@ -14,8 +14,7 @@ import io.netty.channel.ChannelOption;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Http服务器，使用Netty中的Http协议栈，
- * 实现中支持多条请求路径，对于不存在的请求路径返回404状态码
+ * Http服务器，使用Netty中的Http协议栈， 实现中支持多条请求路径，对于不存在的请求路径返回404状态码
  * 如：http://localhost:8099/getTime
  */
 @Slf4j
@@ -33,8 +32,7 @@ public class HTTPServer extends BaseNettyServer {
 	public void init() {
 
 		/**
-		 * 设置线程队列得到连接个数，服务端处理客户端连接请求是顺序处理的，
-		 * 同一时间只能处理一个客户端连接。
+		 * 设置线程队列得到连接个数，服务端处理客户端连接请求是顺序处理的， 同一时间只能处理一个客户端连接。
 		 * 多个客户端同时来的时候,服务端将不能处理的客户端连接请求放在队列中等待处理
 		 */
 		serverBootstrap.option(ChannelOption.SO_BACKLOG, serverConfig.getHttpBacklogSize());

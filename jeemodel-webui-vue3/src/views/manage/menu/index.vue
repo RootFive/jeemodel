@@ -12,7 +12,7 @@
          <el-form-item label="状态" prop="status">
             <el-select v-model="queryParams.status" placeholder="菜单状态" clearable>
                <el-option
-                  v-for="dict in manage_normal_disable"
+                  v-for="dict in jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -65,7 +65,7 @@
          <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
          <el-table-column prop="status" label="状态" width="80">
             <template #default="scope">
-               <dict-tag :options="manage_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="jeemodel_common_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="创建时间" align="center" prop="createTime">
@@ -272,7 +272,7 @@
                      </template>
                      <el-radio-group v-model="form.status">
                         <el-radio
-                           v-for="dict in manage_normal_disable"
+                           v-for="dict in jeemodel_common_normal_disable"
                            :key="dict.value"
                            :label="dict.value"
                         >{{ dict.label }}</el-radio>
@@ -298,7 +298,7 @@ import IconSelect from "@/components/IconSelect";
 import { ClickOutside as vClickOutside } from 'element-plus'
 
 const { proxy } = getCurrentInstance();
-const { manage_menu_show_hide, manage_normal_disable } = proxy.useDict("manage_menu_show_hide", "manage_normal_disable");
+const { manage_menu_show_hide, jeemodel_common_normal_disable } = proxy.useDict("manage_menu_show_hide", "jeemodel_common_normal_disable");
 
 const menuList = ref([]);
 const open = ref(false);

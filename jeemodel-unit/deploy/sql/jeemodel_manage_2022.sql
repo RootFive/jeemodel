@@ -1,7 +1,7 @@
-# 启用 jeemodel_manage 数据库
+--  启用 jeemodel_manage 数据库
 USE jeemodel_manage;
 
-## 更新数据前 禁用外键约束
+--  更新数据前 禁用外键约束
 SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for manage_config
@@ -59,15 +59,18 @@ CREATE TABLE `manage_dict`  (
 -- ----------------------------
 -- Records of manage_dict
 -- ----------------------------
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('用户性别', 'manage_user_sex', 'system', '用户性别列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('菜单状态', 'manage_menu_show_hide', 'system', '菜单状态列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('系统开关', 'manage_normal_disable', 'system', '系统开关列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('系统是否', 'manage_yes_no', 'system', '系统是否列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('通知类型', 'manage_notice_type', 'system', '通知类型列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('通知状态', 'manage_notice_status', 'system', '通知状态列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('操作类型', 'manage_user_log_oper_type', 'system', '操作类型列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('系统状态', 'manage_common_status', 'system', '登录状态列表');
-INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('Java类型', 'manage_common_java_type', 'system', 'Java常用数据类型列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('逻辑删除状态', 'jeemodel_common_logical_delete', 'system', '数据删除状态列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('正常停用状态', 'jeemodel_common_normal_disable', 'system', '正常停用状态列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('是否布尔状态', 'jeemodel_common_yes_no', 'system', '系统是否列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('Java常用类型', 'jeemodel_common_java_type', 'system', 'Java常用数据类型列表');
+
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('系统操作类型', 'manage_user_oper_type', 'system', '操作类型列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('用户性别类型', 'manage_user_sex', 'system', '用户性别列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('用户登录状态', 'manage_user_login_status', 'system', '登录状态列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('菜单显示状态', 'manage_menu_show_hide', 'system', '菜单状态列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('通知公告类型', 'manage_notice_type', 'system', '通知类型列表');
+INSERT INTO `manage_dict` (`dict_name`, `dict_type`, `create_by`, `remark`) VALUES ('通知公告状态', 'manage_notice_status', 'system', '通知状态列表');
+
 -- ----------------------------
 -- Table structure for manage_dict_data
 -- ----------------------------
@@ -94,38 +97,51 @@ CREATE TABLE `manage_dict_data`  (
 -- ----------------------------
 -- Records of manage_dict_data
 -- ----------------------------
+-- 数据删除状态
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '存在', '0', 'jeemodel_common_logical_delete', '', 'primary', 'N', 'system', '逻辑删除-存在状态');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '删除', '2', 'jeemodel_common_logical_delete', '', 'danger', 'N', 'system', '逻辑删除-删除状态');
+-- 正常停用状态
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '正常', '0','jeemodel_common_normal_disable', '', 'primary', 'Y', 'system', '正常状态');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '停用', '1','jeemodel_common_normal_disable', '', 'danger', 'N', 'system', '停用状态');
+-- 是否布尔状态
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '是', 'Y', 'jeemodel_common_yes_no', '', 'primary', 'Y', 'system', '系统默认是');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '否', 'N', 'jeemodel_common_yes_no', '', 'danger', 'N', 'system', '系统默认否');
+-- Java常用类型
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, 'String（字符串）', 'java.lang.String', 'jeemodel_common_java_type', '', 'info', 'N', 'system', 'String（字符串）');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, 'Integer（整型）', 'java.lang.Integer', 'jeemodel_common_java_type', '', 'info', 'N', 'system', 'Integer（整型）');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (3, 'Long（长整型）', 'java.lang.Long', 'jeemodel_common_java_type', '', 'danger', 'N', 'system', 'Long（长整型）');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (4, 'Byte（字节型）', 'java.lang.Byte', 'jeemodel_common_java_type', '', 'primary', 'N', 'system', 'Byte（字节型）');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (5, 'BigDecimal（商业计算）', 'java.math.BigDecimal', 'jeemodel_common_java_type', '', 'warning', 'N', 'system', 'BigDecimal（商业计算，用来对超过16位有效位的数进行精确的运算）');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (6, 'Boolean（布尔型）', 'java.lang.Boolean', 'jeemodel_common_java_type', '', 'warning', 'N', 'system', 'Boolean（布尔型）');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (7, 'Character（字符）', 'java.lang.Character', 'jeemodel_common_java_type', '', 'danger', 'N', 'system', 'Character（字符）');
+
+-- 系统操作类型
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '新增', '1', 'manage_user_oper_type', '', 'info', 'N', 'system', '新增操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '修改', '2', 'manage_user_oper_type', '', 'info', 'N', 'system', '修改操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (3, '删除', '3', 'manage_user_oper_type', '', 'danger', 'N', 'system', '删除操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (4, '授权', '4', 'manage_user_oper_type', '', 'primary', 'N', 'system', '授权操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (5, '导出', '5', 'manage_user_oper_type', '', 'warning', 'N', 'system', '导出操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (6, '导入', '6', 'manage_user_oper_type', '', 'warning', 'N', 'system', '导入操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (7, '强退', '7', 'manage_user_oper_type', '', 'danger', 'N', 'system', '强退操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (8, '生成代码', '8', 'manage_user_oper_type', '', 'warning', 'N', 'system', '生成操作');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (9, '清空数据', '9', 'manage_user_oper_type', '', 'danger', 'N', 'system', '清空操作');
+-- 用户性别类型
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '男', '0', 'manage_user_sex', '', '', 'Y', 'system', '性别男');
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '女', '1', 'manage_user_sex', '', '', 'N', 'system', '性别女');
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (3, '未知', '2', 'manage_user_sex', '', '', 'N', 'system', '性别未知');
+-- 用户登录状态
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '成功', '0', 'manage_user_login_status', '', 'primary', 'N', 'system', '正常状态');
+INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '失败', '1', 'manage_user_login_status', '', 'danger', 'N', 'system', '停用状态');
+-- 菜单显示状态
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '显示', '0', 'manage_menu_show_hide', '', 'primary', 'Y', 'system', '显示菜单');
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '隐藏', '1', 'manage_menu_show_hide', '', 'danger', 'N', 'system', '隐藏菜单');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '正常', '0', 'manage_normal_disable', '', 'primary', 'Y', 'system', '正常状态');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '停用', '1', 'manage_normal_disable', '', 'danger', 'N', 'system', '停用状态');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '是', 'Y', 'manage_yes_no', '', 'primary', 'Y', 'system', '系统默认是');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '否', 'N', 'manage_yes_no', '', 'danger', 'N', 'system', '系统默认否');
+-- 通知公告类型
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '通知', '1', 'manage_notice_type', '', 'warning', 'Y', 'system', '通知');
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '公告', '2', 'manage_notice_type', '', 'success', 'N', 'system', '公告');
+-- 通知公告状态
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '正常', '0', 'manage_notice_status', '', 'primary', 'Y', 'system', '正常状态');
 INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '关闭', '1', 'manage_notice_status', '', 'danger', 'N', 'system', '关闭状态');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '新增', '1', 'manage_user_log_oper_type', '', 'info', 'N', 'system', '新增操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '修改', '2', 'manage_user_log_oper_type', '', 'info', 'N', 'system', '修改操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (3, '删除', '3', 'manage_user_log_oper_type', '', 'danger', 'N', 'system', '删除操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (4, '授权', '4', 'manage_user_log_oper_type', '', 'primary', 'N', 'system', '授权操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (5, '导出', '5', 'manage_user_log_oper_type', '', 'warning', 'N', 'system', '导出操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (6, '导入', '6', 'manage_user_log_oper_type', '', 'warning', 'N', 'system', '导入操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (7, '强退', '7', 'manage_user_log_oper_type', '', 'danger', 'N', 'system', '强退操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (8, '生成代码', '8', 'manage_user_log_oper_type', '', 'warning', 'N', 'system', '生成操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (9, '清空数据', '9', 'manage_user_log_oper_type', '', 'danger', 'N', 'system', '清空操作');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, '成功', '0', 'manage_common_status', '', 'primary', 'N', 'system', '正常状态');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, '失败', '1', 'manage_common_status', '', 'danger', 'N', 'system', '停用状态');
 
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (1, 'String（字符串）', 'java.lang.String', 'manage_common_java_type', '', 'info', 'N', 'system', 'String（字符串）');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (2, 'Integer（整型）', 'java.lang.Integer', 'manage_common_java_type', '', 'info', 'N', 'system', 'Integer（整型）');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (3, 'Long（长整型）', 'java.lang.Long', 'manage_common_java_type', '', 'danger', 'N', 'system', 'Long（长整型）');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (4, 'Byte（字节型）', 'java.lang.Byte', 'manage_common_java_type', '', 'primary', 'N', 'system', 'Byte（字节型）');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (5, 'BigDecimal（商业计算）', 'java.math.BigDecimal', 'manage_common_java_type', '', 'warning', 'N', 'system', 'BigDecimal（商业计算，用来对超过16位有效位的数进行精确的运算）');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (6, 'Boolean（布尔型）', 'java.lang.Boolean', 'manage_common_java_type', '', 'warning', 'N', 'system', 'Boolean（布尔型）');
-INSERT INTO `manage_dict_data` (`dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `create_by`,`remark`) VALUES (7, 'Character（字符）', 'java.lang.Character', 'manage_common_java_type', '', 'danger', 'N', 'system', 'Character（字符）');
 
 -- ----------------------------
 -- Table structure for manage_dept
@@ -230,7 +246,7 @@ CREATE TABLE `manage_role_dept`  (
 -- ----------------------------
 -- Records of manage_role_dept
 -- ----------------------------
-## 插入【角色和部门关系表】初始数据（admin角色默认拥有所有权限）
+--  插入【角色和部门关系表】初始数据（admin角色默认拥有所有权限）
 -- INSERT INTO `manage_role_dept` (`role_id`, `dept_id`) VALUES (@roleCommonId, @rootDeptId);
 INSERT INTO `manage_role_dept` (`role_id`, `dept_id`) VALUES (@roleCommonId, @headOfficeId);
 INSERT INTO `manage_role_dept` (`role_id`, `dept_id`) VALUES (@roleCommonId, @headOfficeDeptTestId);
@@ -394,7 +410,7 @@ CREATE TABLE `manage_user_post`  (
 -- ----------------------------
 -- Records of manage_user_post
 -- ----------------------------
-## 初始化插入【用户与岗位关系表】数据
+--  初始化插入【用户与岗位关系表】数据
 INSERT INTO `manage_user_post` (`user_id`, `post_id`) VALUES (@userAdminId, @postCeoId),(@userJeeModelId, @postPmId);
 
 
@@ -417,7 +433,7 @@ CREATE TABLE `manage_user_role`  (
 -- ----------------------------
 -- Records of manage_user_role
 -- ----------------------------
-## 初始化插入【用户和角色关系表】数据
+--  初始化插入【用户和角色关系表】数据
 INSERT INTO `manage_user_role` (`user_id`, `role_id`) VALUES (@userAdminId, @roleAdminId),(@userJeeModelId, @roleCommonId);
 
 
@@ -910,5 +926,5 @@ INSERT INTO `manage_role_menu` (`role_id`, `menu_id`) VALUES (@roleCommonId, @op
 INSERT INTO `manage_role_menu` (`role_id`, `menu_id`) VALUES (@roleCommonId, @operLogManageBExportId);
 
 
-## 更新数据后可以在开启外键约束
+--  更新数据后可以在开启外键约束
 SET FOREIGN_KEY_CHECKS = 1;

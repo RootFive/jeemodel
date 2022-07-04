@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jeemodel</groupId>
 	<artifactId>jeemodel-parent</artifactId>
-	<version>JM202206X</version>
+	<version>JM202207X</version>
 	<packaging>pom</packaging>
 	<name>JeeModel</name>
 	<description>JeeModel Parent</description>
@@ -21,13 +21,13 @@
 
 	<properties>
 		<!-- JeeModel信息 -->
-		<jeemodel.version>JM202206X</jeemodel.version>
+		<jeemodel.version>JM202207X</jeemodel.version>
 
 
 		<!-- 基础信息 项目构建信息 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 
 		<!-- 基础框架依赖 -->
 		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
@@ -332,7 +332,7 @@
 				<version>${jeemodel.version}</version>
 			</dependency>
 
-			<!-- 统一标识 -->
+			<!-- 统一标识编码 -->
 			<dependency>
 				<groupId>com.jeemodel</groupId>
 				<artifactId>jeemodel-unit-idcode-common</artifactId>
@@ -346,6 +346,12 @@
 			<dependency>
 				<groupId>com.jeemodel</groupId>
 				<artifactId>jeemodel-unit-idcode-client</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-idcode-manage</artifactId>
 				<version>${jeemodel.version}</version>
 			</dependency>
 
@@ -369,6 +375,7 @@
 	<build>
 		<plugins>
 			<plugin>
+				<!-- maven 的默认编译使用的 jdk 版本有时候不通用，使用 maven-compiler-plugin 插件可以指定项目源码的 jdk 版本，编译后的 jdk 版本，以及编码。 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -381,7 +388,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.1</version>
+				<version>3.2.2</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -392,6 +399,23 @@
 						</manifestEntries>
 					</archive>
 				</configuration>
+			</plugin>
+			<!-- 打包源码-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

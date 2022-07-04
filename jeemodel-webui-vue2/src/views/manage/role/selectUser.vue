@@ -34,7 +34,7 @@
         <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
         <el-table-column label="状态" align="center" prop="status">
           <template slot-scope="scope">
-            <dict-tag :options="dict.type.manage_normal_disable" :value="scope.row.status"/>
+            <dict-tag :options="dict.type.jeemodel_common_normal_disable" :value="scope.row.status"/>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -61,7 +61,7 @@
 <script>
 import { unallocatedUserList, authUserSelectAll } from "@/api/manage/role/role";
 export default {
-  dicts: ['manage_normal_disable'],
+  dicts: ['jeemodel_common_normal_disable'],
   props: {
     // 角色编号
     roleId: {

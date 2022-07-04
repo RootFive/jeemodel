@@ -27,7 +27,7 @@
                style="width: 240px"
             >
                <el-option
-                  v-for="dict in manage_normal_disable"
+                  v-for="dict in jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -182,7 +182,7 @@
             <el-form-item label="状态">
                <el-radio-group v-model="form.status">
                   <el-radio
-                     v-for="dict in manage_normal_disable"
+                     v-for="dict in jeemodel_common_normal_disable"
                      :key="dict.value"
                      :label="dict.value"
                   >{{ dict.label }}</el-radio>
@@ -268,7 +268,7 @@ import { treeselect as deptTreeselect, roleDeptTreeselect } from "@/api/manage/d
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
-const { manage_normal_disable } = proxy.useDict("manage_normal_disable");
+const { jeemodel_common_normal_disable } = proxy.useDict("jeemodel_common_normal_disable");
 
 const roleList = ref([]);
 const open = ref(false);

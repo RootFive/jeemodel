@@ -30,7 +30,7 @@
           style="width: 240px"
         >
           <el-option
-            v-for="dict in dict.type.manage_common_status"
+            v-for="dict in dict.type.manage_user_login_status"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -100,7 +100,7 @@
       <el-table-column label="操作系统" align="center" prop="os" />
       <el-table-column label="登录状态" align="center" prop="status">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.manage_common_status" :value="scope.row.status"/>
+          <dict-tag :options="dict.type.manage_user_login_status" :value="scope.row.status"/>
         </template>
       </el-table-column>
       <el-table-column label="操作信息" align="center" prop="msg" />
@@ -126,7 +126,7 @@ import { list, delLogininfor, cleanLogininfor } from "@/api/manage/log/userLogin
 
 export default {
   name: "Logininfor",
-  dicts: ['manage_common_status'],
+  dicts: ['manage_user_login_status'],
   data() {
     return {
       // 遮罩层

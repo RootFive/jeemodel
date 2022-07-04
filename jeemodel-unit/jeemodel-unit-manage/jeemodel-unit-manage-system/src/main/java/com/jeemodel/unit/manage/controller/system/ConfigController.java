@@ -79,7 +79,6 @@ public class ConfigController extends BaseController {
 	 */
 	@GetMapping(value = "/configKey/{configKey}")
 	public PongData<String> getConfigKey(@PathVariable String configKey) {
-		
 		return PongUtils.okData(configService.selectConfigByKey(configKey));
 	}
 

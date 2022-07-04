@@ -426,7 +426,7 @@ function getList() {
 #end
 #end
   list${BusinessName}(queryParams.value).then(response => {
-    ${businessName}List.value = response.rows;
+    ${businessName}List.value = response.data;
     total.value = response.total;
     loading.value = false;
   });
@@ -539,9 +539,9 @@ function submitForm() {
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const ${pkColumn.javaField}s = row.${pkColumn.javaField} || ids.value;
-  proxy.#[[$modal]]#.confirm('是否确认删除${functionName}编号为"' + ${pkColumn.javaField}s + '"的数据项？').then(function() {
-    return del${BusinessName}(${pkColumn.javaField}s);
+  const ${businessName}Ids = row.${pkColumn.javaField} || ids.value;
+  proxy.#[[$modal]]#.confirm('是否确认删除${functionName}编号为"' + ${businessName}Ids + '"的数据项？').then(function() {
+    return del${BusinessName}(${businessName}Ids);
   }).then(() => {
     getList();
     proxy.#[[$modal]]#.msgSuccess("删除成功");

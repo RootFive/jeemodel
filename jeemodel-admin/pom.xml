@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.jeemodel</groupId>
 		<artifactId>jeemodel-parent</artifactId>
-		<version>JM202206X</version>
+		<version>JM202207X</version>
 	</parent>
 	
 	<artifactId>jeemodel-admin</artifactId>
@@ -29,11 +29,19 @@
             <artifactId>jeemodel-unit-gen</artifactId>
         </dependency>
 
-        <!-- 代码生成-->
+        <!-- 管理系统 -->
         <dependency>
             <groupId>com.jeemodel</groupId>
             <artifactId>jeemodel-unit-manage-system</artifactId>
         </dependency>
+
+
+		<!-- 统一标识编码 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-unit-idcode-manage</artifactId>
+		</dependency>
+
 
     </dependencies>
 

@@ -119,7 +119,6 @@ public class RoleController extends BaseController {
 		}
 		role.setUpdateBy(SecurityUtils.getUsername());
 
-//		if (roleService.updateRole(role) > 0) {
 		if (roleService.updateRole(role)) {
 			// 更新缓存用户权限
 			LoginUser loginUser = SecurityUtils.getLoginUser();

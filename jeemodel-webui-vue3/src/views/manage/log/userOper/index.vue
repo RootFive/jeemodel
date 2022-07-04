@@ -27,7 +27,7 @@
                style="width: 240px"
             >
                <el-option
-                  v-for="dict in manage_user_log_oper_type"
+                  v-for="dict in manage_user_oper_type"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -42,7 +42,7 @@
                style="width: 240px"
             >
                <el-option
-                  v-for="dict in manage_common_status"
+                  v-for="dict in manage_user_login_status"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -103,7 +103,7 @@
          <el-table-column label="系统模块" align="center" prop="title" />
          <el-table-column label="操作类型" align="center" prop="businessType">
             <template #default="scope">
-               <dict-tag :options="manage_user_log_oper_type" :value="scope.row.businessType" />
+               <dict-tag :options="manage_user_oper_type" :value="scope.row.businessType" />
             </template>
          </el-table-column>
          <el-table-column label="请求方式" align="center" prop="requestMethod" />
@@ -111,7 +111,7 @@
          <el-table-column label="主机" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
          <el-table-column label="操作状态" align="center" prop="status">
             <template #default="scope">
-               <dict-tag :options="manage_common_status" :value="scope.row.status" />
+               <dict-tag :options="manage_user_login_status" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="操作日期" align="center" prop="operTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
@@ -189,7 +189,7 @@
 import { list, delOperlog, cleanOperlog } from "@/api/manage/log/userOper";
 
 const { proxy } = getCurrentInstance();
-const { manage_user_log_oper_type, manage_common_status } = proxy.useDict("manage_user_log_oper_type","manage_common_status");
+const { manage_user_oper_type, manage_user_login_status } = proxy.useDict("manage_user_oper_type","manage_user_login_status");
 
 const operlogList = ref([]);
 const open = ref(false);
@@ -228,7 +228,7 @@ function getList() {
 }
 /** 操作日志类型字典翻译 */
 function typeFormat(row, column) {
-  return proxy.selectDictLabel(manage_user_log_oper_type.value, row.businessType);
+  return proxy.selectDictLabel(manage_user_oper_type.value, row.businessType);
 }
 /** 搜索按钮操作 */
 function handleQuery() {

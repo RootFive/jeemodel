@@ -57,7 +57,7 @@
               style="width: 240px"
             >
               <el-option
-                v-for="dict in dict.type.manage_normal_disable"
+                v-for="dict in dict.type.jeemodel_common_normal_disable"
                 :key="dict.value"
                 :label="dict.label"
                 :value="dict.value"
@@ -262,7 +262,7 @@
             <el-form-item label="状态">
               <el-radio-group v-model="form.status">
                 <el-radio
-                  v-for="dict in dict.type.manage_normal_disable"
+                  v-for="dict in dict.type.jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.value"
                 >{{dict.label}}</el-radio>
@@ -359,7 +359,7 @@ import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 export default {
   name: "User",
-  dicts: ['manage_normal_disable', 'manage_user_sex'],
+  dicts: ['jeemodel_common_normal_disable', 'manage_user_sex'],
   components: { Treeselect },
   data() {
     return {

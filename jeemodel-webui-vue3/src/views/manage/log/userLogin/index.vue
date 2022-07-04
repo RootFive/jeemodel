@@ -27,7 +27,7 @@
                style="width: 240px"
             >
                <el-option
-                  v-for="dict in manage_common_status"
+                  v-for="dict in manage_user_login_status"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -92,7 +92,7 @@
          <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
          <el-table-column label="登录状态" align="center" prop="status">
             <template #default="scope">
-               <dict-tag :options="manage_common_status" :value="scope.row.status" />
+               <dict-tag :options="manage_user_login_status" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="描述" align="center" prop="msg" />
@@ -117,7 +117,7 @@
 import { list, delLogininfor, cleanLogininfor } from "@/api/manage/log/userLogin";
 
 const { proxy } = getCurrentInstance();
-const { manage_common_status } = proxy.useDict("manage_common_status");
+const { manage_user_login_status } = proxy.useDict("manage_user_login_status");
 
 const logininforList = ref([]);
 const loading = ref(true);

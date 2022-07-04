@@ -22,7 +22,7 @@
          <el-form-item label="状态" prop="status">
             <el-select v-model="queryParams.status" placeholder="数据状态" clearable>
                <el-option
-                  v-for="dict in manage_normal_disable"
+                  v-for="dict in jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -98,7 +98,7 @@
          <el-table-column label="字典排序" align="center" prop="dictSort" />
          <el-table-column label="状态" align="center" prop="status">
             <template #default="scope">
-               <dict-tag :options="manage_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="jeemodel_common_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
@@ -164,7 +164,7 @@
             <el-form-item label="状态" prop="status">
                <el-radio-group v-model="form.status">
                   <el-radio
-                     v-for="dict in manage_normal_disable"
+                     v-for="dict in jeemodel_common_normal_disable"
                      :key="dict.value"
                      :label="dict.value"
                   >{{ dict.label }}</el-radio>
@@ -189,7 +189,7 @@ import { optionselect as getDictOptionselect, getType } from "@/api/manage/dict/
 import { listData, getData, delData, addData, updateData } from "@/api/manage/dict/data";
 
 const { proxy } = getCurrentInstance();
-const { manage_normal_disable } = proxy.useDict("manage_normal_disable");
+const { jeemodel_common_normal_disable } = proxy.useDict("jeemodel_common_normal_disable");
 
 const dataList = ref([]);
 const open = ref(false);

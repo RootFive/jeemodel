@@ -51,14 +51,6 @@ public class UserLogLoginController extends BaseController {
 		return PageUtils.okTable(list);
 	}
 
-//	@Log(title = "登录日志", businessType = BusinessType.EXPORT)
-//	@PreAuthorize("@ss.hasPermi('manage:logUserLogin:export')")
-//	@PostMapping("/export")
-//	public void export(HttpServletResponse response, UserLogLoginListReq listReq) {
-//		List<UserLogLogin> list = userLogLoginService.selectLogininforList(listReq);
-//		ExcelUtil<UserLogLogin> util = new ExcelUtil<UserLogLogin>(UserLogLogin.class);
-//		util.exportExcel(response, list, "登录日志");
-//	}
 	
 	@Log(title = "登录日志", businessType = BusinessType.EXPORT)
 	@PreAuthorize("@ss.hasPermi('manage:logUserLogin:export')")
@@ -75,19 +67,14 @@ public class UserLogLoginController extends BaseController {
 	}
 	
 	
-	
-	
-	
-
 	@PreAuthorize("@ss.hasPermi('manage:logUserLogin:remove')")
 	@Log(title = "登录日志", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
 	public Pong remove(@PathVariable Long[] ids) {
-//		userLogLoginService.deleteLogininforByIds(ids);
-		
 		boolean removeResult = userLogLoginService.removeByIds(Arrays.asList(ids));
 		return PongUtils.result(removeResult);
 	}
+	
 
 	@PreAuthorize("@ss.hasPermi('manage:logUserLogin:remove')")
 	@Log(title = "登录日志", businessType = BusinessType.CLEAN)

@@ -31,9 +31,7 @@ public class IDCodeServerConfig {
 	public static final String IDCODE_SNOWFLAKE = "IDCode_SNOWFLAKE";
 
 	/**
-	 * 数据中心的标识ID，取值范围：0~31
-	 * 机器或进程的标识ID，取值范围：0~31
-	 * 两个标识ID组合在分布式环境中必须唯一
+	 * 数据中心的标识ID，取值范围：0~31 机器或进程的标识ID，取值范围：0~31 两个标识ID组合在分布式环境中必须唯一
 	 */
 	@Value("${jeemodel.unit.idcode.server.datacenterId:0}")
 	private int datacenterId;
@@ -62,7 +60,7 @@ public class IDCodeServerConfig {
 	/** HTTP线程队列得到连接个数 */
 	@Value("${jeemodel.unit.idcode.server.http.server.backlog.size:1024}")
 	private int httpBacklogSize;
-	
+
 	// XXX
 
 	/** SDK协议请求端口 */
@@ -76,23 +74,23 @@ public class IDCodeServerConfig {
 	/** SDK流量控制超时时间,即在指定的时间内尝试地获取1个许可，获取不到就释放，默认是3秒 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.semaphore.acquire.timeoutmillis:3000}")
 	private int sdkTimeoutmillis;
-	
+
 	/** SDK线程队列得到连接个数 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.backlog.size:1024}")
 	private int sdkBacklogSize;
-	
+
 	/** 30秒内没有收到来自客户端的任何数据包 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.reader:30}")
 	private int readerIdleTimeSeconds;
-	
+
 	/** 30秒内没有向客户端的发送写数据包 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.writer:0}")
 	private int writerIdleTimeSeconds;
-	
+
 	/** SDK线程队列得到连接个数 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.all:0}")
 	private int allIdleTimeSeconds;
-	
+
 	/** SDK线程队列得到连接个数 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.heartbeat.echo:false}")
 	private boolean needHeartBeatEcho;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -76,6 +77,7 @@ public class GlobalExceptionHandler {
 		return PongUtils.diy(ErrorCodeEnum.E0204,message);
 	}
 	
+	
 	/**
 	 * 参数绑定异常
 	 */
@@ -83,7 +85,20 @@ public class GlobalExceptionHandler {
 	public PongTable<?> handleBindException(BindException e) {
 		printRequestLog(e, false);
 		String message = e.getAllErrors().get(0).getDefaultMessage();
-		return PongUtils.diy(ErrorCodeEnum.E0206,message);
+		return PongUtils.diy(ErrorCodeEnum.E0207,message);
+	}
+	
+	/**
+	 * 参数绑定异常
+	 */
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public PongTable<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e,
+			HttpServletRequest request) {
+		String requestURI = request.getRequestURI();
+		String message = StringUtils.format("请求地址'{}',参数类型错误", requestURI);
+		log.warn(message);
+		printRequestLog(e, false);
+		return PongUtils.diy(ErrorCodeEnum.E0207,message);
 	}
 
 	/**

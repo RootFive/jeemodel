@@ -78,7 +78,8 @@ public abstract class BaseNettyServer implements INettyServer {
 		});
 
 		//处理客户端业务的线程组
-		workerGroup = new NioEventLoopGroup(NettyConstants.AVAILABLE_PROCESSORS * 10, new ThreadFactory() {
+		int  workerGroupNThreads = NettyConstants.AVAILABLE_PROCESSORS * 10;
+		workerGroup = new NioEventLoopGroup(workerGroupNThreads, new ThreadFactory() {
 			private AtomicInteger index = new AtomicInteger(0);
 
 			@Override
@@ -87,7 +88,7 @@ public abstract class BaseNettyServer implements INettyServer {
 			}
 		});
 		
-		log.debug("初始化[Netty-Server] 处理连接请求的线程组 [bossGroup]和处理客户端业务的线程组 [workerGroup]-已完成");
+		log.debug("初始化[Netty-Server] [bossGroup]线程组，线程数：{} [workerGroup]的线程组，线程数：{} -均已完成",NettyConstants.AVAILABLE_PROCESSORS,workerGroupNThreads);
 
 		//服务器的启动对象
 		serverBootstrap = new ServerBootstrap();

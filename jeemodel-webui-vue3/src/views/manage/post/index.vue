@@ -20,7 +20,7 @@
          <el-form-item label="状态" prop="status">
             <el-select v-model="queryParams.status" placeholder="岗位状态" clearable>
                <el-option
-                  v-for="dict in manage_normal_disable"
+                  v-for="dict in jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -83,7 +83,7 @@
          <el-table-column label="岗位排序" align="center" prop="postSort" />
          <el-table-column label="状态" align="center" prop="status">
             <template #default="scope">
-               <dict-tag :options="manage_normal_disable" :value="scope.row.status" />
+               <dict-tag :options="jeemodel_common_normal_disable" :value="scope.row.status" />
             </template>
          </el-table-column>
          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -132,7 +132,7 @@
             <el-form-item label="岗位状态" prop="status">
                <el-radio-group v-model="form.status">
                   <el-radio
-                     v-for="dict in manage_normal_disable"
+                     v-for="dict in jeemodel_common_normal_disable"
                      :key="dict.value"
                      :label="dict.value"
                   >{{ dict.label }}</el-radio>
@@ -156,7 +156,7 @@
 import { listPost, addPost, delPost, getPost, updatePost } from "@/api/manage/post/post";
 
 const { proxy } = getCurrentInstance();
-const { manage_normal_disable } = proxy.useDict("manage_normal_disable");
+const { jeemodel_common_normal_disable } = proxy.useDict("jeemodel_common_normal_disable");
 
 const postList = ref([]);
 const open = ref(false);

@@ -13,7 +13,7 @@
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="部门状态" clearable size="small">
           <el-option
-            v-for="dict in dict.type.manage_normal_disable"
+            v-for="dict in dict.type.jeemodel_common_normal_disable"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -61,7 +61,7 @@
       <el-table-column prop="orderNum" label="排序" width="200"></el-table-column>
       <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.manage_normal_disable" :value="scope.row.status"/>
+          <dict-tag :options="dict.type.jeemodel_common_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="200">
@@ -135,7 +135,7 @@
             <el-form-item label="部门状态">
               <el-radio-group v-model="form.status">
                 <el-radio
-                  v-for="dict in dict.type.manage_normal_disable"
+                  v-for="dict in dict.type.jeemodel_common_normal_disable"
                   :key="dict.value"
                   :label="dict.value"
                 >{{dict.label}}</el-radio>
@@ -159,7 +159,7 @@ import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 export default {
   name: "Dept",
-  dicts: ['manage_normal_disable'],
+  dicts: ['jeemodel_common_normal_disable'],
   components: { Treeselect },
   data() {
     return {

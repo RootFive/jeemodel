@@ -241,10 +241,31 @@ public class ReflectUtils {
 
 	/**
 	 * 改变private/protected的方法为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
+	 * 
+	 * 
+	 * AccessibleObject.isAccessible 和 AccessibleObject.canAccess
+	 * true 就是你可以访问此属性，否则false不行 Java 语言访问检查。
+	 * 可以通过 setAccessible 来设置，我们一般这样使用：
+	 * =========================================
+	 * 1、如果没有实例对象
+	 * if (!field.canAccess(null)) {
+	 *     field.setAccessible(true);
+	 * }
+	 * //或者
+	 * if (!field.isAccessible()) {
+	 *     field.setAccessible(true);
+	 * }
+	 * 
+	 * 2、如果有实例对象
+	 * Object obj = new Object();
+	 * if (!field.canAccess(obj)) {
+	 *     field.setAccessible(true);
+	 * }
+	 * 
 	 */
 	public static void makeAccessible(Method method) {
 		if ((!Modifier.isPublic(method.getModifiers()) || !Modifier.isPublic(method.getDeclaringClass().getModifiers()))
-				&& !method.isAccessible()) {
+				&& !method.canAccess(null)) {
 			method.setAccessible(true);
 		}
 	}
@@ -254,7 +275,7 @@ public class ReflectUtils {
 	 */
 	public static void makeAccessible(Field field) {
 		if ((!Modifier.isPublic(field.getModifiers()) || !Modifier.isPublic(field.getDeclaringClass().getModifiers())
-				|| Modifier.isFinal(field.getModifiers())) && !field.isAccessible()) {
+				|| Modifier.isFinal(field.getModifiers())) && !field.canAccess(null)) {
 			field.setAccessible(true);
 		}
 	}

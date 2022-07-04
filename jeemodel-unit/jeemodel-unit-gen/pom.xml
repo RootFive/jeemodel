@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.jeemodel</groupId>
     <artifactId>jeemodel-unit</artifactId>
-    <version>JM202206X</version>
+    <version>JM202207X</version>
   </parent>
   <artifactId>jeemodel-unit-gen</artifactId>
   <name>jeemodel-unit-gen</name>

@@ -68,6 +68,32 @@ spring.datasource.dynamic.datasource.gen.druid.test-on-borrow: false
 spring.datasource.dynamic.datasource.gen.druid.test-on-return: false
 
 
+# 数据源-链接数据库：jeemodel_idcode
+spring.datasource.dynamic.datasource.idcode.url: jdbc:mysql://localhost:3306/jeemodel_idcode?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+spring.datasource.dynamic.datasource.idcode.username: root
+spring.datasource.dynamic.datasource.idcode.password: 2236067977
+spring.datasource.dynamic.datasource.idcode.type: com.alibaba.druid.pool.DruidDataSource
+## 配置初始化大小、最小、最大
+spring.datasource.dynamic.datasource.idcode.druid.initial-size: 3
+spring.datasource.dynamic.datasource.idcode.druid.max-active: 20
+spring.datasource.dynamic.datasource.idcode.druid.min-idle: 5
+## 配置获取连接等待超时的时间
+spring.datasource.dynamic.datasource.idcode.druid.max-wait: 60000
+## 配置一个连接在池中最小、最大生存的时间，单位是毫秒
+spring.datasource.dynamic.datasource.idcode.druid.min-evictable-idle-time-millis: 300000
+spring.datasource.dynamic.datasource.idcode.druid.max-evictable-idle-time-millis: 1800000
+## 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+spring.datasource.dynamic.datasource.idcode.druid.time-between-eviction-runs-millis: 60000
+## 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+spring.datasource.dynamic.datasource.idcode.druid.validation-query: SELECT 1 FROM DUAL
+spring.datasource.dynamic.datasource.idcode.druid.validation-query-timeout: -1
+## 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+spring.datasource.dynamic.datasource.idcode.druid.test-while-idle: true
+## 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+spring.datasource.dynamic.datasource.idcode.druid.test-on-borrow: false
+## 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+spring.datasource.dynamic.datasource.idcode.druid.test-on-return: false
+
 
 # redis 配置
 spring.redis.host: localhost

@@ -442,7 +442,7 @@ export default {
 #end
 #end
       list${BusinessName}(this.queryParams).then(response => {
-        this.${businessName}List = response.rows;
+        this.${businessName}List = response.data;
         this.total = response.total;
         this.loading = false;
       });

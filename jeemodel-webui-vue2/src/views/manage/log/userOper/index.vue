@@ -30,7 +30,7 @@
           style="width: 240px"
         >
           <el-option
-            v-for="dict in dict.type.manage_user_log_oper_type"
+            v-for="dict in dict.type.manage_user_oper_type"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -46,7 +46,7 @@
           style="width: 240px"
         >
           <el-option
-            v-for="dict in dict.type.manage_common_status"
+            v-for="dict in dict.type.manage_user_login_status"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -112,7 +112,7 @@
       <el-table-column label="系统模块" align="center" prop="title" />
       <el-table-column label="操作类型" align="center" prop="businessType">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.manage_user_log_oper_type" :value="scope.row.businessType"/>
+          <dict-tag :options="dict.type.manage_user_oper_type" :value="scope.row.businessType"/>
         </template>
       </el-table-column>
       <el-table-column label="请求方式" align="center" prop="requestMethod" />
@@ -121,7 +121,7 @@
       <el-table-column label="操作地点" align="center" prop="operLocation" :show-overflow-tooltip="true" />
       <el-table-column label="操作状态" align="center" prop="status">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.manage_common_status" :value="scope.row.status"/>
+          <dict-tag :options="dict.type.manage_user_login_status" :value="scope.row.status"/>
         </template>
       </el-table-column>
       <el-table-column label="操作日期" align="center" prop="operTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
@@ -199,7 +199,7 @@ import { list, delOperlog, cleanOperlog } from "@/api/manage/log/userOper";
 
 export default {
   name: "Operlog",
-  dicts: ['manage_user_log_oper_type', 'manage_common_status'],
+  dicts: ['manage_user_oper_type', 'manage_user_login_status'],
   data() {
     return {
       // 遮罩层
@@ -249,7 +249,7 @@ export default {
     },
     // 操作日志类型字典翻译
     typeFormat(row, column) {
-      return this.selectDictLabel(this.dict.type.manage_user_log_oper_type, row.businessType);
+      return this.selectDictLabel(this.dict.type.manage_user_oper_type, row.businessType);
     },
     /** 搜索按钮操作 */
     handleQuery() {

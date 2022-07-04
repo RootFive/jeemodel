@@ -1,6 +1,7 @@
 package com.jeemodel.core.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
@@ -52,16 +53,9 @@ public class BigDecimalUtils {
 	 * @param formatToPercentage
 	 * @param roundingMode
 	 * @return
-     * @see    BigDecimal.ROUND_UP
-     * @see    BigDecimal.ROUND_DOWN
-     * @see    BigDecimal.ROUND_CEILING
-     * @see    BigDecimal.ROUND_FLOOR
-     * @see    BigDecimal.ROUND_HALF_UP
-     * @see    BigDecimal.ROUND_HALF_DOWN
-     * @see    BigDecimal.ROUND_HALF_EVEN
-     * @see    BigDecimal.ROUND_UNNECESSARY
+     * @see    java.math.RoundingMode
 	 */
-	public static String format(BigDecimal value, int decimal,boolean formatToPercentage,int roundingMode) {
+	public static String format(BigDecimal value, int decimal,boolean formatToPercentage,RoundingMode roundingMode) {
 		StringBuilder sb = new StringBuilder();
 		if (value != null) {
 			// 四舍五入
@@ -88,7 +82,7 @@ public class BigDecimalUtils {
 	 * @return
 	 */
 	public static String formatToScale(BigDecimal value, int decimal) {
-		return format(value, decimal, false, BigDecimal.ROUND_HALF_UP);
+		return format(value, decimal, false, RoundingMode.HALF_UP);
 	}
 	
 	
@@ -99,7 +93,7 @@ public class BigDecimalUtils {
 	 * @return
 	 */
 	public static String formatToPercentage(BigDecimal value, int decimal) {
-		return format(value, decimal, true, BigDecimal.ROUND_HALF_UP);
+		return format(value, decimal, true, RoundingMode.HALF_UP);
 	}
 	
 	
