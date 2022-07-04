@@ -15,24 +15,24 @@ public class ExponentialBackOffRetry implements RetryPolicy {
 
 	private static final Random random = new Random();
 	
-	/** 初始等待时间,毫秒 */
-	private final long baseSleepTimeMs;
+	/** 断线重连，初始等待时间,秒 */
+	private final long baseSleepSecond;
 	
 	/** 当前最大重试次数 */
 	private final int maxRetries;
 	/** 最长重试等待休眠时间  */
-	private final int maxSleepMs;
+	private final int maxSleepSecond;
 
 
 	/**
-	 * @param baseSleepTimeMs  初始等待时间
+	 * @param baseSleepSecond  初始等待时间
 	 * @param maxRetries	最大重试次数
-	 * @param maxSleepMs	最大等待时间
+	 * @param maxSleepSecond	最大等待时间
 	 */
-	public ExponentialBackOffRetry(int baseSleepTimeMs, int maxRetries, int maxSleepMs) {
-		this.baseSleepTimeMs = baseSleepTimeMs;
+	public ExponentialBackOffRetry(int baseSleepSecond, int maxRetries, int maxSleepSecond) {
+		this.baseSleepSecond = baseSleepSecond;
 		this.maxRetries = maxRetries;
-		this.maxSleepMs = maxSleepMs;
+		this.maxSleepSecond = maxSleepSecond;
 	}
 
 	/**
@@ -62,10 +62,10 @@ public class ExponentialBackOffRetry implements RetryPolicy {
 			retryCount = maxRetries;
 		}
 		
-		long sleepMs = baseSleepTimeMs * Math.max(1, random.nextInt(1 << retryCount));
-		if (sleepMs > maxSleepMs) {
-			log.debug("使用默认最大等待时间（{}秒）,否则休眠时间太长（{}秒）", maxSleepMs, sleepMs);
-			sleepMs = maxSleepMs;
+		long sleepMs = baseSleepSecond * Math.max(1, random.nextInt(1 << retryCount));
+		if (sleepMs > maxSleepSecond) {
+			log.debug("使用默认最大等待时间（{}秒）,否则休眠时间太长（{}秒）", maxSleepSecond, sleepMs);
+			sleepMs = maxSleepSecond;
 		}
 		return sleepMs;
 	}

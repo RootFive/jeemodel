@@ -1,12 +1,9 @@
 package com.jeemodel.unit.idcode.client.core;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.jeemodel.solution.netty.client.heartbeat.ClientHeartBeatEchoHandler;
 import com.jeemodel.solution.netty.client.heartbeat.ClientHeartBeatIdleHandler;
-import com.jeemodel.solution.netty.client.retry.ExponentialBackOffRetry;
 import com.jeemodel.solution.netty.client.retry.RetryConnectHandler;
 
 import io.netty.channel.ChannelInitializer;
@@ -21,8 +18,8 @@ import io.netty.handler.timeout.IdleStateHandler;
  * 初始化客户端 Handlers程序
  * UID.client
  */
-@Component
-@ConditionalOnProperty(prefix = "jeemodel.unit.idcode", name = "deploy", havingValue = "client")
+//@Component
+//@ConditionalOnProperty(prefix = "jeemodel.unit.idcode", name = "deploy", havingValue = "client")
 public class IDCodeClientHandlersInitializer extends ChannelInitializer<SocketChannel> {
 
 	/**
@@ -31,10 +28,9 @@ public class IDCodeClientHandlersInitializer extends ChannelInitializer<SocketCh
 	 */
 	private RetryConnectHandler retryConnectHandler;
 
-	public IDCodeClientHandlersInitializer(IDCodeClient iDcodeClient) {
-		Assert.notNull(iDcodeClient, "TcpClient can not be null.");
-		ExponentialBackOffRetry retryPolicy = new ExponentialBackOffRetry(1, Integer.MAX_VALUE, 60);
-		this.retryConnectHandler = new RetryConnectHandler(iDcodeClient, retryPolicy);
+	public IDCodeClientHandlersInitializer(RetryConnectHandler retryConnectHandler) {
+		Assert.notNull(retryConnectHandler, "RetryConnectHandler can not be null.");
+		this.retryConnectHandler = retryConnectHandler;
 	}
 
 	@Override
@@ -48,7 +44,21 @@ public class IDCodeClientHandlersInitializer extends ChannelInitializer<SocketCh
 		pipeline.addLast(RetryConnectHandler.class.getSimpleName(), this.retryConnectHandler);
 
 		//客户端心跳
-		pipeline.addLast(IdleStateHandler.class.getSimpleName(), new IdleStateHandler(3, 3, 0));
+		/*
+		 * new IdleStateHandler(3, 3, 0) 三个参数的含义：
+		 * readerIdleTimeSeconds：读超时。即当在指定的时间间隔内没有从 Channel 读取到数据时，会触发一个 READER_IDLE 的 IdleStateEvent 事件
+		 * writerIdleTimeSeconds: 写超时。即当在指定的时间间隔内没有数据写入到 Channel 时，会触发一个 WRITER_IDLE 的 IdleStateEvent 事件
+		 * allIdleTimeSeconds: 读/写超时。即当在指定的时间间隔内没有读或写操作时，会触发一个 ALL_IDLE 的 IdleStateEvent 事件
+		 * ===================================================================
+		 * 三个参数默认的时间单位是秒。若需要指定其他时间单位，可以使用另一个构造方法： 
+		 * public IdleStateHandler(boolean observeOutput,long readerIdleTime, long writerIdleTime, long allIdleTime,TimeUnit unit)
+		 * ===================================================================
+		 * 由于我们的需求是判断 Client 时候还要向 Server 发送请求，从而决定是否关闭该连接
+		 * 所以，我们只需要判断 Server 是否在时间间隔内从 Channel 读取到数据
+		 * 所以，readerIdleTimeSeconds 我们取 3s，而 writerIdleTimeSeconds 为 0
+		 */
+		IdleStateHandler idleStateHandler = new IdleStateHandler(3, 3, 0);
+		pipeline.addLast(IdleStateHandler.class.getSimpleName(), idleStateHandler);
 
 		
 				

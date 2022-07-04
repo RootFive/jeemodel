@@ -12,6 +12,8 @@ import com.jeemodel.bean.rpc.Ping;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.solution.netty.client.invoke.InvokeCallback;
 import com.jeemodel.solution.netty.client.invoke.ResponseFuture;
+import com.jeemodel.solution.netty.client.retry.ExponentialBackOffRetry;
+import com.jeemodel.solution.netty.client.retry.RetryConnectHandler;
 import com.jeemodel.solution.netty.core.BaseNettyClient;
 import com.jeemodel.solution.netty.exception.BaseRemoteException;
 import com.jeemodel.solution.netty.exception.RemotingConnectException;
@@ -42,7 +44,6 @@ public class IDCodeClient extends BaseNettyClient {
 
 	@Resource
 	private IDCodeClientConfig clientConfig;
-
 	/**
 	 * 异步信号量
 	 */
@@ -59,22 +60,26 @@ public class IDCodeClient extends BaseNettyClient {
 	
 	@Override
 	public void init() {
-		bootstrap
+		
 				//设置工作线程组
-				.group(workerGroup)
+		bootstrap.group(workerGroup);
 				//通道实现 NIO类型
-				.channel(NioSocketChannel.class)
+		bootstrap.channel(NioSocketChannel.class);
 				// SocketChannel 5s内未建立连接就抛出异常
-				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+		bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
 				// 通过NoDelay禁用Nagle,使消息立即发出去，不用等待到一定的数据量才发出去
-				.option(ChannelOption.TCP_NODELAY, true)
+		bootstrap.option(ChannelOption.TCP_NODELAY, true);
 				// 设置保持活动连接状态
-				.option(ChannelOption.SO_KEEPALIVE, true)
+		bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
 				/*
 				 * handler这里创建一个通道初始化对象(匿名对象)，给workerGroup的EventLoop对应的管道设置处理器，
 				 * 这个程序里边使用的是匿名对象，你也可以单独拿出去，用一个类实现 ChannelInitializer
 				 */
-				.handler(new IDCodeClientHandlersInitializer(IDCodeClient.this));
+//				.handler(new IDCodeClientHandlersInitializer(IDCodeClient.this));
+				
+		ExponentialBackOffRetry retryPolicy = new ExponentialBackOffRetry(clientConfig.getRetryBaseSleepSecond(), Integer.MAX_VALUE, clientConfig.getRetryMaxSleepSecond());
+		RetryConnectHandler retryConnectHandler = new RetryConnectHandler(IDCodeClient.this, retryPolicy);
+		bootstrap.handler(new IDCodeClientHandlersInitializer(retryConnectHandler));
 	}
 
 	/**

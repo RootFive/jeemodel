@@ -43,6 +43,28 @@ public class IDCodeClientConfig {
 	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.oneway.semaphore.tps:10000}")
 	private int onewaySemaphoreTps;
 
+	/** 断线重连，初始等待时间,秒，默认是1秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.baseSleepSecond:1}")
+	private int retryBaseSleepSecond;
+	
+	/** 断线重连，最长重试等待休眠时间,秒，默认是60秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.maxSleepSecond:60}")
+	private int retryMaxSleepSecond;
+	
+	/** 客户端心跳，读超时,秒，默认是3秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.idleStateReader:3}")
+	private int idleStateReader;
+	
+	/** 客户端心跳，写超时,秒，默认是0秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.idleStateWriter:0}")
+	private int idleStateWriter;
+	
+	/** 客户端心跳，读超时,秒，默认是0秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.idleStateAll:0}")
+	private int idleStateAll;
+
+	
+	
 	// XXX
 	// 异步信号量
 	// XXX
