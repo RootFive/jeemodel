@@ -9,7 +9,7 @@
 	
 	<artifactId>jeemodel-unit-idcode-common</artifactId>
 	<name>jeemodel-unit-idcode-common</name>
-	<description>jeemodel-unit-idcode-common</description>
+	<description>客户端和服务端公共包</description>
 
 	<dependencies>
 		<!-- 解决方案-Netty -->

@@ -8,7 +8,7 @@
 	<artifactId>jeemodel-unit-idcode</artifactId>
 	<packaging>pom</packaging>
 	<name>jeemodel-unit-idcode</name>
-	<description>统一标识编码服务</description>
+	<description>场景标识编码和唯一编码生产服务</description>
 	<modules>
 		<module>jeemodel-unit-idcode-common</module>
 		<module>jeemodel-unit-idcode-server</module>

@@ -9,7 +9,7 @@
 
 	<artifactId>jeemodel-unit-idcode-client</artifactId>
 	<name>jeemodel-unit-idcode-client</name>
-	<description>jeemodel-unit-idcode-client</description>
+	<description>客户端-client</description>
 
 	<dependencies>
 		<!-- idcode-公共服务 -->

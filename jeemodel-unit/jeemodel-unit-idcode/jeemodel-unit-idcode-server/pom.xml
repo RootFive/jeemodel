@@ -11,7 +11,7 @@
 
 	<artifactId>jeemodel-unit-idcode-server</artifactId>
 	<name>jeemodel-unit-idcode-server</name>
-	<description>jeemodel-unit-idcode-server</description>
+	<description>服务端-server</description>
 
 	<dependencies>
 		<!-- idcode-公共服务 -->

@@ -7,7 +7,7 @@
   </parent>
   <artifactId>jeemodel-unit-idcode-manage</artifactId>
   <name>jeemodel-unit-idcode-manage</name>
-  <description>jeemodel-unit-idcode-manage</description>
+  <description>场景标识管理服务</description>
   
   
 
