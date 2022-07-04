@@ -52,10 +52,10 @@ public class RetryConnectHandler extends ChannelInboundHandlerAdapter {
 		log.debug("已经重试次数:{},是否允许继续重新链接：{}", retries, allowRetry);
 		if (allowRetry) {
 			long sleepTimeMs = this.retryPolicy.getSleepTimeMs(retries);
-			log.info("允许重新链接 当前重试次数:{}，等待时间：{}秒 ", ++retries, sleepTimeMs);
+			log.info("重新链接 重试次数:{}，等待时间：{}秒 ", ++retries, sleepTimeMs);
 			final EventLoop eventLoop = ctx.channel().eventLoop();
 			eventLoop.schedule(() -> {
-				log.info("重新连接 ......");
+				log.debug("重新连接 ......");
 				nettyClient.start();
 			}, sleepTimeMs, TimeUnit.SECONDS);
 		}

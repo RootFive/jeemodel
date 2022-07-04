@@ -20,6 +20,7 @@ public class ExponentialBackOffRetry implements RetryPolicy {
 	
 	/** 当前最大重试次数 */
 	private final int maxRetries;
+	/** 最长重试等待休眠时间  */
 	private final int maxSleepMs;
 
 
@@ -57,25 +58,15 @@ public class ExponentialBackOffRetry implements RetryPolicy {
 			throw new IllegalArgumentException("重试次数必须大于0");
 		}
 		if (retryCount >= maxRetries) {
-			log.debug("重试次数已达上限,retryCount={},maxRetries={}", retryCount, maxRetries);
+			log.debug("重试次数已达上限,重试统计：{}次,最大重试次数：{}", retryCount, maxRetries);
 			retryCount = maxRetries;
 		}
 		
 		long sleepMs = baseSleepTimeMs * Math.max(1, random.nextInt(1 << retryCount));
 		if (sleepMs > maxSleepMs) {
-			log.debug("睡眠等待时间太长，使用默认最大等待时间 sleepMs={}. maxSleepMs={}", sleepMs, maxSleepMs);
+			log.debug("使用默认最大等待时间（{}秒）,否则休眠时间太长（{}秒）", maxSleepMs, sleepMs);
 			sleepMs = maxSleepMs;
 		}
 		return sleepMs;
-	}
-	
-	public static void main(String[] args) {
-		int retryCount = 1;
-		
-		for (int i = 0; i < 100; i++) {
-			++retryCount;
-			System.out.println(1 << retryCount);
-		}
-		
 	}
 }
