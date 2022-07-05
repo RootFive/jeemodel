@@ -14,19 +14,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.jeemodel.solution.netty.exception;
+package com.jeemodel.bean.exception.type.remote.exception;
 
 /**
  * @author Andy
  */
 public class RemotingConnectException extends BaseRemoteException {
-	private static final long serialVersionUID = -5565366231695911316L;
+	private static final long serialVersionUID = 1L;
 
 	public RemotingConnectException(String addr) {
 		super(addr);
 	}
-
-	//	public RemotingConnectException(String addr, Throwable cause) {
-	//		super("connect to <" + addr + "> failed", cause);
-	//	}
 }

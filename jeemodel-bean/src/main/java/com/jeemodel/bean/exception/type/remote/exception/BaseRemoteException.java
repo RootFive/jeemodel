@@ -1,4 +1,4 @@
-package com.jeemodel.solution.netty.exception;
+package com.jeemodel.bean.exception.type.remote.exception;
 
 import com.jeemodel.bean.enums.code.sub.ISubCodeSystem;
 import com.jeemodel.bean.enums.code.sub.impl.SosCodeEnum;
