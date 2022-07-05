@@ -22,7 +22,7 @@ public class SDKServer extends BaseNettyServer {
 	private IDCodeServerConfig serverConfig;
 
 	@Resource
-	private SDKServerHandlerInitializer sdkServerHandlerInitializer;
+	private SDKServerHandlerChannelInitializer sdkServerHandlerInitializer;
 
 	@Override
 	public void init() {

@@ -42,8 +42,8 @@ public class IDCodeClientHandler extends BaseNettyInboundHandler<PongData<ProtoD
 				responseFuture.putResponse(sdkProtoDTO);
 			}
 		} else {
-			log.warn("[Netty客户端] 接受响应, 但是不符合预期响应, 通道地址 Channel address[{}],sdkProto={}",
-					NettyUtils.parseRemoteAddr(ctx.channel()), sdkProtoDTO);
+			log.warn("[Netty客户端] 接受响应, 但是不符合预期响应, 通道地址 Channel address[{}],sdkProto={}",NettyUtils.parseRemoteAddr(ctx.channel()), sdkProtoDTO);
+					
 		}
 	}
 }

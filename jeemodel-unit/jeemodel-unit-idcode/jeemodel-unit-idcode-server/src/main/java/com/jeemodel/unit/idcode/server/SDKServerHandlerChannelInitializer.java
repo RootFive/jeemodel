@@ -47,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @ConditionalOnProperty(prefix = "jeemodel.unit.idcode", name = "deploy", havingValue = "server")
-public class SDKServerHandlerInitializer extends ChannelInitializer<SocketChannel> {
+public class SDKServerHandlerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
 	@Resource
 	private IDCodeServerConfig serverConfig;
@@ -56,7 +56,7 @@ public class SDKServerHandlerInitializer extends ChannelInitializer<SocketChanne
 	private SDKServerHandler sdkServerHandler;
 
 	protected void initChannel(SocketChannel ch) throws Exception {
-		log.info("初始化服务器端涉及到的所有Handler");
+		log.info("客户端[{}],绑定服务端Handler",ch.remoteAddress());
 		ChannelPipeline pipeline = ch.pipeline();
 
 		//入站解码器
@@ -68,12 +68,12 @@ public class SDKServerHandlerInitializer extends ChannelInitializer<SocketChanne
 		 * 设置5s读超时，如：new IdleStateHandler(5, 0, 0)
 		 * 该handler代表如果在5秒内没有收到来自客户端的任何数据包（包括但不限于心跳包），将会主动断开与该客户端的连接。
 		 */
-		int readerIdleTimeSeconds = serverConfig.getReaderIdleTimeSeconds();
-		int writerIdleTimeSeconds = serverConfig.getWriterIdleTimeSeconds();
-		int allIdleTimeSeconds = serverConfig.getAllIdleTimeSeconds();
+		int readerIdle = serverConfig.getReaderIdleTimeSeconds();
+		int writerIdle = serverConfig.getWriterIdleTimeSeconds();
+		int allIdle = serverConfig.getAllIdleTimeSeconds();
 
-		pipeline.addLast(IdleStateHandler.class.getSimpleName(),
-				new IdleStateHandler(readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds));
+		log.info("读readerIdle:{}，写writerIdle：{}，全部allIdle={}",readerIdle,writerIdle,allIdle);
+		pipeline.addLast(IdleStateHandler.class.getSimpleName(),new IdleStateHandler(readerIdle, writerIdle, allIdle));
 		pipeline.addLast(ServerHeartBeatIdleHandler.class.getSimpleName(), new ServerHeartBeatIdleHandler());
 
 		//客户端心跳处理器

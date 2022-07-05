@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.jeemodel</groupId>
 		<artifactId>jeemodel-unit-idcode</artifactId>
-		<version>JM202207X</version>
+		<version>JM20220705</version>
 	</parent>
 
 	<artifactId>jeemodel-unit-idcode-client</artifactId>
 	<name>jeemodel-unit-idcode-client</name>
-	<description>jeemodel-unit-idcode-client</description>
+	<description>客户端-client</description>
 
 	<dependencies>
 		<!-- idcode-公共服务 -->

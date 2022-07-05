@@ -19,7 +19,7 @@ public class ServerHeartBeatIdleHandler extends ChannelInboundHandlerAdapter {
 			IdleState state = ((IdleStateEvent) evt).state();
 			// 读超时
 			if (state == IdleState.READER_IDLE) {
-				log.debug("在规定时间内没有受到客户端的心跳 主动断开链接");
+				log.debug("长时间内没有受到客户端[{}]的心跳 主动断开链接",ctx.channel().remoteAddress());
 				//选择是否回复
 				ctx.disconnect();
 			}

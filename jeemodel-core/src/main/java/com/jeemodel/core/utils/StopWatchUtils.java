@@ -51,9 +51,15 @@ public class StopWatchUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * String position5 = String.format("%-5s", args);   //表示 args 左对齐占用5个字符，不足的用空格补位
+	 * String position5 = String.format("%5s", args);   //表示 args 右对齐占用5个字符，不足的用空格补位
+	 * @param args
+	 * @param isRight
+	 * @param total
+	 * @return
+	 */
 	private static String formatComplement(Object args, boolean isRight, int total) {
-//		String position5 = String.format("%5s", args);   //表示 args 右对齐占用5个字符，不足的用空格补位
-//		String position5 = String.format("%-5s", args);   //表示 args 左对齐占用5个字符，不足的用空格补位
 		StringBuilder sb = new StringBuilder("%");
 		if (isRight) {
 			sb.append('-');

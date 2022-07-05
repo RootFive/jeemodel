@@ -26,7 +26,7 @@ public class UseSceneDTO extends BaseDTOCRUDX {
 	@Excel(name = "场景标识-名称")
 	private String sceneName;
 
-	@ApiModelProperty(value = "场景标识-编码（36进制，最大46655）")
+	@ApiModelProperty(value = "场景标识-编码（35进制，最大42874）")
 	@Excel(name = "场景标识-编码")
 	private String sceneCode;
 

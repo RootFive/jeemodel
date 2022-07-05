@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.TimerTask;
 
 import com.jeemodel.core.constant.Constants;
-import com.jeemodel.core.utils.LogUtils;
 import com.jeemodel.core.utils.ServletUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.ip.IpUtils;
@@ -44,11 +43,11 @@ public class AsyncFactory {
 			public void run() {
 				String address = IpUtils.getRealAddressByIP(ip);
 				StringBuilder s = new StringBuilder();
-				s.append(LogUtils.getBlock(ip));
+				s.append(getBlock(ip));
 				s.append(address);
-				s.append(LogUtils.getBlock(username));
-				s.append(LogUtils.getBlock(status));
-				s.append(LogUtils.getBlock(message));
+				s.append(getBlock(username));
+				s.append(getBlock(status));
+				s.append(getBlock(message));
 				// 打印信息到日志
 				log.info(s.toString(), args);
 				// 获取客户端操作系统
@@ -75,6 +74,20 @@ public class AsyncFactory {
 			}
 		};
 	}
+	
+	
+	/**
+	 * 处理并记录日志文件
+	 * 
+	 * @author Rootfive
+	 */
+	private static String getBlock(Object msg) {
+		if (msg == null) {
+			msg = "";
+		}
+		return "[" + msg.toString() + "]";
+	}
+	
 
 	/**
 	 * 操作日志记录

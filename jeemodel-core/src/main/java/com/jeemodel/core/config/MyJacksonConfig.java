@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import com.jeemodel.core.utils.ObjectMapperUtils;
+import com.jeemodel.core.utils.JacksonToObjectMapperUtils;
 
 /**
  */
@@ -20,7 +20,7 @@ public class MyJacksonConfig implements Jackson2ObjectMapperBuilderCustomizer, O
 
 	@Override
 	public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
-		ObjectMapperUtils.customize(jacksonObjectMapperBuilder);
+		JacksonToObjectMapperUtils.customize(jacksonObjectMapperBuilder);
 		
 	}
 }

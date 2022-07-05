@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @ConditionalOnProperty(prefix = "jeemodel.unit.idcode", name = "deploy", havingValue = "server")
-public class HTTPServerHandlerInitializer extends ChannelInitializer<SocketChannel> {
+public class HTTPServerHandlerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
 	@Resource
 	private HTTPServerHandler hTTPServerHandler;

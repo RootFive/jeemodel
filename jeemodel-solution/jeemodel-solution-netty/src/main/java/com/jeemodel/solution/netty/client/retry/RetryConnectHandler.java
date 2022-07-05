@@ -23,11 +23,11 @@ public class RetryConnectHandler extends ChannelInboundHandlerAdapter {
 
 	/** 重连策略 */
 	private RetryPolicy retryPolicy;
-
 	/**
 	 *  重连的客户端
 	 */
 	private BaseNettyClient nettyClient;
+	
 
 	public RetryConnectHandler(BaseNettyClient nettyClient, RetryPolicy retryPolicy) {
 		this.nettyClient = nettyClient;
@@ -44,7 +44,7 @@ public class RetryConnectHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		if (retries == 0) {
-			log.debug("与服务器的TCP连接-断开：[{}]", ctx.channel().remoteAddress());
+			log.error("与服务器的TCP连接-断开：[{}]", ctx.channel().remoteAddress());
 			ctx.close();
 		}
 
@@ -52,10 +52,10 @@ public class RetryConnectHandler extends ChannelInboundHandlerAdapter {
 		log.debug("已经重试次数:{},是否允许继续重新链接：{}", retries, allowRetry);
 		if (allowRetry) {
 			long sleepTimeMs = this.retryPolicy.getSleepTimeMs(retries);
-			log.info("允许重新链接 当前重试次数:{}，等待时间：{}秒 ", ++retries, sleepTimeMs);
+			log.info("下次重新链接，等待时间：{}秒， 重试次数:{}， ", sleepTimeMs, ++retries);
 			final EventLoop eventLoop = ctx.channel().eventLoop();
 			eventLoop.schedule(() -> {
-				log.info("重新连接 ......");
+				log.debug("重新连接 ......");
 				nettyClient.start();
 			}, sleepTimeMs, TimeUnit.SECONDS);
 		}

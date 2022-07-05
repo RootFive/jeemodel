@@ -1,4 +1,4 @@
-package com.jeemodel.solution.netty.exception;
+package com.jeemodel.bean.exception.type.remote.exception;
 
 public class RemotingTimeoutException extends BaseRemoteException {
 
@@ -13,6 +13,6 @@ public class RemotingTimeoutException extends BaseRemoteException {
 	}
 
 	public RemotingTimeoutException(String addr, long timeoutMillis, Throwable cause) {
-		super("wait response on the channel <" + addr + "> timeout, " + timeoutMillis + "(ms)", cause);
+		super("等待<" + addr + ">响应超过"+ timeoutMillis + "(ms)，已经超时" , cause);
 	}
 }

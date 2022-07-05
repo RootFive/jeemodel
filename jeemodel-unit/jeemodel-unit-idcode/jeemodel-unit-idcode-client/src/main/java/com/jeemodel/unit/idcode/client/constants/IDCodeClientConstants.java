@@ -11,8 +11,7 @@ import com.jeemodel.unit.idcode.common.bean.ProtoDTO;
  * @author Rootfive
  */
 public class IDCodeClientConstants {
-	/**
-	 * 异步相应结果
-	 */
+	
+	/** 异步相应结果 */
 	public static final ConcurrentMap<String, ResponseFuture<ProtoDTO>> ASYNC_RESPONSE = new ConcurrentHashMap<>();
 }

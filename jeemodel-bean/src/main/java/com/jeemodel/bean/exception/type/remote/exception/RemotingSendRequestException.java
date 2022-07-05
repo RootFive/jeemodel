@@ -1,4 +1,4 @@
-package com.jeemodel.solution.netty.exception;
+package com.jeemodel.bean.exception.type.remote.exception;
 
 public class RemotingSendRequestException extends BaseRemoteException {
 
@@ -9,6 +9,6 @@ public class RemotingSendRequestException extends BaseRemoteException {
 	}
 
 	public RemotingSendRequestException(Throwable cause, String addr) {
-		super("send request to <" + addr + "> failed", cause);
+		super("发送请求 <" + addr + "> 失败", cause);
 	}
 }

@@ -27,7 +27,7 @@ public class UseScene extends BaseEntityCRUDX {
 	/** 场景标识-名称 */
 	private String sceneName;
 
-	/** 场景标识-编码（36进制，最大46655） */
+	/** 场景标识-编码（35进制，最大42874） */
 	private String sceneCode;
 
 	/** 标识-长度（3-6） */

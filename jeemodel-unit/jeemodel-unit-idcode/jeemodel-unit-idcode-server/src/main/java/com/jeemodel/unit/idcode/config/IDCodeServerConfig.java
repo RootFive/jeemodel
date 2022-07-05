@@ -42,7 +42,7 @@ public class IDCodeServerConfig {
 	// XXX
 
 	/** HTTP协议请求端口 */
-	@Value("${jeemodel.unit.idcode.server.http.server.port:22620}")
+	@Value("${jeemodel.unit.idcode.server.http.server.port:22624}")
 	private int httpServerPort;
 
 	/** HTTP协议请求URI */
@@ -64,7 +64,7 @@ public class IDCodeServerConfig {
 	// XXX
 
 	/** SDK协议请求端口 */
-	@Value("${jeemodel.unit.idcode.server.sdk.server.port:22624}")
+	@Value("${jeemodel.unit.idcode.server.sdk.server.port:22704}")
 	private int sdkServerPort;
 
 	/** SDK流量控制，表示每秒处理的并发数，默认是5W */
@@ -79,8 +79,8 @@ public class IDCodeServerConfig {
 	@Value("${jeemodel.unit.idcode.server.sdk.server.backlog.size:1024}")
 	private int sdkBacklogSize;
 
-	/** 30秒内没有收到来自客户端的任何数据包 */
-	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.reader:30}")
+	/** 60秒内没有收到来自客户端的任何数据包 */
+	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.reader:60}")
 	private int readerIdleTimeSeconds;
 
 	/** 30秒内没有向客户端的发送写数据包 */
@@ -91,7 +91,7 @@ public class IDCodeServerConfig {
 	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.all:0}")
 	private int allIdleTimeSeconds;
 
-	/** SDK线程队列得到连接个数 */
+	/** 服务端是否需要回复客户端的心跳 */
 	@Value("${jeemodel.unit.idcode.server.sdk.server.heartbeat.echo:false}")
 	private boolean needHeartBeatEcho;
 
@@ -101,13 +101,13 @@ public class IDCodeServerConfig {
 
 	@Bean(name = ECHO_SNOWFLAKE)
 	public SnowFlakeHelper echoSnowFlake() {
-		log.info("当前服务节点雪花算法使用的：[数据节点标识ID:{}],[机器标识ID:{}]", datacenterId, machineId);
+		log.info("【回声echo】服务-雪花算法参数使用：[数据节点标识ID:{}],[机器标识ID:{}]", datacenterId, machineId);
 		return new SnowFlakeHelper(0, 0);
 	}
 
 	@Bean(name = IDCODE_SNOWFLAKE)
 	public SnowFlakeHelper uniqueidSnowFlake() {
-		log.info("当前服务节点雪花算法使用的：[数据节点标识ID:{}],[机器标识ID:{}]", datacenterId, machineId);
+		log.info("【唯一ID】服务-雪花算法参数使用：[数据节点标识ID:{}],[机器标识ID:{}]", datacenterId, machineId);
 		return new SnowFlakeHelper(datacenterId, machineId);
 	}
 

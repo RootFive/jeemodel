@@ -26,6 +26,18 @@ public class Threads {
 			return;
 		}
 	}
+	
+	/**
+	 * timeout 等待
+	 * timeUnit 时间单位
+	 */
+	public static void sleep(long timeout,TimeUnit timeUnit) {
+		try {
+			timeUnit.sleep(timeout);
+		} catch (InterruptedException e) {
+			return;
+		}
+	}
 
 	/**
 	 * 停止线程池 先使用shutdown, 停止接收新任务并尝试完成所有已存在任务. 如果超时, 则调用shutdownNow,

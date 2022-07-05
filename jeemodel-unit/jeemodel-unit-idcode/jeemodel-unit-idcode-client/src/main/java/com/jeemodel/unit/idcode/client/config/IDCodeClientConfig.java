@@ -32,7 +32,7 @@ public class IDCodeClientConfig {
 	private int serverHTTPPort;
 	
 	
-	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.port:22624}")
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.port:22704}")
 	private int serverSDKPort;
 
 	/** 异步请求流量控制，表示每秒处理的并发数 */
@@ -43,10 +43,30 @@ public class IDCodeClientConfig {
 	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.oneway.semaphore.tps:10000}")
 	private int onewaySemaphoreTps;
 
+	/** 断线重连，初始等待时间,秒，默认是1秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.baseSleepSecond:1}")
+	private int retryBaseSleepSecond;
+	
+	/** 断线重连，最长重试等待休眠时间,秒，默认是60秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.maxSleepSecond:30}")
+	private int retryMaxSleepSecond;
+	
+	/** 客户端心跳，读超时,秒，默认是3秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.idleStateReader:0}")
+	private int idleStateReader;
+	
+	/** 客户端心跳，写超时,秒，默认是0秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.idleStateWriter:3}")
+	private int idleStateWriter;
+	
+	/** 客户端心跳，读超时,秒，默认是0秒 */
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.retry.idleStateAll:0}")
+	private int idleStateAll;
+
+	
 	// XXX
 	// 异步信号量
 	// XXX
-
 	@Bean(name = CLIENT_ASYNC_TPS_SEMAPHORE)
 	public Semaphore httpSemaphore() {
 		log.info("【异步】信号量请求流量控制，表示每秒处理的并发数:{}", asyncSemaphoreTps);
