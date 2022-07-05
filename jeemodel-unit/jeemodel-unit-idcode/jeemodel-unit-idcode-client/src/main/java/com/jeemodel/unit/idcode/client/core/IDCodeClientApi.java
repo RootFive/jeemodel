@@ -14,6 +14,7 @@ import com.jeemodel.bean.exception.type.remote.exception.RemotingSendRequestExce
 import com.jeemodel.bean.exception.type.remote.exception.RemotingTimeoutException;
 import com.jeemodel.bean.exception.type.remote.exception.RemotingTooMuchRequestException;
 import com.jeemodel.bean.rpc.Ping;
+import com.jeemodel.bean.rpc.PongData;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.solution.netty.client.invoke.InvokeCallback;
 import com.jeemodel.solution.netty.client.invoke.ResponseFuture;
@@ -52,13 +53,13 @@ public class IDCodeClientApi  {
 	/**
 	 * 同步调用
 	 */
-	public ProtoDTO invokeSync(Ping<IDCodeDemandDTO> ping, long timeoutMillis) throws BaseRemoteException {
+	public PongData<ProtoDTO> invokeSync(Ping<IDCodeDemandDTO> ping, long timeoutMillis) throws BaseRemoteException {
 		final Channel channel = client.channel();
 
 		if (channel.isActive()) {
 			String echo = ping.getEcho();
 			try {
-				final ResponseFuture<ProtoDTO> responseFuture = new ResponseFuture<>(echo, timeoutMillis, null, null);
+				final ResponseFuture<PongData<ProtoDTO>> responseFuture = new ResponseFuture<>(echo, timeoutMillis, null, null);
 
 				IDCodeClientConstants.ASYNC_RESPONSE.put(echo, responseFuture);
 
@@ -67,7 +68,7 @@ public class IDCodeClientApi  {
 					public void operationComplete(ChannelFuture channelFuture) throws Exception {
 						if (channelFuture.isSuccess()) {
 							// 发送成功后立即跳出
-							responseFuture.setIsSendStateOk(true);
+							responseFuture.setSendStateOk(true);
 							return;
 						}
 						// 代码执行到此说明发送失败，需要释放资源
@@ -78,7 +79,7 @@ public class IDCodeClientApi  {
 					}
 				});
 				// 阻塞等待响应
-				ProtoDTO resultProto = responseFuture.waitResponse(timeoutMillis);
+				PongData<ProtoDTO> resultProto = responseFuture.waitResponse(timeoutMillis);
 				if (null == resultProto) {
 					if (responseFuture.isSendStateOk()) {
 						throw new RemotingTimeoutException(NettyUtils.parseRemoteAddr(channel), timeoutMillis,responseFuture.getCause());
@@ -109,21 +110,21 @@ public class IDCodeClientApi  {
 	 * @throws InterruptedException
 	 */
 	public void invokeAsync(Ping<IDCodeDemandDTO> ping, long timeoutMillis,
-			final InvokeCallback<ProtoDTO> invokeCallback) throws BaseRemoteException, InterruptedException {
+			final InvokeCallback<PongData<ProtoDTO>> invokeCallback) throws BaseRemoteException, InterruptedException {
 
 		final Channel channel = client.channel();
 		if (channel.isOpen() && channel.isActive()) {
 			String echo = ping.getEcho();
 			boolean acquired = asyncSemaphore.tryAcquire(timeoutMillis, TimeUnit.MILLISECONDS);
 			if (acquired) {
-				final ResponseFuture<ProtoDTO> responseFuture = new ResponseFuture<>(echo, timeoutMillis,invokeCallback, asyncSemaphore);
+				final ResponseFuture<PongData<ProtoDTO>> responseFuture = new ResponseFuture<>(echo, timeoutMillis,invokeCallback, asyncSemaphore);
 				IDCodeClientConstants.ASYNC_RESPONSE.put(echo, responseFuture);
 				try {
 					channel.writeAndFlush(ping).addListener(new ChannelFutureListener() {
 						@Override
 						public void operationComplete(ChannelFuture channelFuture) throws Exception {
 							if (channelFuture.isSuccess()) {
-								responseFuture.setIsSendStateOk(true);
+								responseFuture.setSendStateOk(true);
 								return;
 							}
 							// 代码执行到些说明发送失败，需要释放资源
