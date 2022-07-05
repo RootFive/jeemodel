@@ -63,6 +63,9 @@
 		<!-- maven构建依赖 -->
 		<maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
 		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<buildnumber-maven-plugin.version>3.0.0</buildnumber-maven-plugin.version>
 
 		<!-- JDK版本兼容 JDK11 -->
 		<jaxb.version>3.0.1</jaxb.version>
@@ -378,7 +381,7 @@
 				<!-- maven 的默认编译使用的 jdk 版本有时候不通用，使用 maven-compiler-plugin 插件可以指定项目源码的 jdk 版本，编译后的 jdk 版本，以及编码。 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -388,7 +391,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.2</version>
+				<version>${maven-jar-plugin.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -404,7 +407,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.2.1</version>
+				<version>${maven-source-plugin.version}</version>
 				<configuration>
 					<attach>true</attach>
 				</configuration>
@@ -420,7 +423,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>${buildnumber-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
