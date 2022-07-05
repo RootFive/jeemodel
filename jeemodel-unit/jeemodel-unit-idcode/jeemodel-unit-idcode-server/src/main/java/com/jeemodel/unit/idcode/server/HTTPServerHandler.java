@@ -149,10 +149,10 @@ public class HTTPServerHandler extends BaseNettyInboundHandler<FullHttpRequest> 
 					ProtoDTO proto = idcodeCodeHelper.nextUIDCode(demandDTO);
 					pong = PongUtils.okData(proto);
 				} catch (Exception e) {
-					log.error("{}_find_a_Exception:", this.getClass().getSimpleName(), e);
 					if (e instanceof BaseJeeModelException) {
 						pong = PongUtils.analysisException((BaseJeeModelException) e);
 					} else {
+						log.error("{}_find_a_Exception:", this.getClass().getSimpleName(), e);
 						pong = PongUtils.unknown(e.getMessage());
 					}
 					

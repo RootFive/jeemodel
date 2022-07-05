@@ -77,10 +77,10 @@ public class SDKServerHandler extends BaseNettyInboundHandler<Ping<IDCodeDemandD
 					ProtoDTO proto = idcodeCodeHelper.nextUIDCode(demand);
 					pong = PongUtils.okData(proto);
 				} catch (Exception e) {
-					log.error("响应失败 error", e);
 					if (e instanceof BaseJeeModelException) {
 						pong = PongUtils.analysisException((BaseJeeModelException) e);
 					} else {
+						log.error("{}_find_a_Exception:", this.getClass().getSimpleName(), e);
 						pong = PongUtils.unknown(e.getMessage());
 					}
 				}
