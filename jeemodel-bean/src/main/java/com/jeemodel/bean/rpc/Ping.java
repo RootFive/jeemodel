@@ -43,7 +43,7 @@ public class Ping<Q> implements Serializable{
 	
 	public Ping() {
 		super();
-		this.echo = "es"+ECHO_AUTO.incrementAndGet();
+		this.echo = "echo"+ECHO_AUTO.incrementAndGet();
 	}
 
 	@Override

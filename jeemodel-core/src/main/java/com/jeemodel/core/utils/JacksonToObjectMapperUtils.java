@@ -28,7 +28,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.jeemodel.core.constant.time.TimeHelper;
 import com.jeemodel.core.utils.spring.SpringUtils;
 
-public class ObjectMapperUtils {
+public class JacksonToObjectMapperUtils {
 
 	public static Jackson2ObjectMapperBuilder customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
 		

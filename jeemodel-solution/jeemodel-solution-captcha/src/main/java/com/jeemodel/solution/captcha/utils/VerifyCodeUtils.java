@@ -1,4 +1,4 @@
-package com.jeemodel.core.utils;
+package com.jeemodel.solution.captcha.utils;
 
 import java.awt.Color;
 import java.awt.Font;
