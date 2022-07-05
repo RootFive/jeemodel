@@ -64,11 +64,9 @@ public class IDCodeClientConfig {
 	private int idleStateAll;
 
 	
-	
 	// XXX
 	// 异步信号量
 	// XXX
-
 	@Bean(name = CLIENT_ASYNC_TPS_SEMAPHORE)
 	public Semaphore httpSemaphore() {
 		log.info("【异步】信号量请求流量控制，表示每秒处理的并发数:{}", asyncSemaphoreTps);

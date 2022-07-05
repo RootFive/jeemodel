@@ -56,28 +56,27 @@ public class IDCodeClient extends BaseNettyClient {
 	@Resource(name = IDCodeClientConfig.CLIENT_ONEWAY_TPS_SEMAPHORE)
 	private Semaphore onewaySemaphore;
 
-	
-	
 	@Override
 	public void init() {
-		
-				//设置工作线程组
+		// 设置工作线程组
 		bootstrap.group(workerGroup);
-				//通道实现 NIO类型
+		// 通道实现 NIO类型
 		bootstrap.channel(NioSocketChannel.class);
-				// SocketChannel 5s内未建立连接就抛出异常
+		// SocketChannel 5s内未建立连接就抛出异常
 		bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
-				// 通过NoDelay禁用Nagle,使消息立即发出去，不用等待到一定的数据量才发出去
+		// 通过NoDelay禁用Nagle,使消息立即发出去，不用等待到一定的数据量才发出去
 		bootstrap.option(ChannelOption.TCP_NODELAY, true);
-				// 设置保持活动连接状态
+		// 设置保持活动连接状态
 		bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
-				/*
-				 * handler这里创建一个通道初始化对象(匿名对象)，给workerGroup的EventLoop对应的管道设置处理器，
-				 * 这个程序里边使用的是匿名对象，你也可以单独拿出去，用一个类实现 ChannelInitializer
-				 */
-//				.handler(new IDCodeClientHandlersInitializer(IDCodeClient.this));
-				
-		ExponentialBackOffRetry retryPolicy = new ExponentialBackOffRetry(clientConfig.getRetryBaseSleepSecond(), Integer.MAX_VALUE, clientConfig.getRetryMaxSleepSecond());
+		/*
+		 * handler这里创建一个通道初始化对象(匿名对象)， 
+		 * 给workerGroup的EventLoop对应的管道设置处理器，
+		 * 这个程序里边使用的是匿名对象，你也可以单独拿出去，用一个类实现 ChannelInitializer
+		 */
+		int retryBaseSleepSecond = clientConfig.getRetryBaseSleepSecond();
+		int retryMaxSleepSecond = clientConfig.getRetryMaxSleepSecond();
+		log.info("与服务器的TCP连接断线重连策略：最小等待时间：{}秒，最大等待时间：{}秒，重试次数上限：{}次", retryBaseSleepSecond, retryMaxSleepSecond,Integer.MAX_VALUE);
+		ExponentialBackOffRetry retryPolicy = new ExponentialBackOffRetry(retryBaseSleepSecond, Integer.MAX_VALUE,retryMaxSleepSecond);
 		RetryConnectHandler retryConnectHandler = new RetryConnectHandler(IDCodeClient.this, retryPolicy);
 		bootstrap.handler(new IDCodeClientHandlersInitializer(retryConnectHandler));
 	}
@@ -88,13 +87,14 @@ public class IDCodeClient extends BaseNettyClient {
 	public void start() {
 		synchronized (bootstrap) {
 			channelFuture = bootstrap.connect(clientConfig.getServerHost(), clientConfig.getServerSDKPort());
-			//ChannelFuture 添加对象监听
+			// ChannelFuture 添加对象监听
 			channelFuture.addListener(getConnectionListener());
 		}
 	}
 
 	/**
 	 * ChannelFuture 对象监听
+	 * 
 	 * @return
 	 */
 	private ChannelFutureListener getConnectionListener() {
@@ -111,7 +111,6 @@ public class IDCodeClient extends BaseNettyClient {
 			}
 		};
 	}
-
 
 	/**
 	 * 同步调用
@@ -145,12 +144,9 @@ public class IDCodeClient extends BaseNettyClient {
 				ProtoDTO resultProto = responseFuture.waitResponse(timeoutMillis);
 				if (null == resultProto) {
 					if (responseFuture.isSendStateOk()) {
-						throw new RemotingTimeoutException(NettyUtils.parseRemoteAddr(channel), timeoutMillis,
-								responseFuture.getCause());
+						throw new RemotingTimeoutException(NettyUtils.parseRemoteAddr(channel), timeoutMillis,responseFuture.getCause());
 					} else {
-						throw new RemotingSendRequestException(responseFuture.getCause(),
-								NettyUtils.parseRemoteAddr(channel));
-
+						throw new RemotingSendRequestException(responseFuture.getCause(),NettyUtils.parseRemoteAddr(channel));
 					}
 				}
 				return resultProto;
@@ -168,22 +164,22 @@ public class IDCodeClient extends BaseNettyClient {
 
 	/**
 	 * 异步调用
+	 * 
 	 * @param sdkProtoDTO
 	 * @param timeoutMillis
 	 * @param invokeCallback
 	 * @throws BaseRemoteException
 	 * @throws InterruptedException
 	 */
-	public void invokeAsync(Ping<IDCodeDemandDTO> ping, long timeoutMillis, final InvokeCallback<ProtoDTO> invokeCallback)
-			throws BaseRemoteException, InterruptedException {
+	public void invokeAsync(Ping<IDCodeDemandDTO> ping, long timeoutMillis,
+			final InvokeCallback<ProtoDTO> invokeCallback) throws BaseRemoteException, InterruptedException {
 
 		final Channel channel = channel();
 		if (channel.isOpen() && channel.isActive()) {
 			String echo = ping.getEcho();
 			boolean acquired = asyncSemaphore.tryAcquire(timeoutMillis, TimeUnit.MILLISECONDS);
 			if (acquired) {
-				final ResponseFuture<ProtoDTO> responseFuture = new ResponseFuture<>(echo, timeoutMillis,
-						invokeCallback, asyncSemaphore);
+				final ResponseFuture<ProtoDTO> responseFuture = new ResponseFuture<>(echo, timeoutMillis,invokeCallback, asyncSemaphore);
 				IDCodeClientConstants.ASYNC_RESPONSE.put(echo, responseFuture);
 				try {
 					channel.writeAndFlush(ping).addListener(new ChannelFutureListener() {
@@ -201,8 +197,7 @@ public class IDCodeClient extends BaseNettyClient {
 							try {
 								responseFuture.executeInvokeCallback();
 							} catch (Exception e) {
-								log.error("[Netty客户端] 异步 writeAndFlush addListener 出现异常 [{}] ", channel.remoteAddress(),
-										e);
+								log.error("[Netty客户端] 异步 writeAndFlush addListener 出现异常 [{}] ", channel.remoteAddress(),e);
 							} finally {
 								responseFuture.release();
 							}
@@ -215,8 +210,7 @@ public class IDCodeClient extends BaseNettyClient {
 					throw new RemotingSendRequestException(e, NettyUtils.parseRemoteAddr(channel));
 				}
 			} else {
-				String info = StringUtils.format("尝试获得令牌超过{}ms,等待线程数：{}，可用令牌剩余数：{} ", timeoutMillis,
-						asyncSemaphore.getQueueLength(), asyncSemaphore.availablePermits());
+				String info = StringUtils.format("尝试获得令牌超过{}ms,等待线程数：{}，可用令牌剩余数：{} ", timeoutMillis,asyncSemaphore.getQueueLength(), asyncSemaphore.availablePermits());
 				throw new RemotingTooMuchRequestException(info);
 			}
 		} else {
@@ -227,12 +221,14 @@ public class IDCodeClient extends BaseNettyClient {
 
 	/**
 	 * OneWay调用
+	 * 
 	 * @param ping
 	 * @param timeoutMillis
 	 * @throws BaseRemoteException
 	 * @throws InterruptedException
 	 */
-	public void invokeOneWay(Ping<IDCodeDemandDTO> ping, long timeoutMillis) throws BaseRemoteException, InterruptedException {
+	public void invokeOneWay(Ping<IDCodeDemandDTO> ping, long timeoutMillis)
+			throws BaseRemoteException, InterruptedException {
 		final Channel channel = channel();
 		if (channel.isActive()) {
 			String echo = ping.getEcho();
@@ -256,8 +252,7 @@ public class IDCodeClient extends BaseNettyClient {
 					IDCodeClientConstants.ASYNC_RESPONSE.remove(echo);
 				}
 			} else {
-				String info = StringUtils.format("尝试获得令牌超过{}ms,等待线程数：{}，可用令牌剩余数：{} ", timeoutMillis,
-						onewaySemaphore.getQueueLength(), onewaySemaphore.availablePermits());
+				String info = StringUtils.format("尝试获得令牌超过{}ms,等待线程数：{}，可用令牌剩余数：{} ", timeoutMillis,onewaySemaphore.getQueueLength(), onewaySemaphore.availablePermits());
 				log.warn(info);
 				throw new RemotingTooMuchRequestException(info);
 			}
