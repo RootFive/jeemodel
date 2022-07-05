@@ -26,7 +26,7 @@ public class HTTPServer extends BaseNettyServer {
 	private IDCodeServerConfig serverConfig;
 
 	@Resource
-	private HTTPServerHandlerInitializer httpServerHandlerInitializer;
+	private HTTPServerHandlerChannelInitializer httpServerHandlerInitializer;
 
 	@Override
 	public void init() {

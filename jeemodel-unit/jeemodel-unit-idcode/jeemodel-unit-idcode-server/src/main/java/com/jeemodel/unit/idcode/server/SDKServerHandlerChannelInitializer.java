@@ -47,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @ConditionalOnProperty(prefix = "jeemodel.unit.idcode", name = "deploy", havingValue = "server")
-public class SDKServerHandlerInitializer extends ChannelInitializer<SocketChannel> {
+public class SDKServerHandlerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
 	@Resource
 	private IDCodeServerConfig serverConfig;
@@ -56,7 +56,7 @@ public class SDKServerHandlerInitializer extends ChannelInitializer<SocketChanne
 	private SDKServerHandler sdkServerHandler;
 
 	protected void initChannel(SocketChannel ch) throws Exception {
-		log.info("初始化服务器端涉及到的所有Handler");
+		log.info("客户端[{}],绑定服务端Handler",ch.remoteAddress());
 		ChannelPipeline pipeline = ch.pipeline();
 
 		//入站解码器
