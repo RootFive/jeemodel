@@ -2,9 +2,11 @@ package com.jeemodel.unit.idcode.client.core;
 
 import org.springframework.util.Assert;
 
+import com.jeemodel.core.utils.spring.SpringUtils;
 import com.jeemodel.solution.netty.client.heartbeat.ClientHeartBeatEchoHandler;
 import com.jeemodel.solution.netty.client.heartbeat.ClientHeartBeatIdleHandler;
 import com.jeemodel.solution.netty.client.retry.RetryConnectHandler;
+import com.jeemodel.unit.idcode.client.config.IDCodeClientConfig;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -13,13 +15,12 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * 初始化客户端 Handlers程序
- * UID.client
+ * 客户端通道初始化
  */
-//@Component
-//@ConditionalOnProperty(prefix = "jeemodel.unit.idcode", name = "deploy", havingValue = "client")
+@Slf4j
 public class IDCodeClientHandlersInitializer extends ChannelInitializer<SocketChannel> {
 
 	/**
@@ -57,16 +58,17 @@ public class IDCodeClientHandlersInitializer extends ChannelInitializer<SocketCh
 		 * 所以，我们只需要判断 Server 是否在时间间隔内从 Channel 读取到数据
 		 * 所以，readerIdleTimeSeconds 我们取 3s，而 writerIdleTimeSeconds 为 0
 		 */
-		IdleStateHandler idleStateHandler = new IdleStateHandler(3, 3, 0);
+		IDCodeClientConfig clientConfig = SpringUtils.getBean(IDCodeClientConfig.class);
+		int idleReader = clientConfig.getIdleStateReader();
+		int idleWriter = clientConfig.getIdleStateWriter();
+		int idleAll = clientConfig.getIdleStateAll();
+		log.info("读idleReader:{}，写idleWriter：{}，全部idleAll={}",idleReader,idleWriter,idleAll);
+		IdleStateHandler idleStateHandler = new IdleStateHandler(idleReader, idleWriter, idleAll);
 		pipeline.addLast(IdleStateHandler.class.getSimpleName(), idleStateHandler);
-
-		
-				
 
 		
 		pipeline.addLast(ClientHeartBeatIdleHandler.class.getSimpleName(), new ClientHeartBeatIdleHandler());
 		pipeline.addLast(ClientHeartBeatEchoHandler.class.getSimpleName(), new ClientHeartBeatEchoHandler());
-		
 		
 		//业务Handler
 		pipeline.addLast(IDCodeClientHandler.class.getSimpleName(), new IDCodeClientHandler());

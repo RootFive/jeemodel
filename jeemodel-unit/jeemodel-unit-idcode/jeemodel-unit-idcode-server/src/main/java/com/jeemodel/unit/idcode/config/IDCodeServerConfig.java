@@ -79,8 +79,8 @@ public class IDCodeServerConfig {
 	@Value("${jeemodel.unit.idcode.server.sdk.server.backlog.size:1024}")
 	private int sdkBacklogSize;
 
-	/** 30秒内没有收到来自客户端的任何数据包 */
-	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.reader:30}")
+	/** 60秒内没有收到来自客户端的任何数据包 */
+	@Value("${jeemodel.unit.idcode.server.sdk.server.idle.state.reader:60}")
 	private int readerIdleTimeSeconds;
 
 	/** 30秒内没有向客户端的发送写数据包 */
