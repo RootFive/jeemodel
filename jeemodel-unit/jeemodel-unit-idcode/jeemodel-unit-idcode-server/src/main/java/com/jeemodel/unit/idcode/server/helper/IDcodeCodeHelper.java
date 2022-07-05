@@ -117,7 +117,7 @@ public class IDcodeCodeHelper {
 	@Transactional
 	public UseScene incrUidSerialReturnUseScene(String sceneCode, int incrQuantity) {
 		useSceneMapper.autoIncrUidSerial(sceneCode, incrQuantity);
-		return useSceneMapper.selectOne(new QueryWrapper<UseScene>().eq("scene_code", sceneCode));
+		return useSceneMapper.selectOne(new QueryWrapper<UseScene>().eq("scene_code", sceneCode).eq("status", 0));
 	}
 
 }
