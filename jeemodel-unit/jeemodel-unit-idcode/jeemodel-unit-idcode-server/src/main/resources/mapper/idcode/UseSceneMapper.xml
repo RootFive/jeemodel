@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET 
 			uid_serial = us.uid_serial + #{incrQuantity,jdbcType=INTEGER} 	
 		WHERE
-			status = 0; 	
+			status = 0 	
 		AND			
 			scene_code = #{sceneCode,jdbcType=CHAR}; 	
 	</update>
@@ -57,9 +57,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT 
 			uid_serial 
 		FROM 
-			uniqueid_use_scene;
+			idcode_use_scene
 		WHERE
-			status = 0; 	
+			status = 0	
 		AND	
 			scene_code = #{sceneCode,jdbcType=CHAR}; 	
     </select>
