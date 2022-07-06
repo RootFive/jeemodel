@@ -327,6 +327,11 @@
 				<artifactId>jeemodel-unit-manage-system</artifactId>
 				<version>${jeemodel.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.jeemodel</groupId>
+				<artifactId>jeemodel-unit-manage-system-show</artifactId>
+				<version>${jeemodel.version}</version>
+			</dependency>
 
 			<!-- 研发工具 -->
 			<dependency>

@@ -1,18 +1,15 @@
-package com.jeemodel.unit.manage.core.dto;
+package com.jeemodel.unit.manage.system.show;
 
 
 import com.jeemodel.bean.helper.JeeModelToStringBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * @author Rootfive 2021-3-12	 联系方式: QQ群：2236067977  
  * <p>权限标识</p>
- * @since   JeeModel 1.0.0
  */
-@Deprecated
-@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Perms {
 	
@@ -24,20 +21,36 @@ public class Perms {
 	/**
 	 * 	业务标题
 	 */
-	private String  title;
+	private String  business;
 	
 	/**
 	 *  	功能名
 	 */
 	private String  funName;
 	
+	
+	public Perms(String module, String business, String funName) {
+		super();
+		this.module = module;
+		this.business = business;
+		this.funName = funName;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		JeeModelToStringBuilder builder = new JeeModelToStringBuilder(this);
 		builder.append("module", module);
-		builder.append("title", title);
+		builder.append("business", business);
 		builder.append("funName", funName);
 		return builder.toString();
 	}
+
+
+
+
+
+
 
 }

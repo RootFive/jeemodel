@@ -12,5 +12,6 @@
 	<modules>
 		<module>jeemodel-unit-manage-core</module>
 		<module>jeemodel-unit-manage-system</module>
+		<module>jeemodel-unit-manage-system-show</module>
 	</modules>
 </project>
