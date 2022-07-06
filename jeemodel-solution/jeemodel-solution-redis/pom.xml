@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.jeemodel</groupId>
 		<artifactId>jeemodel-solution</artifactId>
-		<version>JM20220705</version>
+		<version>JM20220706</version>
 	</parent>
 	
 	<artifactId>jeemodel-solution-redis</artifactId>
