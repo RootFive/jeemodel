@@ -1,4 +1,4 @@
-package com.jeemodel.unit.manage.core.utils;
+package com.jeemodel.core.utils;
 
 
 import java.lang.annotation.Annotation;
@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author Rootfive
  *
  */
-@Deprecated
 @Slf4j
 public class AspectUtils {
 	

@@ -1,24 +1,20 @@
-package com.jeemodel.unit.manage.core.utils;
+package com.jeemodel.unit.manage.system.show;
 
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.jeemodel.core.utils.StringUtils;
-import com.jeemodel.unit.manage.core.dto.Perms;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Rootfive 2021-3-12	 联系方式: QQ群：2236067977  
- * <p>TODO 描述作用</p>
  * <blockquote>
  * 	<pre>
  *     eg：String str = "abc";
  * 	</pre>
  * </blockquote>
- * @since   JeeModel 1.0.0
  */
-@Deprecated
 @Slf4j
 public class PermsAOPUtils {
 

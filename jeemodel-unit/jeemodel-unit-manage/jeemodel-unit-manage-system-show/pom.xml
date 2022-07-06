@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.jeemodel</groupId>
+		<artifactId>jeemodel-unit-manage</artifactId>
+		<version>JM20220706</version>
+	</parent>
+
+	<artifactId>jeemodel-unit-manage-system-show</artifactId>
+	<name>jeemodel-unit-manage-system-show</name>
+	<description>管理系统演示模块</description>
+
+	<dependencies>
+		<!-- 管理系统 -->
+		<dependency>
+			<groupId>com.jeemodel</groupId>
+			<artifactId>jeemodel-unit-manage-system</artifactId>
+		</dependency>
+	</dependencies>
+</project>

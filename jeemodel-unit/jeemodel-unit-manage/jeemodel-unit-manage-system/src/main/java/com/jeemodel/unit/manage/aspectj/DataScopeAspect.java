@@ -58,7 +58,6 @@ public class DataScopeAspect {
 	
 	@Before("@annotation(controllerDataScope)")
 	public void doBefore(JoinPoint point, DataScope controllerDataScope) throws Throwable {
-//		clearDataScope(point);
 		handleDataScope(point, controllerDataScope);
 	}
 
@@ -109,13 +108,6 @@ public class DataScopeAspect {
 			}
 		}
 
-//		if (StringUtils.isNotBlank(sqlString.toString())) {
-//			Object params = joinPoint.getArgs()[0];
-//			if (StringUtils.isNotNull(params) && params instanceof BaseEntity) {
-//				BaseEntity baseEntity = (BaseEntity) params;
-//				baseEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
-//			}
-//		}
 		
 		if (StringUtils.isNotBlank(sqlString.toString())) {
 			Map<String, Object> dataScopeParams = new HashMap<String, Object>();
@@ -124,15 +116,4 @@ public class DataScopeAspect {
 		}
 	}
 
-	/**
-	 * 拼接权限sql前先清空params.dataScope参数防止注入
-	 */
-//	@Deprecated
-//	private void clearDataScope(final JoinPoint joinPoint) {
-//		Object params = joinPoint.getArgs()[0];
-//		if (StringUtils.isNotNull(params) && params instanceof BaseEntity) {
-//			BaseEntity baseEntity = (BaseEntity) params;
-//			baseEntity.getParams().put(DATA_SCOPE, "");
-//		}
-//	}
 }
