@@ -49,7 +49,7 @@ public class HTTPServerHandlerChannelInitializer extends ChannelInitializer<Sock
 
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
-		log.info("初始化服务器端涉及到的所有Handler");
+		log.debug("客户端[{}],绑定服务端Handler",ch.remoteAddress());
 		ChannelPipeline pipeline = ch.pipeline();
 		//请求 http解码器,属于入站处理
 		pipeline.addLast(new HttpRequestDecoder());

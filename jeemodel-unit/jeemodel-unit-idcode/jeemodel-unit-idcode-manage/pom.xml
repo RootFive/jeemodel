@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.jeemodel</groupId>
     <artifactId>jeemodel-unit-idcode</artifactId>
-    <version>JM20220705</version>
+    <version>JM20220706</version>
   </parent>
   <artifactId>jeemodel-unit-idcode-manage</artifactId>
   <name>jeemodel-unit-idcode-manage</name>

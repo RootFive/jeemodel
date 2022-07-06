@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jeemodel.base.annotation.HelpService;
+import com.jeemodel.core.utils.ExceptionUtils;
 import com.jeemodel.core.utils.StringUtils;
 import com.jeemodel.core.utils.id.SnowFlakeHelper;
 import com.jeemodel.core.utils.spring.SpringUtils;
@@ -74,6 +75,12 @@ public class IDcodeCodeHelper {
 		} else {
 			//统一标识编码
 			UseScene lastUseScene = SpringUtils.getAopProxy(this).incrUidSerialReturnUseScene(scene, needSize);
+			if (lastUseScene == null ) {
+				throw  ExceptionUtils.warn("场景标识不存在");
+			}else if (!StringUtils.equals(lastUseScene.getStatus(), "0")) {
+				throw  ExceptionUtils.fail("场景标识已经停用");
+			}
+			
 			String[] needCodes = builderNeedSceneUID(lastUseScene, needSize);
 			return new ProtoDTO(scene, needCodes);
 		}

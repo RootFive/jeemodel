@@ -7,6 +7,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.jeemodel.bean.helper.JeeModelToStringBuilder;
 
+import lombok.Data;
+
+@Data
 public class ResponseFuture<T> {
 
 	/** 回声 */
@@ -113,29 +116,9 @@ public class ResponseFuture<T> {
 		return countDownLatch;
 	}
 
-	public T getProto() {
-		return proto;
-	}
 
-	public void setSdkProto(T proto) {
-		this.proto = proto;
-	}
 
-	public boolean isSendStateOk() {
-		return isSendStateOk;
-	}
 
-	public void setIsSendStateOk(boolean isSendStateOk) {
-		this.isSendStateOk = isSendStateOk;
-	}
-
-	public Throwable getCause() {
-		return cause;
-	}
-
-	public void setCause(Throwable cause) {
-		this.cause = cause;
-	}
 
 	@Override
 	public String toString() {

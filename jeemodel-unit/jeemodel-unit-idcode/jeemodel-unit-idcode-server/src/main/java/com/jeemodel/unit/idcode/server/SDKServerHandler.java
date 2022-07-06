@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.jeemodel.bean.enums.code.sub.impl.ErrorCodeEnum;
-import com.jeemodel.bean.exception.type.ServiceException;
+import com.jeemodel.bean.exception.base.BaseJeeModelException;
 import com.jeemodel.bean.rpc.Ping;
 import com.jeemodel.bean.rpc.PongData;
 import com.jeemodel.bean.rpc.PongUtils;
@@ -55,16 +55,6 @@ public class SDKServerHandler extends BaseNettyInboundHandler<Ping<IDCodeDemandD
 		executeHandler(ctx, channelPingMsg);
 	}
 
-	//	private void overHandler(ChannelHandlerContext ctx, PongData<ProtoDTO> pong, String echo) {
-	//		// 设置回声echo
-	//		if (StringUtils.isBlank(echo)) {
-	//			echo = nextIdCodeHelper.nextEcho();
-	//		}
-	//		pong.setEcho(echo);
-	//		ctx.channel().writeAndFlush(pong);
-	//
-	//	}
-
 	@SuppressWarnings("unchecked")
 	protected void executeHandler(ChannelHandlerContext ctx, Ping<IDCodeDemandDTO> channelPingMsg) {
 
@@ -87,10 +77,10 @@ public class SDKServerHandler extends BaseNettyInboundHandler<Ping<IDCodeDemandD
 					ProtoDTO proto = idcodeCodeHelper.nextUIDCode(demand);
 					pong = PongUtils.okData(proto);
 				} catch (Exception e) {
-					log.error("响应失败 error", e);
-					if (e instanceof ServiceException) {
-						pong = PongUtils.analysisException((ServiceException) e);
+					if (e instanceof BaseJeeModelException) {
+						pong = PongUtils.analysisException((BaseJeeModelException) e);
 					} else {
+						log.error("{}_find_a_Exception:", this.getClass().getSimpleName(), e);
 						pong = PongUtils.unknown(e.getMessage());
 					}
 				}

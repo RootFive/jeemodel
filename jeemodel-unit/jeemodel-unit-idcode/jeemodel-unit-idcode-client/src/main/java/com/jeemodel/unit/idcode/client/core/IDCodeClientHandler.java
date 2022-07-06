@@ -26,24 +26,26 @@ public class IDCodeClientHandler extends BaseNettyInboundHandler<PongData<ProtoD
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, PongData<ProtoDTO> pongData) throws Exception {
-		ProtoDTO sdkProtoDTO = pongData.getData();
 		String rqid = pongData.getEcho();
-
-		final ResponseFuture<ProtoDTO> responseFuture = IDCodeClientConstants.ASYNC_RESPONSE.get(rqid);
+		final ResponseFuture<PongData<ProtoDTO>> responseFuture = IDCodeClientConstants.RESPONSE_RESULT.get(rqid);
 		if (responseFuture != null) {
-			responseFuture.setSdkProto(sdkProtoDTO);
+			IDCodeClientConstants.RESPONSE_RESULT.remove(rqid);
+
+			responseFuture.setProto(pongData);
+			//释放获取的信号量
 			responseFuture.release();
-			IDCodeClientConstants.ASYNC_RESPONSE.remove(rqid);
-			// 异步请求，执行回调函数
+
+			//返回释放数据
 			if (responseFuture.getInvokeCallback() != null) {
+				// 异步请求，执行回调函数
 				responseFuture.executeInvokeCallback();
 			} else {
 				// 同步请求，返回数据并释放CountDown
-				responseFuture.putResponse(sdkProtoDTO);
+				responseFuture.putResponse(pongData);
 			}
 		} else {
-			log.warn("[Netty客户端] 接受响应, 但是不符合预期响应, 通道地址 Channel address[{}],sdkProto={}",NettyUtils.parseRemoteAddr(ctx.channel()), sdkProtoDTO);
-					
+			log.warn("[Netty客户端] 接受响应, 但是不符合预期响应, 通道地址 Channel address[{}],pongData={}",NettyUtils.parseRemoteAddr(ctx.channel()), pongData);
 		}
+
 	}
 }

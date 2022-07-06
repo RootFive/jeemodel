@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.jeemodel.bean.enums.code.sub.impl.ErrorCodeEnum;
+import com.jeemodel.bean.exception.base.BaseJeeModelException;
 import com.jeemodel.bean.rpc.PongData;
 import com.jeemodel.bean.rpc.PongUtils;
 import com.jeemodel.core.utils.StringUtils;
@@ -148,9 +149,13 @@ public class HTTPServerHandler extends BaseNettyInboundHandler<FullHttpRequest> 
 					ProtoDTO proto = idcodeCodeHelper.nextUIDCode(demandDTO);
 					pong = PongUtils.okData(proto);
 				} catch (Exception e) {
-					log.error("{}_find_a_Exception:", this.getClass().getSimpleName(), e);
-					pong = PongUtils.unknown();
-					return;
+					if (e instanceof BaseJeeModelException) {
+						pong = PongUtils.analysisException((BaseJeeModelException) e);
+					} else {
+						log.error("{}_find_a_Exception:", this.getClass().getSimpleName(), e);
+						pong = PongUtils.unknown(e.getMessage());
+					}
+					
 				}
 				overHandler(ctx, response, pong, echo);
 				semaphore.release();
