@@ -61,7 +61,7 @@ public class IDCodeClientApi  {
 			try {
 				final ResponseFuture<PongData<ProtoDTO>> responseFuture = new ResponseFuture<>(echo, timeoutMillis, null, null);
 
-				IDCodeClientConstants.ASYNC_RESPONSE.put(echo, responseFuture);
+				IDCodeClientConstants.RESPONSE_RESULT.put(echo, responseFuture);
 
 				channel.writeAndFlush(ping).addListener(new ChannelFutureListener() {
 					@Override
@@ -72,7 +72,7 @@ public class IDCodeClientApi  {
 							return;
 						}
 						// 代码执行到此说明发送失败，需要释放资源
-						IDCodeClientConstants.ASYNC_RESPONSE.remove(echo);
+						IDCodeClientConstants.RESPONSE_RESULT.remove(echo);
 						responseFuture.putResponse(null);
 						responseFuture.setCause(channelFuture.cause());
 						log.warn("[Netty客户端] 发送消息失败[{}] ", channel.remoteAddress());
@@ -92,7 +92,7 @@ public class IDCodeClientApi  {
 				log.error("[Netty客户端] 同步请求失败 [{}] ", channel.remoteAddress(), e);
 				throw new RemotingSendRequestException(e, NettyUtils.parseRemoteAddr(channel));
 			} finally {
-				IDCodeClientConstants.ASYNC_RESPONSE.remove(echo);
+				IDCodeClientConstants.RESPONSE_RESULT.remove(echo);
 			}
 		} else {
 			NettyUtils.closeChannel(channel);
@@ -118,7 +118,7 @@ public class IDCodeClientApi  {
 			boolean acquired = asyncSemaphore.tryAcquire(timeoutMillis, TimeUnit.MILLISECONDS);
 			if (acquired) {
 				final ResponseFuture<PongData<ProtoDTO>> responseFuture = new ResponseFuture<>(echo, timeoutMillis,invokeCallback, asyncSemaphore);
-				IDCodeClientConstants.ASYNC_RESPONSE.put(echo, responseFuture);
+				IDCodeClientConstants.RESPONSE_RESULT.put(echo, responseFuture);
 				try {
 					channel.writeAndFlush(ping).addListener(new ChannelFutureListener() {
 						@Override
@@ -128,7 +128,7 @@ public class IDCodeClientApi  {
 								return;
 							}
 							// 代码执行到些说明发送失败，需要释放资源
-							IDCodeClientConstants.ASYNC_RESPONSE.remove(echo);
+							IDCodeClientConstants.RESPONSE_RESULT.remove(echo);
 							responseFuture.setCause(channelFuture.cause());
 							responseFuture.putResponse(null);
 
@@ -187,7 +187,7 @@ public class IDCodeClientApi  {
 					log.warn("send a request to channel <" + NettyUtils.parseRemoteAddr(channel) + "> Exception");
 					throw new RemotingSendRequestException(e, NettyUtils.parseRemoteAddr(channel));
 				} finally {
-					IDCodeClientConstants.ASYNC_RESPONSE.remove(echo);
+					IDCodeClientConstants.RESPONSE_RESULT.remove(echo);
 				}
 			} else {
 				String info = StringUtils.format("尝试获得令牌超过{}ms,等待线程数：{}，可用令牌剩余数：{} ", timeoutMillis,onewaySemaphore.getQueueLength(), onewaySemaphore.availablePermits());
