@@ -64,7 +64,7 @@ public class IDCodeServerConfig {
 	// XXX
 
 	/** SDK协议请求端口 */
-	@Value("${jeemodel.unit.idcode.server.sdk.server.port:22704}")
+	@Value("${jeemodel.unit.idcode.server.sdk.server.port:22724}")
 	private int sdkServerPort;
 
 	/** SDK流量控制，表示每秒处理的并发数，默认是5W */
