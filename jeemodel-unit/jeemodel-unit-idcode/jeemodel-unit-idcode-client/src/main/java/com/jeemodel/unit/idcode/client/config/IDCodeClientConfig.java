@@ -32,7 +32,7 @@ public class IDCodeClientConfig {
 	private int serverHTTPPort;
 	
 	
-	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.port:22704}")
+	@Value("${jeemodel.unit.idcode.client.connect.server.sdk.port:22724}")
 	private int serverSDKPort;
 
 	/** 异步请求流量控制，表示每秒处理的并发数 */
